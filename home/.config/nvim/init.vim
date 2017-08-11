@@ -13,7 +13,12 @@ endfunction
 call plug#begin($HOME.'/.nvim/plugged')
 
 if s:uname == "Linux"
-	Plug 'Valloric/YouCompleteMe', { 'do': './install.py --all' }
+	" enforce python3 for distros like debian where python2 is the default
+	if has('python3')
+		Plug 'Valloric/YouCompleteMe', { 'do': 'python3 install.py --all' }
+	else
+		Plug 'Valloric/YouCompleteMe', { 'do': './install.py --all' }
+	endif
 else
 	" OSX is terrible about everything nice
 	Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --gocode-completer --racer-completer --tern-completer' }
