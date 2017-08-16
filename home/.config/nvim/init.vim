@@ -90,6 +90,9 @@ set mouse=                                   " Disable mouse
 if getcwd() =~ '/repos/cuda'
 	" codesniff files
 	let g:ale_php_phpcs_standard=''.$HOME.'/repos/cuda/Cuda-PHP-Code-Standards/PHP_CodeSniffer/Barracuda'
+else
+	let g:ale_php_phpcs_standard='PSR2'
+	au FileType php setl sw=4 sts=4 et
 endif
 
 " Enable syntax-highlighting for Go
