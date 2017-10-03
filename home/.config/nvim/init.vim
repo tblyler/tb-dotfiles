@@ -32,7 +32,7 @@ Plug 'bling/vim-airline'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'fatih/vim-go', { 'do': ':exec GoPostUpdate()' }
 Plug 'jbgutierrez/vim-babel'
-Plug 'kien/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim'
 Plug 'majutsushi/tagbar'
 Plug 'mattn/webapi-vim'
 Plug 'nanotech/jellybeans.vim'
