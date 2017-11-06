@@ -25,14 +25,13 @@ else
 endif
 
 Plug 'Chiel92/vim-autoformat'
-Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'Lokaltog/vim-easymotion'
 Plug 'airblade/vim-gitgutter'
 Plug 'bling/vim-airline'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'fatih/vim-go', { 'do': ':exec GoPostUpdate()' }
 Plug 'jbgutierrez/vim-babel'
-Plug 'ctrlpvim/ctrlp.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'majutsushi/tagbar'
 Plug 'mattn/webapi-vim'
 Plug 'nanotech/jellybeans.vim'
@@ -51,22 +50,10 @@ Plug 'w0rp/ale'
 
 call plug#end()
 
-" speed improvements for ctrlp
+" speed improvements for fzf
 if executable('ag')
-	set grepprg=ag\ --nogroup\ --nocolor
-	let g:ctrlp_user_command = 'ag %s -i -l --nocolor --nogroup --hidden
-				\ --ignore .git
-				\ --ignore .svn
-				\ --ignore .hg
-				\ --ignore .DS_Store
-				\ --ignore "**/*.min.js"
-				\ --ignore "**/*.min.map"
-				\ --ignore "**/*.pyc"
-				\ -g ""'
-	let g:ctrlp_use_caching = 0
+	let $FZF_DEFAULT_COMMAND = 'ag --nocolor -g "" -l'
 endif
-let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
-" end speed improvements for ctrlp
 
 colorscheme jellybeans                       " Color scheme
 set laststatus=2                             " Enable airline
@@ -106,6 +93,13 @@ let g:go_highlight_build_constraints = 1
 " Use goimports instead of gofmt for import paths
 let g:go_fmt_command = "goimports"
 
+" Lint Go on save
+let g:go_metalinter_autosave = 1
+
 " Key mappings
+" use FZF for control p
+map <C-p> :FZF <CR>
 map <F2> :NERDTreeToggle <CR>
 map <F3> :TagbarToggle <CR>
+" clear search highlight until next search
+map <F4> :noh <CR>
