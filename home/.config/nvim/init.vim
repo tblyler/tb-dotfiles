@@ -30,6 +30,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'bling/vim-airline'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'fatih/vim-go', { 'do': ':exec GoPostUpdate()' }
+Plug 'godlygeek/tabular'
 Plug 'jbgutierrez/vim-babel'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
 Plug 'majutsushi/tagbar'
@@ -64,7 +65,7 @@ let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline#extensions#whitespace#mixed_indent_algo = 1
 let g:airline_powerline_fonts = 1
 set list                                     " Show tabs
-set listchars=tab:\|\                        " Show tabs by using the pipe symbol
+set listchars=tab:\|\ ,trail:·               " Show whitestape by using the pipe symbol and dots
 set tabstop=4                                " Tabs look like 4 spaces
 set softtabstop=0 noexpandtab                " Tabs look like 4 spaces
 set shiftwidth=4                             " Tabs look like 4 spaces
@@ -73,6 +74,11 @@ set cursorline                               " Highlight entire line that cursor
 let g:tagbar_left = 1                        " Make tagbar appear on the left
 autocmd CompleteDone * pclose                " Remove scratchpad after selection
 set mouse=                                   " Disable mouse
+
+" make J work with docblocks and such (if possible)
+if v:version > 703 || v:version == 703 && has('patch541')
+	set formatoptions+=j
+endif
 
 if getcwd() =~ '/repos/cuda'
 	" codesniff files
