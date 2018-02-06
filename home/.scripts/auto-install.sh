@@ -6,7 +6,7 @@ if which git > /dev/null 2>&1; then
 		sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 	fi
 
-	TPM="${HOME}/.tmux/plugins/tpm"
+	local TPM="${HOME}/.tmux/plugins/tpm"
 	# if tpm (Tmux Plugin Manager) is not installed, autoinstall it
 	if [ ! -e "${TPM}" ]; then
 		git clone https://github.com/tmux-plugins/tpm "${TPM}"
