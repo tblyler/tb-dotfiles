@@ -53,7 +53,7 @@ call plug#end()
 
 " speed improvements for fzf
 if executable('ag')
-	let $FZF_DEFAULT_COMMAND = 'ag --nocolor -g "" -l'
+	let $FZF_DEFAULT_COMMAND = 'ag --skip-vcs-ignores --nocolor -g "" -l'
 endif
 
 colorscheme jellybeans                       " Color scheme
