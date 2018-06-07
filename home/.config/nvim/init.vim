@@ -35,6 +35,7 @@ Plug 'jbgutierrez/vim-babel'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
 Plug 'majutsushi/tagbar'
 Plug 'mattn/webapi-vim'
+Plug 'moll/vim-bbye'
 Plug 'nanotech/jellybeans.vim'
 Plug 'rking/ag.vim'
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
