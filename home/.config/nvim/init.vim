@@ -31,6 +31,7 @@ Plug 'bling/vim-airline'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'fatih/vim-go', { 'do': ':exec GoPostUpdate()' }
 Plug 'godlygeek/tabular'
+Plug 'janko-m/vim-test'
 Plug 'jbgutierrez/vim-babel'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
 Plug 'majutsushi/tagbar'
@@ -42,8 +43,10 @@ Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
+Plug 'sheerun/vim-polyglot'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tmux-plugins/vim-tmux-focus-events'
+Plug 'townk/vim-autoclose'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
