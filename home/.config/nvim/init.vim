@@ -46,7 +46,6 @@ Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
 Plug 'sheerun/vim-polyglot'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tmux-plugins/vim-tmux-focus-events'
-Plug 'townk/vim-autoclose'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
