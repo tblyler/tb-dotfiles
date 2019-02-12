@@ -38,6 +38,7 @@ Plug 'majutsushi/tagbar'
 Plug 'mattn/webapi-vim'
 Plug 'moll/vim-bbye'
 Plug 'nanotech/jellybeans.vim'
+Plug 'plasticboy/vim-markdown'
 Plug 'rking/ag.vim'
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 Plug 'scrooloose/nerdcommenter'
@@ -77,6 +78,8 @@ set cursorline                               " Highlight entire line that cursor
 let g:tagbar_left = 1                        " Make tagbar appear on the left
 autocmd CompleteDone * pclose                " Remove scratchpad after selection
 set mouse=                                   " Disable mouse
+set lazyredraw                               " Make large files bearable
+set regexpengine=1                           " Make searching large files bearable
 
 " make J work with docblocks and such (if possible)
 if v:version > 703 || v:version == 703 && has('patch541')
@@ -86,6 +89,28 @@ endif
 if getcwd() =~ '/repos/cuda'
 	" codesniff files
 	let g:ale_php_phpcs_standard=''.$HOME.'/repos/cuda/Cuda-PHP-Code-Standards/PHP_CodeSniffer/Barracuda'
+	let g:ale_php_phan_use_client=1
+	let $PHAN_SOCKET_PATH = system('echo -n "./.git/phan${PPID}"')
+	let git_root_dir = system("echo -n $(git rev-parse --show-toplevel)")
+	if filereadable(''.git_root_dir.'/vendor/fig-r/psr2r-sniffer/PSR2R/ruleset.xml')
+		let g:ale_php_phpcs_standard=''.git_root_dir.'/vendor/fig-r/psr2r-sniffer/PSR2R'
+		let g:ale_php_phpcbf_standard=''.git_root_dir.'/vendor/fig-r/psr2r-sniffer/PSR2R'
+	endif
+
+	if filereadable(''.git_root_dir.'/vendor/bin/phpcs')
+		let g:ale_php_phpcs_executable=''.git_root_dir.'/vendor/bin/phpcs'
+	endif
+
+	if filereadable(''.git_root_dir.'/vendor/bin/phpcbf')
+		let g:ale_php_phpcbf_executable=''.git_root_dir.'/vendor/bin/phpcbf'
+		let g:ale_fixers = {'php': ['phpcbf', 'remove_trailing_lines', 'trim_whitespace']}
+		let g:ale_fix_on_save = 1
+	endif
+
+	if filereadable(''.git_root_dir.'/.phan/config.php')
+		call system("cd " . git_root_dir . " && phan --daemonize-socket ${PHAN_SOCKET_PATH} --quick & echo $! > ./.git/phanpid${PPID}")
+		autocmd VimLeave * call system("kill $(cat ./.git/phanpid${PPID}); rm ${PHAN_SOCKET_PATH} .git/phanpid${PPID}")
+	endif
 else
 	let g:ale_php_phpcs_standard='PSR2'
 	au FileType php setl sw=4 sts=4 et
