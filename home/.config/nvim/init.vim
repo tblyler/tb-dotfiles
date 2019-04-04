@@ -38,7 +38,6 @@ Plug 'majutsushi/tagbar'
 Plug 'mattn/webapi-vim'
 Plug 'moll/vim-bbye'
 Plug 'nanotech/jellybeans.vim'
-Plug 'plasticboy/vim-markdown'
 Plug 'rking/ag.vim'
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 Plug 'scrooloose/nerdcommenter'
