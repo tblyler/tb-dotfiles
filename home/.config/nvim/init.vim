@@ -15,14 +15,27 @@ call plug#begin($HOME.'/.nvim/plugged')
 if s:uname == "Linux"
 	" enforce python3 for distros like debian where python2 is the default
 	if has('python3')
-		Plug 'Valloric/YouCompleteMe', { 'do': 'python3 install.py --all' }
+		" this enforces TSServer for javascript
+		Plug 'Valloric/YouCompleteMe', { 'do': 'python3 install.py --all; rm -rf ./third_party/ycmd/third_party/tern_runtime/node_modules' }
 	else
-		Plug 'Valloric/YouCompleteMe', { 'do': './install.py --all' }
+		Plug 'Valloric/YouCompleteMe', { 'do': './install.py --all; rm -rf ./third_party/ycmd/third_party/tern_runtime/node_modules' }
 	endif
 else
 	" OSX is terrible about everything nice
 	Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --gocode-completer --racer-completer --tern-completer' }
 endif
+let g:ycm_filetype_blacklist = {
+	\ 'go': 1,
+\}
+
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+let g:deoplete#enable_at_startup = 1
 
 Plug 'Chiel92/vim-autoformat'
 Plug 'Lokaltog/vim-easymotion'
@@ -126,8 +139,17 @@ let g:go_highlight_build_constraints = 1
 " Use goimports instead of gofmt for import paths
 let g:go_fmt_command = "goimports"
 
+" Use golangci-lint instead of gometalinter for linting
+let g:go_metalinter_command = "golangci-lint"
+
 " Lint Go on save
 let g:go_metalinter_autosave = 1
+
+" make sure errcheck is enabled for autosave
+let g:go_metalinter_autosave_enabled = ['govet', 'golint', 'errcheck', 'deadcode', 'errcheck', 'gosimple', 'ineffassign', 'staticcheck', 'structcheck', 'typecheck', 'unused', 'varcheck']
+
+" enable autocompletion for Go
+call deoplete#custom#option('omni_patterns', { 'go': '[^. *\t]\.\w*' })
 
 " Key mappings
 " use FZF for control p
