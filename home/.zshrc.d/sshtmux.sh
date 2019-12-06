@@ -11,7 +11,7 @@ sshtmux() {
 	fi
 
 	tmux new-window "ssh"
-	for i in ${@}; do
+	for i in "${@}"; do
 		tmux split-window -h "ssh -o StrictHostKeyChecking=no $i"
 		tmux select-layout tiled > /dev/null
 		sleep .1s
