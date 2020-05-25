@@ -64,4 +64,5 @@ upgrade_system() {
 		if [ -n "${TMUX}" ]; then
 			tmux source-file "${HOME}/.tmux.conf"
 		fi
-	) || return $?
+	)
+}

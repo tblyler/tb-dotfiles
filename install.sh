@@ -45,13 +45,21 @@ install_ohmyzsh() {
 install_custom_ohmyzsh_plugins() {
 	local REPOS=(
 		https://github.com/zsh-users/zsh-autosuggestions
+		https://github.com/zsh-users/zsh-syntax-highlighting
 	)
 
 	local REPO
+	local ZSH_CUSTOM_DEST
 	for REPO in ${REPOS[*]}; do
+		ZSH_CUSTOM_DEST="${ZSH_CUSTOM:-${HOME}/.oh-my-zsh/custom}/plugins/$(basename "${REPO}")"
+
+		if [ -d "${ZSH_CUSTOM_DEST}" ]; then
+			continue
+		fi
+
 		git clone \
 			"${REPO}" \
-			"${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions" || exit $?
+			"${ZSH_CUSTOM_DEST}" || exit $?
 	done
 }
 
@@ -65,6 +73,7 @@ install_tmux_conf() {
 		set -e
 		cd
 		git clone https://github.com/gpakosz/.tmux.git
+		ln -s .tmux/.tmux.conf ./
 	)
 }
 
