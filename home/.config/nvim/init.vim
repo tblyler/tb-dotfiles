@@ -102,9 +102,6 @@ let g:go_metalinter_command = "golangci-lint"
 " Lint Go on save
 let g:go_metalinter_autosave = 1
 
-" make sure errcheck is enabled for autosave
-let g:go_metalinter_autosave_enabled = ['govet', 'golint', 'errcheck', 'deadcode', 'errcheck', 'gosimple', 'ineffassign', 'staticcheck', 'structcheck', 'typecheck', 'unused', 'varcheck']
-
 " enable autocompletion for Go
 call deoplete#custom#option('omni_patterns', { 'go': '[^. *\t]\.\w*' })
 

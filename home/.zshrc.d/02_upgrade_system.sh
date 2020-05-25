@@ -1,13 +1,33 @@
 #!/bin/bash
 
 upgrade_system() {
-	if command -v apt &> /dev/null; then
-		sudo sh -c 'apt update && apt upgrade' || return $?
-	fi
+	case "$(uname | tr '[:upper:]' '[:lower:]')" in
+		'darwin')
+			if command -v brew &> /dev/null; then
+				brew update || return $?
+				brew upgrade || return $?
+			fi
+			;;
 
-	if command -v dnf &> /dev/null; then
-		sudo dnf upgrade || return $?
-	fi
+		'linux')
+			# Debian/Ubuntu
+			if command -v apt &> /dev/null; then
+				sudo sh -c 'apt update && apt upgrade' || return $?
+			fi
+
+			# Fedora
+			if command -v dnf &> /dev/null; then
+				sudo dnf upgrade || return $?
+			fi
+
+			# Arch
+			if command -v yay &> /dev/null; then
+				yay -Syu || return $?
+			elif command -v pacman &> /dev/null; then
+				sudo pacman -Syu || return $?
+			fi
+			;;
+	esac
 
 	if command -v update_go_apps &> /dev/null; then
 		update_go_apps || return $?
@@ -19,17 +39,29 @@ upgrade_system() {
 	fi
 
 	(
-		cd "${HOME}/.tmux/plugins/tpm" || exit 0
-		if [ -x ./clean_plugins ]; then
-			./clean_plugins || exit $?
-		fi
+		set -e
 
-		if [ -x ./install_plugins ]; then
-			./install_plugins || exit $?
-		fi
+		cd "${ZSH}/custom/plugins"
 
-		if [ -x ./update_plugins ]; then
-			./update_plugins all || exit $?
+		for FILE in *; do
+			if ! [ -d "${FILE}" ]; then
+				continue
+			fi
+
+			(
+				cd "${FILE}"
+				[ -d .git ] || exit 0
+				git pull
+			)
+		done
+	) || return $?
+
+	(
+		set -e
+
+		cd "${HOME}/.tmux"
+		git pull
+		if [ -n "${TMUX}" ]; then
+			tmux source-file "${HOME}/.tmux.conf"
 		fi
 	) || return $?
-}

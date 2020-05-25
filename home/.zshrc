@@ -1,4 +1,7 @@
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:${PATH}"
+if [ -d "${HOME}/bin" ]; then
+	export PATH="${HOME}/bin:${PATH}"
+fi
 
 # oh-my-zsh {
 export ZSH="${HOME}/.oh-my-zsh"
@@ -8,7 +11,39 @@ HYPHEN_INSENSITIVE="true"
 export UPDATE_ZSH_DAYS=7
 DISABLE_UPDATE_PROMPT="true"
 HIST_STAMPS="mm/dd/yyyy"
-plugins=(battery catimg docker fzf git go golang grunt helm kube-ps1 kubectl minikube node npm pip ssh-agent sudo tmux)
+plugins=(
+	autojump
+	battery
+	brew
+	catimg
+	common-aliases
+	copydir
+	copyfile
+	docker
+	encode64
+	fzf
+	git
+	git-extras
+	go
+	golang
+	grunt
+	helm
+	kube-ps1
+	kubectl
+	minikube
+	node
+	npm
+	osx
+	pip
+	pod
+	ssh-agent
+	sudo
+	tmux
+	xcode
+	zsh-autosuggestions
+	zsh-syntax-highlighting
+)
+
 
 source $ZSH/oh-my-zsh.sh
 # }
@@ -45,7 +80,7 @@ fi
 export VISUAL="${EDITOR}"
 
 # use reflink cp if supported (yay CoW)
-if cp --help | grep -q reflink; then
+if 2>&1 cp --help | grep -q reflink; then
 	alias cp='cp -i --reflink=auto'
 else
 	alias cp='cp -i'
@@ -58,11 +93,6 @@ alias kctx='kubectx'
 alias kns='kubens'
 
 REPOS="${HOME}/repos"
-
-PHPCS_BIN="${REPOS}/phpcs/scripts"
-if [ -d "${PHPCS_BIN}" ]; then
-	export PATH="${PHPCS_BIN}:${PATH}"
-fi
 
 CARGO_ENV="${HOME}/.cargo/env"
 if [ -f "${CARGO_ENV}" ]; then
@@ -109,13 +139,13 @@ export GOAPPS=(
 	'github.com/google/huproxy/huproxyclient'
 	'github.com/jedisct1/piknik'
 	'github.com/junegunn/fzf'
-	'github.com/schachmat/wego'
 	'github.com/tomnomnom/gron'
 	'github.com/wallix/awless'
 	'google.golang.org/grpc'
 )
+export GO111MODULE=on
 
-case `uname` in
+case "$(uname)" in
 	"Darwin")
 		pdf_join() {
 			join_py="/System/Library/Automator/Combine PDF Pages.action/Contents/Resources/join.py"
@@ -126,21 +156,9 @@ case `uname` in
 		if command -v gtar &> /dev/null; then
 			alias tar='gtar'
 		fi
-
-		export VISUAL='nvim'
-
-		#archey -c
 		;;
 	"Linux")
-		#screenfetch
 		alias open="xdg-open"
-
-		# swap escape and caps lock keys if gnome
-		if command -v dconf &> /dev/null; then
-			if ! dconf read /org/gnome/desktop/input-sources/xkb-options | grep -q 'caps:swapescape'; then
-				dconf write /org/gnome/desktop/input-sources/xkb-options "['caps:swapescape']"
-			fi
-		fi
 		;;
 esac
 # }

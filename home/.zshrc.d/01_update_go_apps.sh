@@ -4,19 +4,23 @@
 # if the GOAPPS environment variable is set, it is expected to be
 # an array
 update_go_apps() {
-	local APPS=("${@}")
+	(
+		cd || exit $?
 
-	if [ -z "${APPS[0]}" ]; then
-		if [ -z "${GOAPPS}" ]; then
-			return
+		local APPS=("${@}")
+
+		if [ -z "${APPS[0]}" ]; then
+			if [ -z "${GOAPPS}" ]; then
+				exit 0
+			fi
+
+			APPS=("${GOAPPS[@]}")
 		fi
 
-		APPS=("${GOAPPS[@]}")
-	fi
-
-	local APP
-	for APP in "${APPS[@]}"; do
-		echo "Updating ${APP}"
-		go get -u "${APP}" || return $?
-	done
+		local APP
+		for APP in "${APPS[@]}"; do
+			echo "Updating ${APP}"
+			go get -u "${APP}" || exit $?
+		done
+	) || return $?
 }
