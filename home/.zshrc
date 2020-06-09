@@ -24,7 +24,6 @@ plugins=(
 	fzf
 	git
 	git-extras
-	go
 	golang
 	grunt
 	helm
@@ -34,6 +33,7 @@ plugins=(
 	node
 	npm
 	osx
+	pass
 	pip
 	pod
 	ssh-agent
