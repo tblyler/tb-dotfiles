@@ -1,3 +1,8 @@
+if [ -f "${HOME}/.zshrc.d/sway_enabled" ] && command -v tty &> /dev/null && command -v sway &> /dev/null && [ "$(tty)" = '/dev/tty1' ]; then
+	exec sway
+	exit $?
+fi
+
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:${PATH}"
 if [ -d "${HOME}/bin" ]; then
 	export PATH="${HOME}/bin:${PATH}"
