@@ -65,4 +65,12 @@ upgrade_system() {
 			tmux source-file "${HOME}/.tmux.conf"
 		fi
 	)
+
+	if command -v fwupdmgr &> /dev/null; then
+		(
+			set -e
+			fwupdmgr refresh
+			fwupdmgr upgrade
+		)
+	fi
 }
