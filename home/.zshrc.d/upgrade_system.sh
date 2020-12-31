@@ -29,10 +29,6 @@ upgrade_system() {
 			;;
 	esac
 
-	if command -v update_go_apps &> /dev/null; then
-		update_go_apps || return $?
-	fi
-
 	if command -v vim &> /dev/null; then
 		vim -c 'PlugUpgrade | q' || return $?
 		vim -c 'PlugUpdate | sleep 3 | qa' || return $?
