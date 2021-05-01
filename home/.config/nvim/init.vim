@@ -28,7 +28,7 @@ else
 endif
 let g:deoplete#enable_at_startup = 1
 
-Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'morhetz/gruvbox'
 Plug 'Chiel92/vim-autoformat'
 Plug 'Lokaltog/vim-easymotion'
 Plug 'airblade/vim-gitgutter'
@@ -59,26 +59,26 @@ if executable('ag')
 	let $FZF_DEFAULT_COMMAND = 'ag --skip-vcs-ignores --nocolor -g "" -l'
 endif
 
-colorscheme dracula                          " Color scheme
-set laststatus=2                             " Enable airline
-let g:airline_theme = 'jellybeans'           " Airline color scheme
-let g:airline#extensions#tabline#enabled = 1 " Enable tab list in airline
+autocmd vimenter * ++nested colorscheme gruvbox " Color scheme
+set laststatus=2                                " Enable airline
+let g:airline_theme = 'gruvbox'                 " Airline color scheme
+let g:airline#extensions#tabline#enabled = 1    " Enable tab list in airline
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline#extensions#whitespace#mixed_indent_algo = 1
 let g:airline_powerline_fonts = 1
-set list                                     " Show tabs
-set listchars=tab:\|\ ,trail:·               " Show whitestape by using the pipe symbol and dots
-set tabstop=4                                " Tabs look like 4 spaces
-set softtabstop=0 noexpandtab                " Tabs look like 4 spaces
-set shiftwidth=4                             " Tabs look like 4 spaces
-set number                                   " Show line numbers
-set cursorline                               " Highlight entire line that cursor is on
-let g:tagbar_left = 1                        " Make tagbar appear on the left
-autocmd CompleteDone * pclose                " Remove scratchpad after selection
-set mouse=                                   " Disable mouse
-set lazyredraw                               " Make large files bearable
-set regexpengine=1                           " Make searching large files bearable
+set list                                        " Show tabs
+set listchars=tab:\|\ ,trail:·                  " Show whitestape by using the pipe symbol and dots
+set tabstop=4                                   " Tabs look like 4 spaces
+set softtabstop=0 noexpandtab                   " Tabs look like 4 spaces
+set shiftwidth=4                                " Tabs look like 4 spaces
+set number                                      " Show line numbers
+set cursorline                                  " Highlight entire line that cursor is on
+let g:tagbar_left = 1                           " Make tagbar appear on the left
+autocmd CompleteDone * pclose                   " Remove scratchpad after selection
+set mouse=                                      " Disable mouse
+set lazyredraw                                  " Make large files bearable
+set regexpengine=1                              " Make searching large files bearable
 
 " make J work with docblocks and such (if possible)
 if v:version > 703 || v:version == 703 && has('patch541')
