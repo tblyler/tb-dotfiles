@@ -1,20 +1,15 @@
 scriptencoding utf-8
 
-let s:uname = system("echo -n \"$(uname)\"")
-if v:shell_error
-	let s:uname = 'Unknown'
-endif
-
 function GoPostUpdate()
 	:GoInstallBinaries
 	:GoUpdateBinaries
 endfunction
 
 " automatically install vim-plug if it doesn't exist
-if empty(glob('~/.vim/autoload/plug.vim'))
-	silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-		\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-	autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+if empty(glob(data_dir . '/autoload/plug.vim'))
+  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
 call plug#begin($HOME.'/.nvim/plugged')
