@@ -102,6 +102,11 @@ fi
 
 alias mv='mv -i'
 
+# if rootless docker has a unix domain socket, use it!
+if [ -e "${XDG_RUNTIME_DIR}/docker.sock" ]; then
+	export DOCKER_HOST="unix://${XDG_RUNTIME_DIR}/docker.sock"
+fi
+
 if command -v docker-compose &> /dev/null; then
 	alias dco='docker-compose'
 fi

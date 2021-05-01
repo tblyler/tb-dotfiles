@@ -28,6 +28,7 @@ else
 endif
 let g:deoplete#enable_at_startup = 1
 
+Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'Chiel92/vim-autoformat'
 Plug 'Lokaltog/vim-easymotion'
 Plug 'airblade/vim-gitgutter'
@@ -38,7 +39,6 @@ Plug 'godlygeek/tabular'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
 Plug 'majutsushi/tagbar'
 Plug 'moll/vim-bbye'
-Plug 'nanotech/jellybeans.vim'
 Plug 'rking/ag.vim'
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 Plug 'scrooloose/nerdcommenter'
@@ -59,7 +59,7 @@ if executable('ag')
 	let $FZF_DEFAULT_COMMAND = 'ag --skip-vcs-ignores --nocolor -g "" -l'
 endif
 
-colorscheme jellybeans                       " Color scheme
+colorscheme dracula                          " Color scheme
 set laststatus=2                             " Enable airline
 let g:airline_theme = 'jellybeans'           " Airline color scheme
 let g:airline#extensions#tabline#enabled = 1 " Enable tab list in airline
