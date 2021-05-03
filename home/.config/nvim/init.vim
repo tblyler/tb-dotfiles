@@ -12,46 +12,41 @@ if empty(glob(data_dir . '/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
+" disable ALE LSP since we have coc.nvim
+let g:ale_disable_lsp = 1
+
 call plug#begin($HOME.'/.nvim/plugged')
 
-if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-else
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
-endif
-let g:deoplete#enable_at_startup = 1
+Plug 'morhetz/gruvbox' " color scheme
 
-Plug 'morhetz/gruvbox'
-Plug 'Chiel92/vim-autoformat'
-Plug 'Lokaltog/vim-easymotion'
-Plug 'airblade/vim-gitgutter'
-Plug 'bling/vim-airline'
-Plug 'bronson/vim-trailing-whitespace'
-Plug 'fatih/vim-go', { 'do': ':exec GoPostUpdate()' }
-Plug 'godlygeek/tabular'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
-Plug 'majutsushi/tagbar'
-Plug 'moll/vim-bbye'
-Plug 'rking/ag.vim'
-Plug 'rust-lang/rust.vim', { 'for': 'rust' }
-Plug 'scrooloose/nerdcommenter'
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
-Plug 'sheerun/vim-polyglot'
-Plug 'terryma/vim-multiple-cursors'
-Plug 'tmux-plugins/vim-tmux-focus-events'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-sensible'
-Plug 'tpope/vim-surround'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'w0rp/ale'
+Plug 'airblade/vim-gitgutter'                          " show file changes for git VCS
+Plug 'bronson/vim-trailing-whitespace'                 " per the name, remove trailing whitespace
+Plug 'easymotion/vim-easymotion'                       " easy code navigation with <Leader><Leader>
+Plug 'editorconfig/editorconfig-vim'                   " EditorConfig support
+Plug 'fatih/vim-go', { 'do': ':exec GoPostUpdate()' }  " THE Go plugin
+Plug 'junegunn/fzf', { 'do': { -> fzf#install } }      " fast file name search
+Plug 'majutsushi/tagbar'                               " class & variable lister
+Plug 'mg979/vim-visual-multi', { 'branch': 'master' }  " multi cursor support
+Plug 'mhinz/vim-signify'                               " show file changes for pretty much any VCS
+Plug 'mileszs/ack.vim'                                 " easy code searching
+Plug 'moll/vim-bbye'                                   " Bdelete a buffer without removing the split
+Plug 'neoclide/coc.nvim', {'branch': 'release'}        " ezpz LSP support
+Plug 'scrooloose/nerdcommenter'                        " perform quick comments with <Leader>
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' } " shows a directory view
+Plug 'sheerun/vim-polyglot'                            " highlighting & indent for languages
+Plug 'tpope/vim-fugitive'                              " awesome git support
+Plug 'tpope/vim-sensible'                              " some obviously sane default config changes
+Plug 'tpope/vim-surround'                              " easy surrounding modifier
+Plug 'vim-airline/vim-airline'                         " nice lightweight status line
+Plug 'vim-airline/vim-airline-themes'                  " themes for vim-airline
+Plug 'w0rp/ale'                                        " async linting engine
 
 call plug#end()
 
 " speed improvements for fzf
 if executable('ag')
 	let $FZF_DEFAULT_COMMAND = 'ag --skip-vcs-ignores --nocolor -g "" -l'
+	let g:ackprg = 'ag --vimgrep'
 endif
 
 autocmd vimenter * ++nested colorscheme gruvbox " Color scheme
@@ -97,13 +92,8 @@ let g:go_metalinter_command = "golangci-lint"
 " Lint Go on save
 let g:go_metalinter_autosave = 1
 
-" enable autocompletion for Go
-call deoplete#custom#option('omni_patterns', { 'go': '[^. *\t]\.\w*' })
-
 " Key mappings
 " use FZF for control p
 map <C-p> :FZF <CR>
 map <F2> :NERDTreeToggle <CR>
 map <F3> :TagbarToggle <CR>
-" clear search highlight until next search
-map <F4> :noh <CR>
