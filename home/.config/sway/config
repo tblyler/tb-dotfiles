@@ -10,8 +10,6 @@ exec nm-applet --indicator
 exec nextcloud
 exec signal-desktop
 exec steam
-exec GDK_BACKEND=wayland ulauncher --hide-window
-for_window [app_id="ulauncher"] floating enable, border none
 
 ### Variables
 #
@@ -27,7 +25,7 @@ set $term alacritty
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
-set $menu dmenu_path | bemenu | xargs swaymsg exec --
+set $menu dmenu_path | rofi -dmenu | xargs swaymsg exec --
 
 ### Output configuration
 #
@@ -86,7 +84,6 @@ bindsym XF86MonBrightnessUp exec brightnessctl set +5%
 bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
-bindsym Mod1+Space exec ulauncher-toggle
 
 #
 # Basics:
