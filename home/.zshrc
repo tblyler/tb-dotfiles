@@ -20,7 +20,7 @@ export ZSH="${HOME}/.oh-my-zsh"
 
 ZSH_THEME="candy"
 HYPHEN_INSENSITIVE="true"
-export UPDATE_ZSH_DAYS=7
+UPDATE_ZSH_DAYS=7
 DISABLE_UPDATE_PROMPT="true"
 HIST_STAMPS="mm/dd/yyyy"
 plugins=(
