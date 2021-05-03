@@ -142,8 +142,6 @@ if command -v fzf &> /dev/null; then
 	export FZF_CTRL_T_COMMAND="${FZF_DEFAULT_COMMAND}"
 fi
 
-export GO111MODULE=on
-
 case "$(uname)" in
 	"Darwin")
 		pdf_join() {
