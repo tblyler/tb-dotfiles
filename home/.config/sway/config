@@ -7,6 +7,7 @@
 ### Startup
 exec wl-paste -t text --watch clipman store
 exec nm-applet --indicator
+exec blueman-applet
 exec nextcloud
 exec signal-desktop
 exec steam
@@ -84,6 +85,7 @@ bindsym XF86MonBrightnessUp exec brightnessctl set +5%
 bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
+bindsym XF86Display exec wdisplays
 
 #
 # Basics:
