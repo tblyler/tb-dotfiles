@@ -1,0 +1,6 @@
+configuration {
+	theme: "/usr/share/rofi/themes/gruvbox-dark.rasi";
+	font: "Source Code Pro 12";
+	modi: "window,drun,ssh,combi,calc";
+	combi-modi: "window,drun,ssh";
+}
