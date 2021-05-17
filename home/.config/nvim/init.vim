@@ -19,27 +19,27 @@ call plug#begin($HOME.'/.nvim/plugged')
 
 Plug 'morhetz/gruvbox' " color scheme
 
-Plug 'airblade/vim-gitgutter'                          " show file changes for git VCS
-Plug 'bronson/vim-trailing-whitespace'                 " per the name, remove trailing whitespace
-Plug 'easymotion/vim-easymotion'                       " easy code navigation with <Leader><Leader>
-Plug 'editorconfig/editorconfig-vim'                   " EditorConfig support
-Plug 'fatih/vim-go', { 'do': ':exec GoPostUpdate()' }  " THE Go plugin
-Plug 'junegunn/fzf', { 'do': { -> fzf#install } }      " fast file name search
-Plug 'majutsushi/tagbar'                               " class & variable lister
-Plug 'mg979/vim-visual-multi', { 'branch': 'master' }  " multi cursor support
-Plug 'mhinz/vim-signify'                               " show file changes for pretty much any VCS
-Plug 'mileszs/ack.vim'                                 " easy code searching
-Plug 'moll/vim-bbye'                                   " Bdelete a buffer without removing the split
-Plug 'neoclide/coc.nvim', {'branch': 'release'}        " ezpz LSP support
-Plug 'scrooloose/nerdcommenter'                        " perform quick comments with <Leader>
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' } " shows a directory view
-Plug 'sheerun/vim-polyglot'                            " highlighting & indent for languages
-Plug 'tpope/vim-fugitive'                              " awesome git support
-Plug 'tpope/vim-sensible'                              " some obviously sane default config changes
-Plug 'tpope/vim-surround'                              " easy surrounding modifier
-Plug 'vim-airline/vim-airline'                         " nice lightweight status line
-Plug 'vim-airline/vim-airline-themes'                  " themes for vim-airline
-Plug 'w0rp/ale'                                        " async linting engine
+Plug 'airblade/vim-gitgutter'                                                    " show file changes for git VCS
+Plug 'bronson/vim-trailing-whitespace'                                           " per the name, remove trailing whitespace
+Plug 'easymotion/vim-easymotion'                                                 " easy code navigation with <Leader><Leader>
+Plug 'editorconfig/editorconfig-vim'                                             " EditorConfig support
+Plug 'fatih/vim-go', { 'do': ':exec GoPostUpdate()' }                            " THE Go plugin
+Plug 'junegunn/fzf', { 'do': { -> fzf#install } }                                " fast file name search
+Plug 'majutsushi/tagbar'                                                         " class & variable lister
+Plug 'mg979/vim-visual-multi', { 'branch': 'master' }                            " multi cursor support
+Plug 'mhinz/vim-signify'                                                         " show file changes for pretty much any VCS
+Plug 'mileszs/ack.vim'                                                           " easy code searching
+Plug 'moll/vim-bbye'                                                             " Bdelete a buffer without removing the split
+Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': { -> coc#util#install() }} " ezpz LSP support
+Plug 'scrooloose/nerdcommenter'                                                  " perform quick comments with <Leader>
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }                           " shows a directory view
+Plug 'sheerun/vim-polyglot'                                                      " highlighting & indent for languages
+Plug 'tpope/vim-fugitive'                                                        " awesome git support
+Plug 'tpope/vim-sensible'                                                        " some obviously sane default config changes
+Plug 'tpope/vim-surround'                                                        " easy surrounding modifier
+Plug 'vim-airline/vim-airline'                                                   " nice lightweight status line
+Plug 'vim-airline/vim-airline-themes'                                            " themes for vim-airline
+Plug 'w0rp/ale'                                                                  " async linting engine
 
 call plug#end()
 

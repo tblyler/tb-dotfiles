@@ -7,12 +7,22 @@ if [ -d "${HOME}/bin" ]; then
 	export PATH="${HOME}/bin:${PATH}"
 fi
 
+if [ -d "${HOME}/.local/bin" ]; then
+	export PATH="${HOME}/.local/bin:$PATH"
+fi
+
 if command -v go &> /dev/null; then
 	GOPATH="$(go env GOPATH)"
 	if [ -d "${GOPATH}" ]; then
 		export GOPATH
 		export PATH="${GOPATH}/bin:${PATH}"
 	fi
+fi
+
+if (( $+commands[tag] )); then
+  export TAG_SEARCH_PROG=ag  # replace with rg for ripgrep
+  tag() { command tag "$@"; source ${TAG_ALIAS_FILE:-/tmp/tag_aliases} 2>/dev/null }
+  alias ag=tag  # replace with rg for ripgrep
 fi
 
 # oh-my-zsh {
