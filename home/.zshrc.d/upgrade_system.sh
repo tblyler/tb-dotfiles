@@ -38,15 +38,9 @@ upgrade_system() {
 		fi
 
 		(
-			cd "${ZSH}/custom/plugins"
-
-			for FILE in *; do
-				if ! [ -d "${FILE}" ]; then
-					continue
-				fi
-
+			for DIR in "$ZSH"/custom/{themes,plugins}/*/; do
 				(
-					cd "${FILE}"
+					cd "${DIR}"
 					[ -d .git ] || exit 0
 					git pull
 				)

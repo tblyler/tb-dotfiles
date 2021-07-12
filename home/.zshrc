@@ -1,3 +1,10 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 if [ -f "${HOME}/.zshrc.d/init" ]; then
 	source "${HOME}/.zshrc.d/init"
 fi
@@ -28,7 +35,7 @@ fi
 # oh-my-zsh {
 export ZSH="${HOME}/.oh-my-zsh"
 
-ZSH_THEME="candy"
+ZSH_THEME="powerlevel10k/powerlevel10k"
 HYPHEN_INSENSITIVE="true"
 UPDATE_ZSH_DAYS=7
 DISABLE_UPDATE_PROMPT="true"
@@ -39,6 +46,8 @@ plugins=(
 	battery
 	brew
 	catimg
+	colorize
+	command-not-found
 	common-aliases
 	copydir
 	copyfile
@@ -93,6 +102,7 @@ setopt \
 export LANG='en_US.UTF-8'
 export TERM='xterm-256color'
 export EDITOR='vim'
+
 # if nvim is installed, effectively replace vim
 if command -v nvim &> /dev/null; then
 	export EDITOR='nvim'
@@ -101,6 +111,13 @@ if command -v nvim &> /dev/null; then
 	alias vimdiff="nvim -d"
 	alias view="nvim -R"
 fi
+
+# if we're in vs code's terminal, set the editor to vs code
+if [ "${TERM_PROGRAM:-nope}" = "vscode" ]; then
+	export EDITOR='code'
+	export TAG_CMD_FMT_STRING="code --goto {{.Filename}}:{{.LineNumber}}:{{.ColumnNumber}}"
+fi
+
 export VISUAL="${EDITOR}"
 
 # use reflink cp if supported (yay CoW)
@@ -189,3 +206,6 @@ for SCRIPT in "${HOME}/.zshrc.d"/**/(.|?)*(.zsh|.sh); do
 
 	source "${SCRIPT}"
 done
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

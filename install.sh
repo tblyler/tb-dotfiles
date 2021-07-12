@@ -40,6 +40,13 @@ install_ohmyzsh() {
 	fi
 
 	/bin/bash -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
+	local -r P10K_THEME_PATH="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
+	if [ -d "$P10K_THEME_PATH" ]; then
+		return
+	fi
+
+	git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "$P10K_THEME_PATH"
 }
 
 install_custom_ohmyzsh_plugins() {
