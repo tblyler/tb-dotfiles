@@ -12,6 +12,20 @@ exec blueman-applet
 exec nextcloud
 exec signal-desktop
 exec steam
+exec autotiling
+exec kanshi
+
+### Window display
+# don't show the title bar on the window
+default_border none
+
+### Screenshots
+set $grimshot ~/.local/bin/grimshot
+
+bindsym Print exec $grimshot --notify save screen
+bindsym Ctrl+Print exec $grimshot --notify copy screen
+bindsym Shift+Print exec $grimshot --notify save area
+bindsym Ctrl+Shift+Print exec $grimshot --notify copy area
 
 ### Variables
 #
