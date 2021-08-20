@@ -56,6 +56,16 @@ notes() {
 			echo -e "# $(date -d "@${NOW}" +'%a %d %b %Y')\n\n## todo\n\n" > "${FILE_PATH}"
 		fi
 
-		"${EDITOR:-vim}" "${FILE_PATH}"
+		local -r EDITOR="${EDITOR:-vim}"
+		local EDITOR_OPTIONS=()
+
+		if [[ "${EDITOR}" =~ 'vim$' ]]; then
+			EDITOR_OPTIONS=(
+				'-c'
+				'set spell'
+			)
+		fi
+
+		"${EDITOR}" "${EDITOR_OPTIONS[@]}" "${FILE_PATH}"
 	)
 }
