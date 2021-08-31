@@ -10,6 +10,9 @@ exec --no-startup-id dunst
 exec --no-startup-id keepassxc
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
+# xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
+# screen before suspend. Use loginctl lock-session to lock your screen.
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock -c 000000 --nofork
 
 set $mod Mod4
 
@@ -27,10 +30,6 @@ bindsym --release Ctrl+Print exec scrot -e 'xclip -selection clipboard -in -t im
 bindsym --release Shift+Print exec scrot -s ~/'Pictures/%Y-%m-%d-%H:%M:%S.png'
 bindsym --release Ctrl+Shift+Print exec scrot -s -e 'xclip -selection clipboard -in -t image/png $f' /tmp/scrot-tmp.png
 
-# xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
-# screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock -c 000000 --nofork
-
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -44,6 +43,7 @@ bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 bindsym XF86Display exec arandr
+bindsym $mod+Escape exec loginctl list-sessions | awk -v UID=$UID '$2 == UID{print $1}' | xargs loginctl lock-session
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
