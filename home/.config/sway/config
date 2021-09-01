@@ -5,9 +5,10 @@
 # Read `man 5 sway` for a complete reference.
 
 ### Startup
+exec dunst
+exec lxqt-policykit
 exec wl-paste -t text --watch clipman store
 exec nm-applet --indicator
-exec lxqt-policykit
 exec blueman-applet
 exec nextcloud
 exec signal-desktop
@@ -18,14 +19,6 @@ exec kanshi
 ### Window display
 # don't show the title bar on the window
 default_border none
-
-### Screenshots
-set $grimshot ~/.local/bin/grimshot
-
-bindsym Print exec $grimshot --notify save screen
-bindsym Ctrl+Print exec $grimshot --notify copy screen
-bindsym Shift+Print exec $grimshot --notify save area
-bindsym Ctrl+Shift+Print exec $grimshot --notify copy area
 
 ### Variables
 #
@@ -61,6 +54,8 @@ output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 exec swayidle -w \
 		 timeout 300 'swaylock -f -c 000000' \
 		 timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+		 lock 'swaylock -f -c 000000' \
+		 unlock 'pkill swaylock' \
 		 before-sleep 'playerctl pause' \
 		 before-sleep 'swaylock -f -c 000000'
 #
@@ -91,6 +86,15 @@ input 1267:10372:ELAN_Touchscreen {
 }
 
 ### Key bindings
+
+### Screenshots
+set $grimshot ~/.local/bin/grimshot
+
+bindsym Print exec $grimshot --notify save screen
+bindsym Ctrl+Print exec $grimshot --notify copy screen
+bindsym Shift+Print exec $grimshot --notify save area
+bindsym Ctrl+Shift+Print exec $grimshot --notify copy area
+
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
 bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
 bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
@@ -101,6 +105,7 @@ bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 bindsym XF86Display exec wdisplays
+bindsym $mod+Escape exec loginctl lock-session
 
 #
 # Basics:
