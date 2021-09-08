@@ -7,7 +7,6 @@ exec_always --no-startup-id autotiling
 exec_always --no-startup-id flock -n ~/.polybar.lock polybar mybar
 exec --no-startup-id watch -n 15 autorandr --change
 exec --no-startup-id dunst
-exec --no-startup-id keepassxc
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
