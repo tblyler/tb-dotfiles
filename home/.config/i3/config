@@ -4,8 +4,8 @@
 #
 ### Startup
 exec_always --no-startup-id autotiling
-exec_always --no-startup-id flock -n ~/.polybar.lock polybar mybar
-exec --no-startup-id watch -n 15 autorandr --change
+exec --no-startup-id bash -c 'while sleep 1; do flock ~/.polybar.lock polybar mybar; done'
+exec --no-startup-id bash -c 'while sleep 15; do autorandr --change; done'
 exec --no-startup-id dunst
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
