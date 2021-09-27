@@ -2,6 +2,16 @@
 
 notes() {
 	local -r NOTES_DIR="${NOTES_DIR:-${HOME}/notes}"
+	local -r EDITOR="${EDITOR:-vim}"
+	local EDITOR_OPTIONS=()
+
+	if [[ "${EDITOR}" =~ 'vim$' ]]; then
+		EDITOR_OPTIONS=(
+			'-c'
+			'set spell'
+		)
+	fi
+
 
 	for ARG in "$@"; do
 		(
@@ -10,6 +20,10 @@ notes() {
 			cd "$NOTES_DIR"
 
 			case "${ARG}" in
+				'fzf')
+					"${EDITOR}" "${EDITOR_OPTIONS[@]}" "$(notes ls | fzf)"
+					;;
+
 				'ls')
 					ag -g '' -l "${NOTES_DIR}" | sort -hr
 					;;
@@ -54,16 +68,6 @@ notes() {
 		mkdir -p "$(dirname "${FILE_PATH}")"
 		if ! [ -e "${FILE_PATH}" ]; then
 			echo -e "# $(date -d "@${NOW}" +'%a %d %b %Y')\n\n## todo\n\n" > "${FILE_PATH}"
-		fi
-
-		local -r EDITOR="${EDITOR:-vim}"
-		local EDITOR_OPTIONS=()
-
-		if [[ "${EDITOR}" =~ 'vim$' ]]; then
-			EDITOR_OPTIONS=(
-				'-c'
-				'set spell'
-			)
 		fi
 
 		"${EDITOR}" "${EDITOR_OPTIONS[@]}" "${FILE_PATH}"
