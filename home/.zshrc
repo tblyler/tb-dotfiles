@@ -5,6 +5,10 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+if [ -e /etc/profile.d/flatpak.sh ]; then
+	source /etc/profile.d/flatpak.sh
+fi
+
 if [ -f "${HOME}/.zshrc.d/init" ]; then
 	source "${HOME}/.zshrc.d/init"
 fi

@@ -49,6 +49,8 @@ if executable('ag')
 	let g:ackprg = 'ag --vimgrep'
 endif
 
+let g:gruvbox_contrast_dark = 'hard'
+
 set background=dark                             " make sure dark mode is used
 autocmd vimenter * ++nested colorscheme gruvbox " Color scheme
 set laststatus=2                                " Enable airline

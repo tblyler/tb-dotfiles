@@ -1,7 +1,7 @@
 #!/bin/bash
 
 notes() {
-	local -r NOTES_DIR="${NOTES_DIR:-${HOME}/notes}"
+	local NOTES_DIR="${NOTES_DIR:-${HOME}/notes}"
 	local -r EDITOR="${EDITOR:-vim}"
 	local EDITOR_OPTIONS=()
 
@@ -20,6 +20,15 @@ notes() {
 			cd "$NOTES_DIR"
 
 			case "${ARG}" in
+				'category')
+					shift
+					export NOTES_DIR="$NOTES_DIR/$1"
+					shift
+
+					notes "$@"
+					exit 255
+					;;
+
 				'fzf')
 					"${EDITOR}" "${EDITOR_OPTIONS[@]}" "$(notes ls | fzf)"
 					;;
@@ -50,7 +59,16 @@ notes() {
 					exit 1
 					;;
 			esac
-		) || return $?
+		)
+
+		local EXIT_CODE=$?
+		if [ $EXIT_CODE != 0 ]; then
+			if [ $EXIT_CODE = 255 ]; then
+				return 0
+			fi
+
+			return $EXIT_CODE
+		fi
 	done
 
 	# return if the above loop didn't return a bad code
