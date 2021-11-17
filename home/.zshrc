@@ -45,8 +45,8 @@ UPDATE_ZSH_DAYS=7
 DISABLE_UPDATE_PROMPT="true"
 HIST_STAMPS="mm/dd/yyyy"
 plugins=(
-	aws
 	autojump
+	aws
 	battery
 	brew
 	catimg
@@ -66,10 +66,10 @@ plugins=(
 	helm
 	kube-ps1
 	kubectl
+	macos
 	minikube
 	node
 	npm
-	osx
 	pass
 	pip
 	pod
