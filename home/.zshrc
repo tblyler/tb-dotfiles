@@ -61,6 +61,7 @@ plugins=(
 	fzf
 	git
 	git-extras
+	gpg-agent
 	golang
 	grunt
 	helm
