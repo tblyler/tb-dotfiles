@@ -4,10 +4,10 @@ local cmd = vim.cmd
 
 -- color theme
 -- gruvbox is used via the autocmd require
-g.gruvbox_contrast_dark = "hard" -- hard contrast mode for gruvobx
+g.gruvbox_contrast_dark = "hard"  -- hard contrast mode for gruvobx
 opt.background = "dark"           -- make sure dark mode is used
 
-
+opt.termguicolors = true          -- enable 24 bit colors
 opt.mouse = 'c'                   -- disable mouse
 opt.number = true                 -- show line numbers
 -- opt.cursorline = true             -- highlight the line that the cursor is on

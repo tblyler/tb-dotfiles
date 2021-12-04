@@ -11,7 +11,7 @@ require "paq" {
 
     "morhetz/gruvbox"; -- gruvbox theme
 
-    "beauwilliams/statusline.lua"; -- status & tab line
+    "kyazdani42/nvim-web-devicons"; -- per the name, fancy icons with a Nerd Font patched font
 
     "lewis6991/gitsigns.nvim"; -- git gutter
     "nvim-lua/plenary.nvim"; -- dependency of lewis6991/gitsigns.nvim, nvim-telescope/telescope.nvim
@@ -20,7 +20,10 @@ require "paq" {
 
     "phaazon/hop.nvim"; -- easymotion navigation
 
-    "echasnovski/mini.nvim"; -- bunch of good small plugins: whitespace, buffer layout, commenting, surround, tabline, etc
+    "beauwilliams/statusline.lua"; -- statusline
+    "akinsho/bufferline.nvim"; -- bufferline
+
+    "echasnovski/mini.nvim"; -- bunch of good small plugins: whitespace, buffer layout, commenting, surround, etc
 
     {"nvim-treesitter/nvim-treesitter", run=TSUpdate}; -- nice and quick syntax tree
 
@@ -29,12 +32,15 @@ require "paq" {
     "kosayoda/nvim-lightbulb"; -- shows a light bulb like vs code for code actions
     "nvim-lua/lsp-status.nvim"; -- nice statusline components for LSP servers
 
+    "tpope/vim-sleuth"; -- automatic tab/spaces detection
+
     "rhysd/vim-grammarous"; -- grammar checking
 
     -- LSP Server
     "neovim/nvim-lspconfig";
     "williamboman/nvim-lsp-installer";
     "jose-elias-alvarez/null-ls.nvim";
+    "nanotee/nvim-lsp-basics";
 
     -- autocomplete with nvim-cmp
     "hrsh7th/cmp-nvim-lsp";
@@ -46,10 +52,13 @@ require "paq" {
     "saadparwaiz1/cmp_luasnip";
 }
 
+require("plugins.config.bufferline")
 require("plugins.config.cmp")
 require("plugins.config.gitsigns")
 require("plugins.config.hop")
 require("plugins.config.indentblankline")
-require("plugins.config.mini")
-require("plugins.config.treesitter")
+require("plugins.config.lightbulb")
 require("plugins.config.lspinstall")
+require("plugins.config.mini")
+require("plugins.config.statusline")
+require("plugins.config.treesitter")

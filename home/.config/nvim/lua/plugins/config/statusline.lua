@@ -1,3 +1,2 @@
-local statusline = require("statusline")
-
-statusline.tableline = false
+local statusline = require('statusline')
+statusline.tabline = false
