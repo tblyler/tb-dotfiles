@@ -7,7 +7,7 @@ if fn.empty(fn.glob(install_path)) > 0 then
 end
 
 require "paq" {
-    "savq/pag-nvim"; -- let Paq manage itself
+    "savq/paq-nvim"; -- let Paq manage itself
 
     "morhetz/gruvbox"; -- gruvbox theme
 
