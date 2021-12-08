@@ -16,7 +16,9 @@ require "paq" {
     "lewis6991/gitsigns.nvim"; -- git gutter
     "nvim-lua/plenary.nvim"; -- dependency of lewis6991/gitsigns.nvim, nvim-telescope/telescope.nvim
 
-    "nvim-telescope/telescope.nvim"; -- fzf searching
+    "nvim-telescope/telescope.nvim"; -- nice searching
+    {"nvim-telescope/telescope-fzf-native.nvim", run="zsh -c make"}; -- enable fzf searching for telescope
+
 
     "phaazon/hop.nvim"; -- easymotion navigation
 
@@ -61,4 +63,5 @@ require("plugins.config.lightbulb")
 require("plugins.config.lspinstall")
 require("plugins.config.mini")
 require("plugins.config.statusline")
+require("plugins.config.telescope")
 require("plugins.config.treesitter")
