@@ -1,0 +1,17 @@
+#!/bin/bash
+set -euo pipefail
+
+revert() {
+    # disable DPMS
+    xset dpms 0 0 0 0
+}
+
+# revert DPMS on script exit
+trap revert EXIT
+
+# turn off screen after 5 seconds
+xset +dpms dpms 5 5 5
+
+i3lock --nofork -c 000000
+
+revert

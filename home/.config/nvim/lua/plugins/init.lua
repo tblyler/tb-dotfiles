@@ -27,6 +27,8 @@ require "paq" {
 
     "echasnovski/mini.nvim"; -- bunch of good small plugins: whitespace, buffer layout, commenting, surround, etc
 
+    "tpope/vim-fugitive"; -- __the__ git plugin
+
     {"nvim-treesitter/nvim-treesitter", run=TSUpdate}; -- nice and quick syntax tree
 
     "lukas-reineke/indent-blankline.nvim"; -- pretty visualization of line indents

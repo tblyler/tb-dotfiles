@@ -59,7 +59,7 @@ local on_attach = function(client, bufnr)
         null_ls.builtins.formatting.stylua,
     }
 
-    null_ls.config({sources = sources })
+    null_ls.setup({sources = sources })
 end
 
 local lspServers = {
