@@ -32,9 +32,8 @@ upgrade_system() {
 				;;
 		esac
 
-		if command -v vim &> /dev/null; then
-			vim -c 'PlugUpgrade | q'
-			vim -c 'PlugUpdate | sleep 3 | qa'
+		if command -v nvim &> /dev/null; then
+			nvim -c 'PaqSync' -c 'sleep 5' -c 'qa'
 		fi
 
 		(
