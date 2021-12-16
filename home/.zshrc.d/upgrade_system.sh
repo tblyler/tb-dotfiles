@@ -13,6 +13,11 @@ upgrade_system() {
 				;;
 
 			'linux')
+				# Flatpak (could be just about any distro)
+				if command -v flatpak &> /dev/null; then
+					flatpak update
+				fi
+
 				# Debian/Ubuntu
 				if command -v apt &> /dev/null; then
 					sudo sh -c 'apt update && apt upgrade'
