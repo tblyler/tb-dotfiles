@@ -3,7 +3,7 @@ set -euo pipefail
 
 revert() {
     # disable DPMS
-    xset dpms 0 0 0 0
+    xset dpms 0 0 0
 }
 
 # revert DPMS on script exit
