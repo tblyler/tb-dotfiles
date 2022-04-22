@@ -1,0 +1,122 @@
+#!/usr/bin/zsh
+
+zmodload zsh/datetime
+
+autoload -Uz \
+	colors \
+	compinit \
+	vcs_info
+
+
+compinit
+colors
+
+autoload -Uz bashcompinit
+bashcompinit
+
+setopt \
+	ALWAYS_TO_END \
+	INC_APPEND_HISTORY \
+	AUTO_CD \
+	AUTO_PUSHD \
+	BEEP \
+	COMPLETE_IN_WORD \
+	EXTENDED_GLOB \
+	EXTENDED_HISTORY \
+	HIST_IGNORE_DUPS \
+	HIST_IGNORE_SPACE \
+	HIST_REDUCE_BLANKS \
+	HIST_VERIFY \
+	INTERACTIVE_COMMENTS \
+	LONG_LIST_JOBS \
+	NOMATCH \
+	NOTIFY \
+	PROMPT_SUBST \
+	PUSHD_IGNORE_DUPS \
+	PUSHD_MINUS \
+	SHARE_HISTORY
+
+NEWLINE=$'\n'
+PS_SEPARATOR=" > "
+
+function precmd() {
+	vcs_info
+	vcs_info_hookadd set-message vcs_test_hook
+}
+
+VCS_ROOT_DIR=''
+function +vi-git-vcs-set-message-hook() {
+	VCS_ROOT_DIR="${hook_com[base]}"
+
+	if [ -z "$VCS_ROOT_DIR" ]; then
+		return
+	fi
+
+	if [[ "${VCS_ROOT_DIR:0:${#HOME}}" = "${HOME}" ]]; then
+		VCS_ROOT_DIR="~${VCS_ROOT_DIR:${#HOME}}"
+	fi
+
+	hook_com[misc]="$(2> /dev/null git status --short | awk '{counts[$1]++} END {
+		printed = "";
+		for (count_type in counts) {
+			printf "%s%%B%s%%b%d", printed, substr(count_type, 1, 1), counts[count_type];
+			printed = " ";
+		}
+	}')"
+}
+
+zstyle ':vcs_info:git*' formats "%F{green}%b%f %m${PS_SEPARATOR}"
+zstyle ':vcs_info:git*' actionformats "%F{green}%b%f %K{red}%F{white}(%a)%f%k %B%m%%b${PS_SEPARATOR}"
+zstyle ':vcs_info:git*+set-message:*' hooks git-vcs-set-message-hook
+
+function pretty_pwd() {
+	local CURRENT_DIRECTORY="$PWD"
+	if [[ "${CURRENT_DIRECTORY:0:${#HOME}}" = "${HOME}" ]]; then
+		CURRENT_DIRECTORY="~${CURRENT_DIRECTORY:${#HOME}}"
+	fi
+
+	if [ -n "$VCS_ROOT_DIR" ] && [[ "${CURRENT_DIRECTORY:0:${#VCS_ROOT_DIR}}" = "${VCS_ROOT_DIR}" ]]; then
+		local VCS_ROOT_DIR_BASENAME="${VCS_ROOT_DIR##*/}"
+		local VCS_ROOT_DIR_BASENAME_COLORIZED='%B${VCS_ROOT_DIR_BASENAME}%b'
+		local COLORIZED_VCS_ROOT_DIR="${VCS_ROOT_DIR/%${VCS_ROOT_DIR_BASENAME}/${VCS_ROOT_DIR_BASENAME_COLORIZED}}"
+		CURRENT_DIRECTORY="${COLORIZED_VCS_ROOT_DIR}${CURRENT_DIRECTORY:${#VCS_ROOT_DIR}}"
+	fi
+
+	print -P "%F{blue}${CURRENT_DIRECTORY}%f"
+}
+
+function ps1_ssh() {
+	if [ -z "$SSH_CONNECTION" ]; then
+		return
+	fi
+
+	echo "SSH from ${SSH_CONNECTION%% *}${PS_SEPARATOR}"
+}
+
+export PS1="%(?..%K{red}%F{white}%?%f%k${PS_SEPARATOR})\$(pretty_pwd)${PS_SEPARATOR}\${vcs_info_msg_0_}%F{${color[grey]:-white}}%*%f${NEWLINE}%(!.%F{red}#.%F{yellow}\$)%f "
+export RPS1="%F{${color[grey]:-white}}\$(ps1_ssh)%n@%m%f"
+
+HISTFILE="${HOME}/.histfile"
+HISTSIZE=10485760
+SAVEHIST=10485760
+bindkey '^R' history-incremental-search-backward
+bindkey -e
+zstyle ':completion:*' menu select
+bindkey '^[[Z' reverse-menu-complete
+
+export TERM='xterm-256color'
+ZSH_COMPLETIONS_DIR="${HOME}/.zcompletions"
+mkdir -p "$ZSH_COMPLETIONS_DIR"
+fpath=("$ZSH_COMPLETIONS_DIR" $fpath)
+
+# load any file that ends with .zsh or .sh and is executable
+for SCRIPT in "${HOME}/.zshrc.d"/**/(.|?)*(.zsh|.sh); do
+	if ! [ -x "${SCRIPT}" ]; then
+		continue
+	fi
+
+	source "${SCRIPT}"
+done
+
+compinit
+bashcompinit

@@ -1,0 +1,12 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =2
+let g:netrw_dirhist_2='/home/tony.blyler/repos/table-data-indexing-job/docker'
+let g:netrw_dirhist_1='/home/tony.blyler/.zshrc.d'
+let g:netrw_dirhist_0='/home/tony.blyler/go/bin'
+let g:netrw_dirhist_9='/home/tony.blyler/repos/user-v2-service'
+let g:netrw_dirhist_8='/home/tony.blyler/.config/i3'
+let g:netrw_dirhist_7='/home/tony.blyler/.config/sway'
+let g:netrw_dirhist_6='/home/tony.blyler/.zshrc.d'
+let g:netrw_dirhist_5='/dev/shm'
+let g:netrw_dirhist_4='/home/tony.blyler/repos/cbi-site/src'
+let g:netrw_dirhist_3='/home/tony.blyler/.config/alacritty'

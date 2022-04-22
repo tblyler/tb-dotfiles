@@ -1,0 +1,49 @@
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:${PATH}"
+export LANG='en_US.UTF-8'
+
+for editor in nvim vim nano; do
+    if command -v "$editor" &> /dev/null; then
+        export EDITOR="$editor"
+        break
+    fi
+done
+
+# if we're in vs code's terminal, set the editor to vs code
+if [ "${TERM_PROGRAM:-noop}" = "vscode" ]; then
+	export EDITOR='code'
+	export TAG_CMD_FMT_STRING="code --goto {{.Filename}}:{{.LineNumber}}:{{.ColumnNumber}}"
+fi
+
+export VISUAL="${EDITOR}"
+
+if [ -d "${HOME}/bin" ]; then
+	export PATH="${HOME}/bin:${PATH}"
+fi
+
+if [ -d "${HOME}/.local/bin" ]; then
+	export PATH="${HOME}/.local/bin:$PATH"
+fi
+
+. "$HOME/.cargo/env" 2>/dev/null
+
+if command -v go &> /dev/null; then
+	GOPATH="$(go env GOPATH)"
+	if [ -d "${GOPATH}" ]; then
+		export GOPATH
+		export PATH="${GOPATH}/bin:${PATH}"
+    else
+        unset GOPATH
+	fi
+fi
+
+. /etc/profile.d/flatpak.sh 2>/dev/null
+
+# if rootless docker has a unix domain socket, use it!
+if [ -e "${XDG_RUNTIME_DIR}/docker.sock" ]; then
+	export DOCKER_HOST="unix://${XDG_RUNTIME_DIR}/docker.sock"
+fi
+
+if command -v fzf &> /dev/null && command -v ag &> /dev/null; then
+	export FZF_DEFAULT_COMMAND='ag --skip-vcs-ignores --nocolor -g "" -l'
+	export FZF_CTRL_T_COMMAND="${FZF_DEFAULT_COMMAND}"
+fi

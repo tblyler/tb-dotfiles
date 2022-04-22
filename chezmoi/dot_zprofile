@@ -1,0 +1,5 @@
+source "${HOME}/.zshrc.d/cbi.sh" 2>/dev/null
+if [ "$TTY" = '/dev/tty1' ]; then
+	startx
+	exit
+fi
