@@ -20,7 +20,7 @@ upgrade_system() {
 
 				# Debian/Ubuntu
 				if command -v apt &> /dev/null; then
-					sudo sh -c 'apt update && apt upgrade'
+					sudo "$SHELL" -c 'apt update && apt upgrade'
 				fi
 
 				# Fedora
@@ -40,24 +40,6 @@ upgrade_system() {
 		if command -v nvim &> /dev/null; then
 			nvim -c 'PaqSync' -c 'sleep 5' -c 'TSUpdateSync' -c 'sleep 5' -c 'qa'
 		fi
-
-		(
-			for DIR in "$ZSH"/custom/{themes,plugins}/*/; do
-				(
-					cd "${DIR}"
-					[ -d .git ] || exit 0
-					git pull
-				)
-			done
-		)
-
-		(
-			cd "${HOME}/.tmux"
-			git pull
-			if [ -n "${TMUX:-}" ]; then
-				tmux source-file "${HOME}/.tmux.conf"
-			fi
-		)
 
 		if command -v fwupdmgr &> /dev/null; then
 			fwupdmgr refresh
