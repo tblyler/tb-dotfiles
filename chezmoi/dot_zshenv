@@ -47,3 +47,5 @@ if command -v fzf &> /dev/null && command -v ag &> /dev/null; then
 	export FZF_DEFAULT_COMMAND='ag --skip-vcs-ignores --nocolor -g "" -l'
 	export FZF_CTRL_T_COMMAND="${FZF_DEFAULT_COMMAND}"
 fi
+
+typeset -U path
