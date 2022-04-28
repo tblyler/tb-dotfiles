@@ -1,5 +1,6 @@
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:${PATH}"
 export LANG='en_US.UTF-8'
+export PAGER='less -RF'
 
 for editor in nvim vim nano; do
     if command -v "$editor" &> /dev/null; then
