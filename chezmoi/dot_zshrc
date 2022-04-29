@@ -5,8 +5,11 @@ zmodload zsh/datetime
 autoload -Uz \
 	colors \
 	compinit \
+	select-word-style \
 	vcs_info
 
+# make control w remove by word better
+select-word-style bash
 
 compinit
 colors
