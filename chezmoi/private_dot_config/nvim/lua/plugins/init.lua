@@ -45,6 +45,7 @@ require "paq" {
     "williamboman/nvim-lsp-installer";
     "jose-elias-alvarez/null-ls.nvim";
     "nanotee/nvim-lsp-basics";
+    "folke/trouble.nvim";
 
     -- autocomplete with nvim-cmp
     "hrsh7th/cmp-nvim-lsp";
