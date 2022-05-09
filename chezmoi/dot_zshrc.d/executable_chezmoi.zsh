@@ -30,6 +30,12 @@
 	fi
 
 	chezmoi git pull -- --rebase
+	if [ "$(chezmoi status)" = "" ]; then
+		# there is nothing different between chezmoi and what is
+		# applied to this machine
+		exit 0
+	fi
+
 	chezmoi diff
 
 	while true; do
