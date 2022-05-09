@@ -1,6 +1,9 @@
 #!/usr/bin/zsh
 
 zmodload zsh/datetime
+# load the stat module but only with the `zstat` command
+# leave `stat` to the system's stat command
+zmodload -F zsh/stat b:zstat
 
 autoload -Uz \
 	colors \

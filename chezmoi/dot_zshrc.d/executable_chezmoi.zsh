@@ -6,10 +6,10 @@
 
 	COMPLETION_FILE="${ZSH_COMPLETIONS_DIR}/_chezmoi"
 	if [ -r "$COMPLETION_FILE" ]; then
-		COMPLETION_FILE_CTIME="$(stat -c %Z "$COMPLETION_FILE")"
-		CHEZMOI_FILE_CTIME="$(stat -c %Z "${CHEZMOI_PATH}")"
+		zstat -H COMPLETION_FILE_STAT "$COMPLETION_FILE"
+		zstat -H CHEZMOI_FILE_STAT "${CHEZMOI_PATH}"
 
-		if [ "$COMPLETION_FILE_CTIME" -ge "$CHEZMOI_FILE_CTIME" ]; then
+		if [ "${COMPLETION_FILE_STAT[ctime]}" -ge "${CHEZMOI_FILE_STAT[ctime]}" ]; then
 			exit 0
 		fi
 	fi
@@ -22,8 +22,10 @@
 (
 	set -euo pipefail
 
+	zstat -H LAST_PULL_STAT "$(chezmoi git rev-parse -- --show-toplevel)/.git/FETCH_HEAD"
+
 	# has the chezmoi repo been pulled in the last 24 hours?
-	if [ "$(date +%s -r "$(chezmoi git rev-parse -- --show-toplevel)/.git/FETCH_HEAD")" -gt $((EPOCHSECONDS-86400)) ]; then
+	if [ "${LAST_PULL_STAT[ctime]}" -gt $((EPOCHSECONDS-86400)) ]; then
 		exit 0
 	fi
 
