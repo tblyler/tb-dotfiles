@@ -1,4 +1,4 @@
-SSH_ENV_CACHE="$HOME/.ssh/environment-$SHORT_HOST"
+SSH_ENV_CACHE="$HOME/.ssh/environment-$HOST"
 
 function _start_agent() {
 	if _check_ssh_agent_connectivity; then
