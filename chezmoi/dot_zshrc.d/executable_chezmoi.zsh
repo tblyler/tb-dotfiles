@@ -36,12 +36,27 @@
 		exit 0
 	fi
 
+	while true; do
+		read -r 'CONTINUE?Chezmoi has updates, review now? [y/N] '
+
+		case "$CONTINUE" in
+			'y'|'Y'|'YES'|'yes'|'Yes')
+				break
+				;;
+
+			'n'|'N'|'NO'|'no'|'No'|'')
+				echo 'not applying changes'
+				exit 0
+				;;
+		esac
+	done
+
 	chezmoi diff
 
 	while true; do
 		read -r 'APPLY?apply? [y/N] '
 
-		case "${APPLY:-}" in
+		case "$APPLY" in
 			'y'|'Y'|'YES'|'yes'|'Yes')
 				echo 'applying changes'
 				chezmoi apply
