@@ -1,6 +1,8 @@
+require("nvim-lsp-installer").setup({})
 local lsp_installer_servers = require'nvim-lsp-installer.servers'
 local cmp_lsp = require('cmp_nvim_lsp')
 local null_ls = require("null-ls")
+local lspconfig = require("lspconfig")
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
@@ -94,9 +96,7 @@ for lspServer, opts in pairs(lspServers) do
     if server_available then
         opts["capabilities"] = cmp_lsp.update_capabilities(vim.lsp.protocol.make_client_capabilities())
         opts["on_attach"] = on_attach
-        requested_server:on_ready(function ()
-            requested_server:setup(opts)
-        end)
+        lspconfig[lspServer].setup(opts)
         if not requested_server:is_installed() then
             requested_server:install()
         end
