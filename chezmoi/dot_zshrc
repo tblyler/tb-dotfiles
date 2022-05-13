@@ -9,7 +9,8 @@ autoload -Uz \
 	colors \
 	compinit \
 	select-word-style \
-	vcs_info
+	vcs_info \
+	zcalc
 
 # make control w remove by word better
 select-word-style bash
