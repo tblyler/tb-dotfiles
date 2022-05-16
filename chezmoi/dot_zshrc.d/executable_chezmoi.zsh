@@ -29,8 +29,10 @@
 		exit 0
 	fi
 
-	chezmoi git pull -- --rebase
+	echo 'Checking if Chezmoi has updates...'
+	chezmoi git pull -- --rebase > /dev/null
 	if [ "$(chezmoi status)" = "" ]; then
+		echo 'nope! Good bye!'
 		# there is nothing different between chezmoi and what is
 		# applied to this machine
 		exit 0
