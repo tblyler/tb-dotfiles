@@ -100,8 +100,19 @@ function ps1_ssh() {
 	echo "SSH from ${SSH_CONNECTION%% *}${PS_SEPARATOR}"
 }
 
+function ps1_weather() {
+	if ! weather_check_requirements; then
+		return
+	fi
+
+	local OUTPUT
+	OUTPUT="$(weather_short_status)"
+
+	echo "${OUTPUT//\%/%%} "
+}
+
 export PS1="%(?..%K{red}%F{white}%?%f%k${PS_SEPARATOR})\$(pretty_pwd)${PS_SEPARATOR}\${vcs_info_msg_0_}%F{${color[grey]:-white}}%*%f${NEWLINE}%(!.%F{red}#.%F{yellow}\$)%f "
-export RPS1="%F{${color[grey]:-white}}\$(ps1_ssh)%n@%m%f"
+export RPS1="%F{${color[grey]:-white}}\$(ps1_weather)\$(ps1_ssh)%n@%m%f"
 
 HISTFILE="${HOME}/.histfile"
 HISTSIZE=10485760
