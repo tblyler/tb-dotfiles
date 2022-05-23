@@ -1,11 +1,13 @@
 #!/usr/bin/zsh
 
+zmodload zsh/datetime
+zmodload -F zsh/stat b:zstat
+
 function weather_check_requirements() {
 	[ -r "$(_weather_api_key_path)" ] && \
 	[ -r "$(_weather_home_location_key_path)" ] && \
 	command -v jq &> /dev/null && \
 	command -v curl &> /dev/null && \
-	command -v touch &> /dev/null && \
 	command -v mktemp &> /dev/null
 }
 
@@ -130,9 +132,13 @@ function _weather_current_conditions() {
 
 		CURRENT_WEATHER_CACHE_FILE="$(_weather_cache_dir_location)/current_conditions.json"
 
-		touch "${CURRENT_WEATHER_CACHE_FILE}"
-		CTIME="$(_weather_file_ctime "${CURRENT_WEATHER_CACHE_FILE}")"
-		SIZE="$(_weather_file_size "${CURRENT_WEATHER_CACHE_FILE}")"
+		if [ -r "${CURRENT_WEATHER_CACHE_FILE}" ]; then
+			CTIME="$(_weather_file_ctime "${CURRENT_WEATHER_CACHE_FILE}")"
+			SIZE="$(_weather_file_size "${CURRENT_WEATHER_CACHE_FILE}")"
+		else
+			CTIME=0
+			SIZE=0
+		fi
 
 		# has it been less than 20 minutes since the last update?
 		if [ $((EPOCHSECONDS-CTIME)) -lt 1200 ] && [ "${SIZE}" != "0" ]; then
@@ -161,9 +167,13 @@ function _weather_12_hour_forecast() {
 
 		TWELVE_HOUR_FORECAST_CACHE_FILE="$(_weather_cache_dir_location)/12_hour_forecast.json"
 
-		touch "${TWELVE_HOUR_FORECAST_CACHE_FILE}"
-		CTIME="$(_weather_file_ctime "${TWELVE_HOUR_FORECAST_CACHE_FILE}")"
-		SIZE="$(_weather_file_size "${TWELVE_HOUR_FORECAST_CACHE_FILE}")"
+		if [ -r "${TWELVE_HOUR_FORECAST_CACHE_FILE}" ]; then
+			CTIME="$(_weather_file_ctime "${TWELVE_HOUR_FORECAST_CACHE_FILE}")"
+			SIZE="$(_weather_file_size "${TWELVE_HOUR_FORECAST_CACHE_FILE}")"
+		else
+			CTIME=0
+			SIZE=0
+		fi
 
 		# has it been less than 3 hours since the last update?
 		if [ $((EPOCHSECONDS-CTIME)) -lt 10800 ] && [ "${SIZE}" != "0" ]; then
@@ -192,9 +202,13 @@ function _weather_5_day_daily_forecast() {
 
 		FIVE_DAY_DAILY_FORECAST_CACHE_FILE="$(_weather_cache_dir_location)/5_day_daily_forecast.json"
 
-		touch "${FIVE_DAY_DAILY_FORECAST_CACHE_FILE}"
-		CTIME="$(_weather_file_ctime "${FIVE_DAY_DAILY_FORECAST_CACHE_FILE}")"
-		SIZE="$(_weather_file_size "${FIVE_DAY_DAILY_FORECAST_CACHE_FILE}")"
+		if [ -r "${FIVE_DAY_DAILY_FORECAST_CACHE_FILE}" ]; then
+			CTIME="$(_weather_file_ctime "${FIVE_DAY_DAILY_FORECAST_CACHE_FILE}")"
+			SIZE="$(_weather_file_size "${FIVE_DAY_DAILY_FORECAST_CACHE_FILE}")"
+		else
+			CTIME=0
+			SIZE=0
+		fi
 
 		# has it been less than 12 hours since the last update?
 		if [ $((EPOCHSECONDS-CTIME)) -lt 43200 ] && [ "${SIZE}" != "0" ]; then
