@@ -4,6 +4,12 @@ local cmp_lsp = require('cmp_nvim_lsp')
 local null_ls = require("null-ls")
 local lspconfig = require("lspconfig")
 
+null_ls.setup({
+    sources = {
+        null_ls.builtins.diagnostics.vale,
+    },
+})
+
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
