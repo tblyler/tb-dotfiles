@@ -40,6 +40,8 @@ require "paq" {
 
     "rhysd/vim-grammarous"; -- grammar checking
 
+    "earthly/earthly.vim"; -- Earthfile support
+
     -- LSP Server
     "neovim/nvim-lspconfig";
     "williamboman/nvim-lsp-installer";
