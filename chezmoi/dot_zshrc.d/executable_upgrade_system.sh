@@ -38,7 +38,7 @@ upgrade_system() {
 		esac
 
 		if command -v nvim &> /dev/null; then
-			nvim -c 'PaqSync' -c 'sleep 5' -c 'TSUpdateSync' -c 'sleep 5' -c 'qa'
+			nvim --headless -E -c 'PaqSync' -c 'sleep 5' -c 'TSUpdateSync' -c 'sleep 5' -c 'quit'
 		fi
 
 		if command -v fwupdmgr &> /dev/null; then
