@@ -42,8 +42,24 @@ upgrade_system() {
 		fi
 
 		if command -v fwupdmgr &> /dev/null; then
-			fwupdmgr refresh
-			fwupdmgr upgrade
+			(
+				# 2 is a valid exit code for the fwupdmgr where
+				# the operation was successful but did not require
+				# action
+				set +e
+
+				fwupdmgr refresh
+				STATUS=$?
+				if [ $STATUS -ne 0 ] && [ $STATUS -ne 2 ]; then
+					exit $STATUS
+				fi
+
+				fwupdmgr upgrade
+				STATUS=$?
+				if [ $STATUS -ne 0 ] && [ $STATUS -ne 2 ]; then
+					exit $STATUS
+				fi
+			)
 		fi
 	)
 }
