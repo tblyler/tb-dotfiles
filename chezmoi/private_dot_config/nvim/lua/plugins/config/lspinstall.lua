@@ -1,4 +1,6 @@
-require("nvim-lsp-installer").setup({})
+require("nvim-lsp-installer").setup({
+    automatic_installation = true,
+})
 local lsp_installer_servers = require'nvim-lsp-installer.servers'
 local cmp_lsp = require('cmp_nvim_lsp')
 local null_ls = require("null-ls")
