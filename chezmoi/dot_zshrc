@@ -123,6 +123,8 @@ zstyle ':completion:*' menu select
 # case-insensitive,partial-word and then substring completion
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 bindkey '^[[Z' reverse-menu-complete
+# make the delete key work at the prompt
+bindkey '^[[3~' delete-char
 
 export TERM='xterm-256color'
 ZSH_COMPLETIONS_DIR="${HOME}/.zcompletions"
