@@ -41,6 +41,12 @@ upgrade_system() {
 			nvim --headless -E -c 'PaqSync' -c 'sleep 5' -c 'TSUpdateSync' -c 'sleep 5' -c 'quit'
 		fi
 
+		if command -v asdf &> /dev/null; then
+			asdf update
+			asdf plugin update --all
+			asdf latest --all
+		fi
+
 		if command -v fwupdmgr &> /dev/null; then
 			(
 				# 2 is a valid exit code for the fwupdmgr where
