@@ -3,6 +3,8 @@
 zmodload zsh/datetime
 zmodload -F zsh/stat b:zstat
 
+readonly WEATHER_CURL_TIMEOUT="${WEATHER_CURL_TIMEOUT:-5}"
+
 function weather_check_requirements() {
 	[ -r "$(_weather_api_key_path)" ] && \
 	[ -r "$(_weather_home_location_key_path)" ] && \
@@ -149,7 +151,10 @@ function _weather_current_conditions() {
 		TEMP_OUTPUT="$(mktemp)"
 		trap 'rm -f "${TEMP_OUTPUT}"' EXIT
 
-		curl -LSsf --get -X GET \
+		curl -LSsf \
+			--max-time "${WEATHER_CURL_TIMEOUT}" \
+			--get \
+			-X GET \
 			--data-urlencode "apikey=${WEATHER_API_KEY}" \
 			--data-urlencode "language=en-us" \
 			--data-urlencode "details=true" \
@@ -184,7 +189,10 @@ function _weather_12_hour_forecast() {
 		TEMP_OUTPUT="$(mktemp)"
 		trap 'rm -f "${TEMP_OUTPUT}"' EXIT
 
-		curl -LSsf --get -X GET \
+		curl -LSsf \
+			--max-time "${WEATHER_CURL_TIMEOUT}" \
+			--get \
+			-X GET \
 			--data-urlencode "apikey=${WEATHER_API_KEY}" \
 			--data-urlencode "language=en-us" \
 			--data-urlencode "details=true" \
@@ -219,7 +227,10 @@ function _weather_5_day_daily_forecast() {
 		TEMP_OUTPUT="$(mktemp)"
 		trap 'rm -f "${TEMP_OUTPUT}"' EXIT
 
-		curl -LSsf --get -X GET \
+		curl -LSsf \
+			--max-time "${WEATHER_CURL_TIMEOUT}" \
+			--get \
+			-X GET \
 			--data-urlencode "apikey=${WEATHER_API_KEY}" \
 			--data-urlencode "language=en-us" \
 			--data-urlencode "details=true" \
