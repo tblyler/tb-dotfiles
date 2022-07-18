@@ -1,4 +1,4 @@
-golang 1.18.3
-chezmoi 2.18.1
+golang 1.18.4
+chezmoi 2.19.0
 nodejs lts
 aws-copilot 1.19.0
