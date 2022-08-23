@@ -65,3 +65,6 @@ if command -v fzf &> /dev/null && command -v ag &> /dev/null; then
 fi
 
 typeset -U path
+
+# this is a hack to prevent MacOS from being smarter than us for PATH settings
+/usr/libexec/path_helper() :
