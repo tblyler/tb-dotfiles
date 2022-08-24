@@ -42,7 +42,7 @@ upgrade_system() {
 		fi
 
 		if command -v asdf &> /dev/null; then
-			asdf update
+			asdf update || true
 			asdf plugin update --all
 			asdf latest --all
 		fi
