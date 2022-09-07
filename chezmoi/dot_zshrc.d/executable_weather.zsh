@@ -35,7 +35,7 @@ function weather_short_status() {
 
 		WEATHER_LOCATION_KEY="$(< "${HOME_LOCATION_KEY_PATH}")"
 
-		_weather_current_conditions | jq -r "$(<<'EOF'
+		_weather_current_conditions | jq -er "$(<<'EOF'
 first |
 [
 	"RF:"+(.RealFeelTemperature.Imperial.Value | tostring)+"°",
@@ -49,7 +49,7 @@ first |
 join(" ") |
 rtrimstr(" ")
 EOF
-		)"
+		)" 2>/dev/null
 	)
 }
 
@@ -151,15 +151,22 @@ function _weather_current_conditions() {
 		TEMP_OUTPUT="$(mktemp)"
 		trap 'rm -f "${TEMP_OUTPUT}"' EXIT
 
-		curl -LSsf \
-			--max-time "${WEATHER_CURL_TIMEOUT}" \
-			--get \
-			-X GET \
-			--data-urlencode "apikey=${WEATHER_API_KEY}" \
-			--data-urlencode "language=en-us" \
-			--data-urlencode "details=true" \
-			"https://dataservice.accuweather.com/currentconditions/v1/${WEATHER_LOCATION_KEY}" \
-			-o "${TEMP_OUTPUT}"
+		(
+			set +e
+			curl -LSsf \
+				--max-time "${WEATHER_CURL_TIMEOUT}" \
+				--get \
+				-X GET \
+				--data-urlencode "apikey=${WEATHER_API_KEY}" \
+				--data-urlencode "language=en-us" \
+				--data-urlencode "details=true" \
+				"https://dataservice.accuweather.com/currentconditions/v1/${WEATHER_LOCATION_KEY}" \
+				-o "${TEMP_OUTPUT}"
+			if [ $? -eq 28 ]; then
+				# timeout reached, just store empty data
+				echo '{}' > "${TEMP_OUTPUT}"
+			fi
+		)
 
 		mv -f "${TEMP_OUTPUT}" "${CURRENT_WEATHER_CACHE_FILE}"
 		> /dev/stdout < "${CURRENT_WEATHER_CACHE_FILE}"
