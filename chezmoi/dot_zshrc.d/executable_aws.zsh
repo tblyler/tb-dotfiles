@@ -2,6 +2,11 @@ if command -v aws_completer &> /dev/null; then
 	complete -C "$(command -v aws_completer)" aws
 fi
 
+_CACHE_DIR="${XDG_CACHE_HOME:-${HOME}/.cache}/aws_profile_set"
+mkdir -p "${_CACHE_DIR}"
+
+_PREVIOUS_AWS_PROFILE_FILE="${_CACHE_DIR}/last_set_value"
+
 aws_profile_set() {
 	local AWS_CONFIG_PATH="${HOME}/.aws/config"
 	if ! [ -r "${AWS_CONFIG_PATH}" ]; then
@@ -23,9 +28,14 @@ aws_profile_set() {
 
 	echo "setting AWS profile to ${PROFILE}"
 
+	echo "$PROFILE" > "$_PREVIOUS_AWS_PROFILE_FILE"
 	export AWS_PROFILE="$PROFILE"
 
 	export _ORIG_PS1="${_ORIG_PS1:-$PS1}"
 
 	export PS1="🌩 ${AWS_PROFILE}🌩  ${_ORIG_PS1}"
 }
+
+if [ -s "$_PREVIOUS_AWS_PROFILE_FILE" ]; then
+	aws_profile_set "$(<"$_PREVIOUS_AWS_PROFILE_FILE")" < /dev/null &> /dev/null
+fi
