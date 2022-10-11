@@ -42,6 +42,8 @@ fi
 
 aws_logs() {
 	(
+		set -euo pipefail
+
 		if [ -z "${LOG_GROUP:-}" ]; then
 			LOG_GROUP="$(aws logs describe-log-groups | jq -r '.logGroups | .[] | .logGroupName' | fzf -1)"
 		fi
