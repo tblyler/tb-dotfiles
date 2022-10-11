@@ -39,3 +39,20 @@ aws_profile_set() {
 if [ -s "$_PREVIOUS_AWS_PROFILE_FILE" ]; then
 	aws_profile_set "$(<"$_PREVIOUS_AWS_PROFILE_FILE")" < /dev/null &> /dev/null
 fi
+
+aws_logs() {
+	(
+		if [ -z "${LOG_GROUP:-}" ]; then
+			LOG_GROUP="$(aws logs describe-log-groups | jq -r '.logGroups | .[] | .logGroupName' | fzf -1)"
+		fi
+		if [ -z "${LOG_STREAM_PREFIX:-}" ]; then
+			LOG_STREAM_PREFIX="$(aws logs describe-log-streams --log-group-name "$LOG_GROUP" | jq -r '.logStreams | .[] | .logStreamName' | fzf -1 --print-query | head -n 1)"
+		fi
+
+		aws logs tail "${LOG_GROUP}" --log-stream-name-prefix "$LOG_STREAM_PREFIX" "$@"
+	)
+}
+
+aws_json_logs() {
+	aws_logs --format json "$@" | grep -Ev '^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}T'
+}
