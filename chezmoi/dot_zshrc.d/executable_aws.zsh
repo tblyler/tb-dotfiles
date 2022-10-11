@@ -51,7 +51,15 @@ aws_logs() {
 			LOG_STREAM_PREFIX="$(aws logs describe-log-streams --log-group-name "$LOG_GROUP" | jq -r '.logStreams | .[] | .logStreamName' | fzf -1 --print-query | head -n 1)"
 		fi
 
-		aws logs tail "${LOG_GROUP}" --log-stream-name-prefix "$LOG_STREAM_PREFIX" "$@"
+		if [ -n "$LOG_STREAM_PREFIX" ]; then
+			aws logs tail "${LOG_GROUP}" \
+				--log-stream-name-prefix "$LOG_STREAM_PREFIX" \
+				"$@"
+
+			exit $?
+		fi
+
+		aws logs tail "${LOG_GROUP}" "$@"
 	)
 }
 
