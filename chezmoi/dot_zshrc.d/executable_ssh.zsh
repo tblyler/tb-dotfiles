@@ -31,7 +31,10 @@ function add_ssh_keys() {
 	SSH_AGENT_IDENTITIES="$(ssh-add -l || true)"
 	2>/dev/null for IDENTITY_FILE in ~/.ssh/id_*~*.pub; do
 		if [[ "$SSH_AGENT_IDENTITIES" != *"$(ssh-keygen -lf "$IDENTITY_FILE")"* ]]; then
-			NEW_IDENTITIES+=("$IDENTITY_FILE")
+			# skip _sk keys on MacOS for now
+			if ! [[ "$OSTYPE" =~ ^darwin ]] || ! [[ "$IDENTITY_FILE" =~ _sk$ ]]; then
+				NEW_IDENTITIES+=("$IDENTITY_FILE")
+			fi
 		fi
 	done
 
