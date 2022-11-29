@@ -26,6 +26,13 @@ if [ "$(uname)" = "Darwin" ]; then
 	for d in "${HOMEBREW_PREFIX}/opt"/*/libexec/gnubin; do
 		export PATH="$d:$PATH"
 	done
+
+	for TEST_PATH in /Applications/Tailscale{.localized,}/Tailscale.app/Contents/MacOS/Tailscale; do
+		if [ -x "$TEST_PATH" ]; then
+			alias tailscale="$TEST_PATH"
+			break
+		fi
+	done
 fi
 
 if [ -d "${HOME}/bin" ]; then
