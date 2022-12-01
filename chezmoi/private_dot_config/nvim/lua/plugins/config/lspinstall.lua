@@ -102,7 +102,7 @@ local lspServers = {
 for lspServer, opts in pairs(lspServers) do
     local server_available, requested_server = lsp_installer_servers.get_server(lspServer)
     if server_available then
-        opts["capabilities"] = cmp_lsp.update_capabilities(vim.lsp.protocol.make_client_capabilities())
+        opts["capabilities"] = cmp_lsp.default_capabilities(vim.lsp.protocol.make_client_capabilities())
         opts["on_attach"] = on_attach
         lspconfig[lspServer].setup(opts)
         if not requested_server:is_installed() then
