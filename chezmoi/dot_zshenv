@@ -17,7 +17,7 @@ fi
 
 export VISUAL="${EDITOR}"
 
-if [ "$(uname)" = "Darwin" ]; then
+if [[ "$OSTYPE" =~ ^darwin ]]; then
 	if [ -x /opt/homebrew/bin/brew ]; then
 		eval "$(/opt/homebrew/bin/brew shellenv)"
 	fi
@@ -48,6 +48,14 @@ if [ -d "${HOME}/.poetry/bin" ]; then
 fi
 
 . "$HOME/.cargo/env" 2>/dev/null
+
+if command -v pnpm &> /dev/null; then
+	if [[ "$OSTYPE" =~ ^darwin ]]; then
+		export PNPM_HOME="${HOME}/Library/pnpm"
+		export PATH="$PNPM_HOME:$PATH"
+		mkdir -p PNPM_HOME
+	fi
+fi
 
 if command -v go &> /dev/null; then
 	GOPATH="$(go env GOPATH)"
