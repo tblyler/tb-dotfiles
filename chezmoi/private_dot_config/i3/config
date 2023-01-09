@@ -4,7 +4,7 @@
 #
 ### Startup
 exec_always --no-startup-id autotiling
-exec --no-startup-id bash -c 'trap "jobs -rp | xargs -r kill" EXIT; while sleep 1; do for MONITOR in $(polybar --list-monitors | cut -d : -f 1); do MONITOR="$MONITOR" flock "${HOME}/.cache/polybar.${MONITOR}.lock" polybar mybar & done; wait -n; jobs -rp | xargs -r kill; done'
+exec --no-startup-id bash -c 'while sleep 15; do for MONITOR in $(polybar --list-monitors | cut -d : -f 1); do MONITOR="$MONITOR" flock -n "${HOME}/.cache/polybar.${MONITOR}.lock" polybar mybar & done; done'
 exec --no-startup-id bash -c 'while sleep 15; do autorandr --change; done'
 exec --no-startup-id dunst
 exec --no-startup-id nm-applet
