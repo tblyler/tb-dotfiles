@@ -2,8 +2,8 @@ if [ -r ~/.asdf/asdf.sh ]; then
 	. ~/.asdf/asdf.sh
 fi
 
-if command -v brew &> /dev/null && [ -r "$(brew --prefix)/opt/asdf/asdf.sh" ]; then
-	. "$(brew --prefix)/opt/asdf/asdf.sh"
+if command -v brew &> /dev/null && [ -r "$(brew --prefix)/opt/asdf/libexec/asdf.sh" ]; then
+	. "$(brew --prefix)/opt/asdf/libexec/asdf.sh"
 fi
 
 if [ -n "$ASDF_DIR" ]; then
