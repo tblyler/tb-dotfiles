@@ -53,7 +53,7 @@ if command -v pnpm &> /dev/null; then
 	if [[ "$OSTYPE" =~ ^darwin ]]; then
 		export PNPM_HOME="${HOME}/Library/pnpm"
 		export PATH="$PNPM_HOME:$PATH"
-		mkdir -p PNPM_HOME
+		mkdir -p "$PNPM_HOME"
 	fi
 fi
 
