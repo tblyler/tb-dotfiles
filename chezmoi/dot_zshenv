@@ -11,8 +11,14 @@ done
 
 # if we're in vs code's terminal, set the editor to vs code
 if [ "${TERM_PROGRAM:-noop}" = "vscode" ]; then
-	export EDITOR='code'
-	export TAG_CMD_FMT_STRING="code --goto {{.Filename}}:{{.LineNumber}}:{{.ColumnNumber}}"
+	if [[ "$TERM_PROGRAM_VERSION" =~ -insider$ ]] && command -v code-insiders &> /dev/null; then
+		export EDITOR='code-insiders'
+		alias code=code-insiders
+	else
+		export EDITOR='code'
+	fi
+
+	export TAG_CMD_FMT_STRING="${EDITOR} --goto {{.Filename}}:{{.LineNumber}}:{{.ColumnNumber}}"
 fi
 
 export VISUAL="${EDITOR}"
