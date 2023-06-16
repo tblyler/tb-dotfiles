@@ -9,6 +9,10 @@ for editor in nvim vim nano; do
     fi
 done
 
+if command -v rg &> /dev/null; then
+	export RIPGREP_CONFIG_PATH="${HOME}/.config/ripgrep/ripgreprc"
+fi
+
 # if we're in vs code's terminal, set the editor to vs code
 if [ "${TERM_PROGRAM:-noop}" = "vscode" ]; then
 	if [[ "$TERM_PROGRAM_VERSION" =~ -insider$ ]] && command -v code-insiders &> /dev/null; then
