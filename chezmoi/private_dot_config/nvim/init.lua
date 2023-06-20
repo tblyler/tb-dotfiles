@@ -1,4 +1,1 @@
-require('settings')
-require('plugins')
-require('mappings')
-require('autocmd')
+require('core.init')
