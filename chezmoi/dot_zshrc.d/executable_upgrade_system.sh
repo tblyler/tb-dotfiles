@@ -26,7 +26,7 @@ upgrade_system() {
 				# Fedora
 				if command -v dnf &> /dev/null; then
 					sudo dnf upgrade
-				fi
+					fi
 
 				# Arch
 				if command -v yay &> /dev/null; then
@@ -36,10 +36,6 @@ upgrade_system() {
 				fi
 				;;
 		esac
-
-		if command -v nvim &> /dev/null; then
-			nvim --headless -E -c 'PaqSync' -c 'sleep 5' -c 'TSUpdateSync' -c 'sleep 5' -c 'quit'
-		fi
 
 		if command -v asdf &> /dev/null; then
 			asdf update || true
