@@ -4,6 +4,7 @@ return {
 		show_current_context = true,
 		show_current_context_start = true,
 		show_trailing_blankline_indent = false,
-		char_highlight_list = {"NvimTreeIndentMarker"},
+		char_highlight_list = {"Comment"},
+		context_highlight_list = {"Special"},
 	},
 }
