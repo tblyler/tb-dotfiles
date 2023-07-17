@@ -47,6 +47,7 @@ return {
 					null_ls.builtins.diagnostics.flake8.with({
 						extra_args =  { "--max-line-length=120" }
 					}),
+					null_ls.builtins.diagnostics.markdownlint,
 					null_ls.builtins.formatting.rubocop,
 					null_ls.builtins.formatting.rustfmt,
 					null_ls.builtins.diagnostics.shellcheck,
