@@ -1,12 +1,10 @@
 {
-  "bufferline.nvim": { "branch": "main", "commit": "243893ba9d5d1049dd451a25cab32ec7f8f67bcf" },
   "fidget.nvim": { "branch": "main", "commit": "0ba1e16d07627532b6cae915cc992ecac249fb97" },
   "gitsigns.nvim": { "branch": "main", "commit": "a36bc3360d584d39b4fb076d855c4180842d4444" },
   "gruvbox.nvim": { "branch": "main", "commit": "df149bccb19a02c5c2b9fa6ec0716f0c0487feb0" },
   "hop.nvim": { "branch": "master", "commit": "03f0434869f1f38868618198b5f4f2ab6d39aef2" },
   "indent-blankline.nvim": { "branch": "master", "commit": "7075d7861f7a6bbf0de0298c83f8a13195e6ec01" },
   "lazy.nvim": { "branch": "main", "commit": "4c8b625bc873ca76b76eee0c28c98f1f7148f17f" },
-  "lualine.nvim": { "branch": "master", "commit": "05d78e9fd0cdfb4545974a5aa14b1be95a86e9c9" },
   "mason-lspconfig.nvim": { "branch": "main", "commit": "4f1c72767bec31397d59554f84096909b2887195" },
   "mason.nvim": { "branch": "main", "commit": "b68d3be4b664671002221d43c82e74a0f1006b26" },
   "mini.nvim": { "branch": "main", "commit": "4fd0f9c72fb54696442c81a64c71514c95239148" },
