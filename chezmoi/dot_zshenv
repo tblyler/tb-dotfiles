@@ -72,9 +72,13 @@ if command -v go &> /dev/null; then
 	if [ -d "${GOPATH}" ]; then
 		export GOPATH
 		export PATH="${GOPATH}/bin:${PATH}"
-    else
-        unset GOPATH
+	else
+		unset GOPATH
 	fi
+fi
+
+if command -v lazygit &> /dev/null; then
+	alias lg=lazygit
 fi
 
 . /etc/profile.d/flatpak.sh 2>/dev/null
