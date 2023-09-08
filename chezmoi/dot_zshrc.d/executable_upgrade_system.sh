@@ -41,6 +41,7 @@ upgrade_system() {
 			asdf update || true
 			asdf plugin update --all
 			asdf latest --all
+			asdf nodejs resolve lts --latest-avaliable
 		fi
 
 		if command -v fwupdmgr &> /dev/null; then
