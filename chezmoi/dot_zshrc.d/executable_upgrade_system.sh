@@ -38,10 +38,31 @@ upgrade_system() {
 		esac
 
 		if command -v asdf &> /dev/null; then
-			asdf update || true
-			asdf plugin update --all
-			asdf latest --all
-			asdf nodejs resolve lts --latest-avaliable
+			(
+				cd "$HOME"
+				asdf update || true
+				asdf plugin update --all
+				asdf latest --all | grep -Ev '^(python|nodejs)'
+				LATEST_PYTHON_VERSION="$(asdf latest python)"
+				CURRENT_PYTHON_VERSION="$(asdf current python | awk '{print $2}')"
+				echo -en "python\t${LATEST_PYTHON_VERSION}\t"
+				if [[ "$LATEST_PYTHON_VERSION" == "$CURRENT_PYTHON_VERSION" ]]; then
+					echo "installed"
+				else
+					echo "missing"
+				fi
+				asdf list all nodejs |
+					awk -v lts="$(asdf nodejs resolve lts)" \
+					-v current="$(asdf current nodejs | awk '{print $2}')" \
+					'index($0, lts) == 1 {latest=$0} END {
+						printf "nodejs\t"latest"\t"
+						if(latest == current) {
+							print "installed"
+						} else {
+							print "missing"
+						}
+					}'
+			)
 		fi
 
 		if command -v fwupdmgr &> /dev/null; then
