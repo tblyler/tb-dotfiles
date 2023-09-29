@@ -38,31 +38,38 @@ upgrade_system() {
 		esac
 
 		if command -v asdf &> /dev/null; then
-			(
-				cd "$HOME"
-				asdf update || true
-				asdf plugin update --all
-				asdf latest --all | grep -Ev '^(python|nodejs)'
-				LATEST_PYTHON_VERSION="$(asdf latest python)"
-				CURRENT_PYTHON_VERSION="$(asdf current python | awk '{print $2}')"
-				echo -en "python\t${LATEST_PYTHON_VERSION}\t"
-				if [[ "$LATEST_PYTHON_VERSION" == "$CURRENT_PYTHON_VERSION" ]]; then
-					echo "installed"
-				else
-					echo "missing"
-				fi
+			asdf update || true
+			asdf plugin update --all
+			echo -e 'package\tversion\tlatest\tstatus'
+			awk '{
+				package = $1
+				if(package == "nodejs") {
+					next
+				}
+
+				installed_version = $2
+				"asdf latest " package | getline
+				latest_version = $0
+				printf package"\t"installed_version"\t"latest_version"\t"
+				if(installed_version == latest_version) {
+					print "up-to-date"
+				} else {
+					print "out-of-date"
+				}
+			}' "${HOME}/.tool-versions"
+			if grep -q '^nodejs' "${HOME}/.tool-versions"; then
 				asdf list all nodejs |
 					awk -v lts="$(asdf nodejs resolve lts)" \
-					-v current="$(asdf current nodejs | awk '{print $2}')" \
-					'index($0, lts) == 1 {latest=$0} END {
-						printf "nodejs\t"latest"\t"
-						if(latest == current) {
-							print "installed"
-						} else {
-							print "missing"
-						}
-					}'
-			)
+						-v current="$(asdf current nodejs | awk '{print $2}')" \
+						'index($0, lts) == 1 {latest=$0} END {
+							printf "nodejs\t"current"\t"latest"\t"
+							if(latest == current) {
+								print "up-to-date"
+							} else {
+								print "out-of-date"
+							}
+						}'
+			fi
 		fi
 
 		if command -v fwupdmgr &> /dev/null; then
