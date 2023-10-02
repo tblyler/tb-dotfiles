@@ -48,7 +48,7 @@ upgrade_system() {
 				}
 
 				installed_version = $2
-				"asdf latest " package | getline
+				("asdf latest " package) | getline
 				latest_version = $0
 				printf package"\t"installed_version"\t"latest_version"\t"
 				if(installed_version == latest_version) {
