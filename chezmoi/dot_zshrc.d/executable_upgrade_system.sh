@@ -44,8 +44,8 @@ upgrade_system() {
 				plugins[$0] = 1
 			} END {
 				while ((getline < TOOL_VERSIONS_FILE) > 0) {
-					if (!plugins[$0]) {
-						print $0
+					if (!plugins[$1]) {
+						print $1
 					}
 				}
 			}' | xargs -n 1 asdf plugin add
