@@ -40,6 +40,17 @@ upgrade_system() {
 		if command -v asdf &> /dev/null; then
 			asdf update || true
 			asdf plugin update --all
+			asdf plugin list | awk -v TOOL_VERSIONS_FILE="${HOME}/.tool-versions" '{
+				plugins[$0] = 1
+			} END {
+				while ((getline < TOOL_VERSIONS_FILE) > 0) {
+					if (!plugins[$0]) {
+						print $0
+					}
+				}
+			}' | xargs -n 1 asdf plugin add
+			asdf install
+
 			echo -e 'package\tversion\tlatest\tstatus'
 			awk '{
 				package = $1
