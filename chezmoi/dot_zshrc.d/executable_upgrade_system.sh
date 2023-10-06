@@ -48,7 +48,7 @@ upgrade_system() {
 						print $1
 					}
 				}
-			}' | xargs -n 1 asdf plugin add
+			}' | xargs -r -n 1 asdf plugin add
 			asdf install
 
 			echo -e 'package\tversion\tlatest\tstatus'
