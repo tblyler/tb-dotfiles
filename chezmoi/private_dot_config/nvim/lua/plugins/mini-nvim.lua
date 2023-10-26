@@ -27,7 +27,6 @@ return {
 			require("mini.cursorword").setup()
 			require("mini.pairs").setup()
 			require("mini.tabline").setup()
-			require("mini.starter").setup()
 			require("mini.statusline").setup()
 			require("mini.surround").setup()
 			require("mini.trailspace").setup()

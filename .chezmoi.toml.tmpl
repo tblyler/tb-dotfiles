@@ -1,0 +1,7 @@
+{{ $identityFile := print .chezmoi.homeDir "/.config/age/tb-dotfiles.txt" }}
+encryption = "age"
+[age]
+    identity = {{ $identityFile | quote }}
+    recipient = "age1qdalyd6prceyh6lgn5h5t5apa89m9zuc85y7zqrafxtwl3af6c7sxhcpls" # cbi
+    recipient = "age1umpek5l588fuzhsqd7xphn4urkxltjmdt9gxh967a7m0wmtr0dvqg2n4el" # cm
+    recipient = "age15kwdjak0k3uplmus5sqcyelt3wkwe05vr6q3vdsp573c9ahs7gkspnfdd5" # aptitude

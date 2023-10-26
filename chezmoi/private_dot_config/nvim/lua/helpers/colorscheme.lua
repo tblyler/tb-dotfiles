@@ -15,6 +15,9 @@ local function get_if_available(name, opts)
 	return "default"
 end
 
-local colorscheme = get_if_available('gruvbox')
+local colorscheme = get_if_available('dracula')
+if colorscheme == "default" then
+	colorscheme = get_if_available('gruvbox')
+end
 
 return colorscheme
