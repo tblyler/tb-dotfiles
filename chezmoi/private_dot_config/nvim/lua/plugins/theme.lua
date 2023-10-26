@@ -26,7 +26,7 @@ return {
 		end,
 		dependencies = {
 			{
-				dir = "/Users/tony.blyler/repos/dracula-pro.nvim",
+				url = "git@git.0xdad.com:tblyler/dracula-pro.nvim.git",
 			},
 		},
 	},
