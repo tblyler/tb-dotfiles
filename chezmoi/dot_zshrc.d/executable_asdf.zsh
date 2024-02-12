@@ -1,5 +1,5 @@
 if [ -r ~/.asdf/asdf.sh ]; then
-	. ~/.asdf/asdf.sh
+	ASDF_FORCE_PREPEND=1 . ~/.asdf/asdf.sh
 fi
 
 if command -v brew &> /dev/null && [ -r "$(brew --prefix)/opt/asdf/libexec/asdf.sh" ]; then
