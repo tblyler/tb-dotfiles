@@ -2,6 +2,14 @@ export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:${PATH
 export LANG='en_US.UTF-8'
 export PAGER='less -RF'
 
+if [ -r ~/.asdf/asdf.sh ]; then
+	ASDF_FORCE_PREPEND=1 . ~/.asdf/asdf.sh
+fi
+
+if command -v brew &> /dev/null && [ -r "$(brew --prefix)/opt/asdf/libexec/asdf.sh" ]; then
+	. "$(brew --prefix)/opt/asdf/libexec/asdf.sh"
+fi
+
 for editor in nvim vim nano; do
     if command -v "$editor" &> /dev/null; then
         export EDITOR="$editor"
