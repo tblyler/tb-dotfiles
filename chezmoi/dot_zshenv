@@ -2,6 +2,24 @@ export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:${PATH
 export LANG='en_US.UTF-8'
 export PAGER='less -RF'
 
+if [[ "$OSTYPE" =~ ^darwin ]]; then
+	if [ -x /opt/homebrew/bin/brew ]; then
+		eval "$(/opt/homebrew/bin/brew shellenv)"
+	fi
+
+	# Use GNU tools if they're installed :D
+	for d in "${HOMEBREW_PREFIX}/opt"/*/libexec/gnubin; do
+		export PATH="$d:$PATH"
+	done
+
+	for TEST_PATH in /Applications/Tailscale{.localized,}/Tailscale.app/Contents/MacOS/Tailscale; do
+		if [ -x "$TEST_PATH" ]; then
+			alias tailscale="$TEST_PATH"
+			break
+		fi
+	done
+fi
+
 if [ -r ~/.asdf/asdf.sh ]; then
 	ASDF_FORCE_PREPEND=1 . ~/.asdf/asdf.sh
 fi
@@ -34,24 +52,6 @@ if [ "${TERM_PROGRAM:-noop}" = "vscode" ]; then
 fi
 
 export VISUAL="${EDITOR}"
-
-if [[ "$OSTYPE" =~ ^darwin ]]; then
-	if [ -x /opt/homebrew/bin/brew ]; then
-		eval "$(/opt/homebrew/bin/brew shellenv)"
-	fi
-
-	# Use GNU tools if they're installed :D
-	for d in "${HOMEBREW_PREFIX}/opt"/*/libexec/gnubin; do
-		export PATH="$d:$PATH"
-	done
-
-	for TEST_PATH in /Applications/Tailscale{.localized,}/Tailscale.app/Contents/MacOS/Tailscale; do
-		if [ -x "$TEST_PATH" ]; then
-			alias tailscale="$TEST_PATH"
-			break
-		fi
-	done
-fi
 
 if [ -d "${HOME}/bin" ]; then
 	export PATH="${HOME}/bin:${PATH}"
