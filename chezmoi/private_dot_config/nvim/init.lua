@@ -1,3 +1,5 @@
+-- {{{ Setup mini.nvim's dep manager
+
 -- Clone 'mini.nvim' manually in a way that it gets managed by 'mini.deps'
 local path_package = vim.fn.stdpath('data') .. '/site/'
 local mini_path = path_package .. 'pack/deps/start/mini.nvim'
@@ -13,16 +15,27 @@ if not vim.loop.fs_stat(mini_path) then
 end
 
 -- Set up 'mini.deps' (customize to your liking)
-require('mini.deps').setup({ path = { package = path_package } })
+require('mini.deps').setup({
+    path = {
+        package = path_package,
+    },
+})
+-- }}}
 
+-- {{{ helper functions
 -- Use 'mini.deps'. `now()` and `later()` are helpers for a safe two-stage
 -- startup and are optional.
 local add, now, later = MiniDeps.add, MiniDeps.now, MiniDeps.later
 
--- vim options
+local function colorscheme_exists(colorscheme)
+    local success, _ = pcall(vim.cmd, 'colorscheme ' .. colorscheme)
+    return success
+end
+-- }}}
+
+-- {{{ vim options
 now(function()
     local opts = {
-        termguicolors = true, -- enable 24 bit colors
         -- tabs look like 4 spaces {
         expandtab = true,
         tabstop = 4,
@@ -39,17 +52,18 @@ now(function()
         ruler = true, -- show ruler on page
         lazyredraw = true, -- make large file bearable
         regexpengine = 1, -- make searching large files bearable
-        background = 'dark' -- use dark theme
+        foldmethod = 'marker', -- fold by using the parenthesis tags
     }
 
     for opt, val in pairs(opts) do
             vim.o[opt] = val
     end
 end)
+-- }}} vim options
 
--- color themes
+-- {{{ color themes
 now(function()
-    -- gruvbox {
+    -- {{{ gruvbox
     add({
         source = 'ellisonleao/gruvbox.nvim',
     })
@@ -57,77 +71,99 @@ now(function()
     require('gruvbox').setup({
         contrast = 'hard'
     })
-    -- } gruvbox
+    vim.api.nvim_create_user_command(
+        'GruvboxDark',
+        function(opts)
+            vim.o.background = 'dark'
+            vim.cmd.colorscheme('gruvbox')
+        end,
+        {}
+    )
 
-    -- dracula {
+    vim.api.nvim_create_user_command(
+        'GruvboxLight',
+        function(opts)
+            vim.o.background = 'light'
+            vim.cmd.colorscheme('gruvbox')
+        end,
+        {}
+    )
+    -- }}}
+
+    -- {{{ dracula
     add({
-        source = 'maxmx03/dracula.nvim',
-        checkout = '2f396b6ba988ad4b3961c2e40d1b9ae436b8c26c',
-        depends = {
-            'ssh://git@git.0xdad.com/tblyler/dracula-pro.nvim.git'
-        }
+        source = 'ssh://git@git.0xdad.com/tblyler/dracula-pro.vim.git',
     })
+    vim.api.nvim_create_user_command(
+        'DraculaDark',
+        function(opts)
+            vim.o.background = 'dark'
+            vim.cmd.colorscheme('dracula_pro_morbius')
+        end,
+        {}
+    )
 
-    local dracula = require('dracula')
-    local draculapro = require('draculapro')
+    vim.api.nvim_create_user_command(
+        'DraculaLight',
+        function(opts)
+            vim.o.background = 'light'
+            vim.cmd.colorscheme('alucard')
+        end,
+        {}
+    )
+    -- }}}
 
-    draculapro.setup({
-        theme = 'morbius'
-    })
+    vim.o.background = 'dark'
+    vim.o.termguicolors = true -- enable 24 bit colors
 
-    dracula.setup({
-        dracula_pro = draculapro,
-        colors = draculapro.colors
-    })
-
-    -- } dracula
-
-    vim.cmd.colorscheme('gruvbox')
+    local color_priorities = {
+        'dracula_pro_morbius',
+        'gruvbox',
+        'default',
+    }
+    for _, colorscheme in pairs(color_priorities) do
+        if colorscheme_exists(colorscheme) then
+            vim.cmd.colorscheme(colorscheme)
+            break
+        end
+    end
 end)
+-- }}}
 
--- mini.nvim plugins {
--- safely execute immediately
-now(function()
-    local animate = require('mini.animate')
-    local timing = animate.gen_timing.linear({ duration = duration, unit = 'total' })
-    animate.setup({
-        cursor = {
-            timing = timing
-        },
-        scroll = {
-            timing = timing
-        },
-        resize = {
-            timing = timing
-        },
-        open = {
-            timing = timing
-        },
-        close = {
-            timing = timing
-        }
-    })
-end)
-
+-- {{{ mini.nvim plugins
+-- {{{ mini.nvim notify
 now(function()
     require('mini.notify').setup()
     vim.notify = require('mini.notify').make_notify()
 end)
+-- }}}
 
+-- {{{ eager
 now(function()
     local setups = {
+        icons = {},
+        tabline = {},
+        statusline = {},
+    }
+
+    for plugin, setup in pairs(setups) do
+        require('mini.' .. plugin).setup(setup)
+    end
+end)
+-- }}}
+
+-- {{{ lazy
+later(function()
+    local setups = {
         bufremove = {},
-        comment = {}, -- maybe later?
+        comment = {},
         completion = {},
         cursorword = {},
-        icons = {}, -- vet me
         jump = {},
         jump2d = {},
         pairs = {},
-        pick = {}, -- vet and maybe later?
-        tabline = {},
-        statusline = {},
-        surround = {}, -- maybe later?
+        pick = {},
+        surround = {},
         trailspace = {},
     }
 
@@ -135,6 +171,7 @@ now(function()
         require('mini.' .. plugin).setup(setup)
     end
 
+    -- {{{ jump key mapping
     local function jumpbefore()
         MiniJump2d.start({
             allowed_lines = {
@@ -153,7 +190,9 @@ now(function()
 
     vim.keymap.set('n', '<leader><leader>k', jumpbefore, { noremap = true, silent = true })
     vim.keymap.set('n', '<leader><leader>j', jumpafter, { noremap = true, silent = true })
+    -- }}}
 
+    -- {{{ buffer delete command
     vim.api.nvim_create_user_command(
        'Bd',
         function(opts)
@@ -161,7 +200,9 @@ now(function()
         end,
         {}
     )
+    -- }}}
 
+    -- {{{ whitespace fix command
     vim.api.nvim_create_user_command(
 	'FixWhitespace',
         function(opts)
@@ -169,22 +210,19 @@ now(function()
         end,
         {}
     )
-end)
+    -- }}}
 
+    -- {{{ fzf-like control-P binding
+    vim.keymap.set('n', '<c-P>', MiniPick.builtin.files, {})
+    -- }}}
+
+end)
+-- }}}
+
+-- }}}
+
+-- {{{ Git
 later(function()
-    local setups = {
-    }
-
-    for plugin, setup in pairs(setups) do
-        require('mini.' .. plugin).setup(setup)
-    end
-end)
-
--- } mini.nvim plugins
-
--- non mini.nvim plugins {
--- Git {
-now(function()
     add({
         source = 'lewis6991/gitsigns.nvim',
     })
@@ -198,69 +236,75 @@ now(function()
     })
 
     add({
-        source = "tpope/vim-fugitive",
+        source = 'tpope/vim-fugitive',
     })
 end)
--- } Git
+-- }}}
 
--- fzf {
-later(function()
-    add({
-        source = 'ibhagwan/fzf-lua'
-    })
-
-    require("fzf-lua").setup({})
-
-    vim.keymap.set("n", "<c-P>", require('fzf-lua').files, { desc = "Fzf Files" })
-
-end)
--- }
-
--- which key {
+-- {{{ which key
 later(function()
     add({
         source = 'folke/which-key.nvim'
     })
 end)
--- }
+-- }}}which key {
 
--- legacy stuff {
+-- {{{ surround -- old keybindings diehard, maybe migrate to mini.nvim surround some day
 now(function()
     add({
         source = 'tpope/vim-surround'
     })
 end)
--- } surround
+-- }}}
 
--- LSP {
+-- {{{ LSP jazz
 later(function()
     add({
+        -- needed for LSP configuration setup using the builtin LSP implementation
         source = 'neovim/nvim-lspconfig',
     })
     add({
+        -- super convenient tool for installing/updating LSPs, use :Mason* commands
         source = 'williamboman/mason.nvim',
     })
     add({
-        source = 'williamboman/mason-lspconfig.nvim'
+        -- bridges mason & lspconfig automatically
+        source = 'williamboman/mason-lspconfig.nvim',
+    })
+    add({
+        -- adds some nice :Lsp* commands
+        source = 'nanotee/nvim-lsp-basics',
+    })
+    add({
+        -- provides nice "diagnostics" output
+        source = 'folke/trouble.nvim'
     })
 
+    -- only perform these mappings if an LSP is attached
     local on_attach = function(client, buffnr)
         local lsp_key = function(lhs, rhs, desc)
             vim.keymap.set('n', lhs, rhs, { silent = true, buffer = buffnr, desc = desc })
         end
 
-        lsp_key("<leader>lr", vim.lsp.buf.rename, "Rename symbol")
-        lsp_key("<leader>la", vim.lsp.buf.code_action, "Code action")
-        lsp_key("<leader>ld", vim.lsp.buf.type_definition, "Type definition")
+        lsp_key('<leader>lr', vim.lsp.buf.rename, 'Rename symbol')
+        lsp_key('<leader>la', vim.lsp.buf.code_action, 'Code action')
+        lsp_key('<leader>ld', vim.lsp.buf.type_definition, 'Type definition')
 
-        lsp_key("gd", vim.lsp.buf.definition, "Goto Definition")
-        lsp_key("gr", vim.lsp.buf.references, "Goto References")
-        lsp_key("gI", vim.lsp.buf.implementation, "Goto Implementation")
-        lsp_key("gD", vim.lsp.buf.declaration, "Goto Declaration")
+        lsp_key('gd', vim.lsp.buf.definition, 'Goto Definition')
+        lsp_key('gr', vim.lsp.buf.references, 'Goto References')
+        lsp_key('gI', vim.lsp.buf.implementation, 'Goto Implementation')
+        lsp_key('gD', vim.lsp.buf.declaration, 'Goto Declaration')
+
+        -- setup :Lsp* commands
+        local basics = require('lsp_basics')
+        basics.make_lsp_commands(client, buffnr)
+        basics.make_lsp_mappings(client, buffnr)
     end
 
-    require("mason").setup()
-    require("mason-lspconfig").setup({
+    require('mason').setup()
+    require('mason-lspconfig').setup({
+        -- automatically register LSPs as they're installed with their defaults
+        -- read documentation for one-off configurations if an LSP needs/wants non-default configuration
         handlers = {
             function (server_name)
                 require('lspconfig')[server_name].setup({
@@ -277,17 +321,14 @@ later(function()
         })
     end
 
-    add({
-        source = 'folke/trouble.nvim'
-    })
 
     require('trouble').setup()
     vim.keymap.set('n', '<leader>xx', '<cmd>Trouble diagnostics toggle<cr>', { noremap = true, silent = true })
     vim.keymap.set('n', '<leader>xd', '<cmd>Trouble diagnostics toggle filter.buf=0<cr>', { noremap = true, silent = true })
 end)
--- } LSP
+-- }}}
 
--- treesitter {
+-- {{{ treesitter
 later(function()
   add({
     source = 'nvim-treesitter/nvim-treesitter',
@@ -362,20 +403,19 @@ later(function()
     incremental_selection = { enable = true },
   })
 
-  -- show indentations
+  -- show indentations how I like them, each layer of indentation etc
   add({
       source = 'lukas-reineke/indent-blankline.nvim'
   })
 
-  require("ibl").setup({
+  require('ibl').setup({
       indent = {
-          char = "▏",
-          highlight = { "Label" },
+          char = '▏',
+          highlight = { 'Label' },
       },
       scope = {
-          highlight = { "Function" },
+          highlight = { 'Function' },
       }
   })
 end)
--- } treesitter
--- } non mini.nvim plugins
+-- }}}

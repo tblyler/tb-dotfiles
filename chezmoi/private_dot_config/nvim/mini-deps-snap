@@ -1,0 +1,16 @@
+return {
+  ["dracula-pro.vim.git"] = "f4c019956a9fc9054ffc02553920519e3beadc21",
+  ["gitsigns.nvim"] = "863903631e676b33e8be2acb17512fdc1b80b4fb",
+  ["gruvbox.nvim"] = "7a1b23e4edf73a39642e77508ee6b9cbb8c60f9e",
+  ["indent-blankline.nvim"] = "18603eb949eba08300799f64027af11ef922283f",
+  ["mason-lspconfig.nvim"] = "25c11854aa25558ee6c03432edfa0df0217324be",
+  ["mason.nvim"] = "e2f7f9044ec30067bc11800a9e266664b88cda22",
+  ["mini.nvim"] = "848c5e8f428faf843051768e0d56104cd02aea1f",
+  ["nvim-lsp-basics"] = "632714bd3ab355eb6e725b5a78cd8730f12d14d2",
+  ["nvim-lspconfig"] = "0678aa439b82965daf03679cd146e84f10e299c3",
+  ["nvim-treesitter"] = "d1e1f17cea23f14cbe230635b9bb654a835f02d7",
+  ["trouble.nvim"] = "6efc446226679fda0547c0fd6a7892fd5f5b15d8",
+  ["vim-fugitive"] = "d4877e54cef67f5af4f950935b1ade19ed6b7370",
+  ["vim-surround"] = "3d188ed2113431cf8dac77be61b842acb64433d9",
+  ["which-key.nvim"] = "fb070344402cfc662299d9914f5546d840a22126"
+}
