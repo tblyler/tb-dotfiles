@@ -303,6 +303,15 @@ later(function()
         -- provides nice "diagnostics" output
         source = 'folke/trouble.nvim'
     })
+    add({
+        -- hook up linters
+        source = 'nvimtools/none-ls.nvim',
+        depends = {
+            {
+                source = 'nvim-lua/plenary.nvim'
+            }
+        }
+    })
 
     -- only perform these mappings if an LSP is attached
     local on_attach = function(client, buffnr)
@@ -344,6 +353,16 @@ later(function()
             on_attach = on_attach
         })
     end
+
+    -- TODO see if there is a way to automatically do this rather than having to manually specify them
+    local null_ls = require('null-ls')
+    null_ls.setup({
+        -- enable debug if you want to be able to debug null_ls settings
+        -- debug = true,
+        sources = {
+            null_ls.builtins.diagnostics.golangci_lint,
+        },
+    })
 
 
     require('trouble').setup()
