@@ -42,7 +42,6 @@ now(function()
         shiftwidth = 4,
         softtabstop = 4,
         -- }
-        cursorline = true, -- show active line
         number = true, -- show line numbers
         mouse = 'c', -- disable mouse
         laststatus = 2, -- always show the status line
