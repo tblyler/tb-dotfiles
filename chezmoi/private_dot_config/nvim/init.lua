@@ -37,7 +37,7 @@ end
 now(function()
     local opts = {
         -- tabs look like 4 spaces {
-        expandtab = true,
+        expandtab = false, -- use tabs by default
         tabstop = 4,
         shiftwidth = 4,
         softtabstop = 4,
@@ -59,6 +59,16 @@ now(function()
     end
 end)
 -- }}} vim options
+
+-- {{{ automatically determine indentation via statistics
+now(function()
+    add({
+        source = 'nmac427/guess-indent.nvim'
+    })
+
+    require('guess-indent').setup()
+end)
+-- }}}
 
 -- {{{ color themes
 now(function()
