@@ -227,6 +227,7 @@ later(function()
 
     -- {{{ fzf-like control-P binding
     vim.keymap.set('n', '<c-P>', MiniPick.builtin.files, {})
+    vim.keymap.set('n', '<C-S-p>', MiniPick.builtin.grep_live, {})
     -- }}}
 
 end)
