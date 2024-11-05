@@ -108,6 +108,10 @@ if command -v fzf &> /dev/null; then
 	fi
 fi
 
+if [ -r "${HOME}/.orbstack/shell/init.zsh" ]; then
+	source ~/.orbstack/shell/init.zsh 2>/dev/null || :
+fi
+
 typeset -U path
 
 # this is a hack to prevent MacOS from being smarter than us for PATH settings
