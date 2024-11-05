@@ -96,9 +96,16 @@ if [ -e "${XDG_RUNTIME_DIR}/docker.sock" ]; then
 	export DOCKER_HOST="unix://${XDG_RUNTIME_DIR}/docker.sock"
 fi
 
-if command -v fzf &> /dev/null && command -v ag &> /dev/null; then
-	export FZF_DEFAULT_COMMAND='ag --skip-vcs-ignores --nocolor -g "" -l'
-	export FZF_CTRL_T_COMMAND="${FZF_DEFAULT_COMMAND}"
+if command -v fzf &> /dev/null; then
+	if command -v rg &> /dev/null; then
+		export FZF_DEFAULT_COMMAND="rg --files --hidden --follow --glob '!.git'"
+	elif command -v ag &> /dev/null; then
+		export FZF_DEFAULT_COMMAND='ag --skip-vcs-ignores --nocolor -g "" -l'
+	fi
+
+	if [ -n "${FZF_DEFAULT_COMMAND}" ]; then
+		export FZF_CTRL_T_COMMAND="${FZF_DEFAULT_COMMAND}"
+	fi
 fi
 
 typeset -U path
