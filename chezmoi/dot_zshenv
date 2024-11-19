@@ -76,13 +76,9 @@ if command -v pnpm &> /dev/null; then
 fi
 
 if command -v go &> /dev/null; then
-	GOPATH="$(go env GOPATH)"
-	if [ -d "${GOPATH}" ]; then
-		export GOPATH
-		export PATH="${GOPATH}/bin:${PATH}"
-	else
-		unset GOPATH
-	fi
+	export GOPATH="${HOME}/.gopath"
+	mkdir -p "${GOPATH}"
+	export PATH="${GOPATH}/bin:${PATH}"
 fi
 
 if command -v lazygit &> /dev/null; then
