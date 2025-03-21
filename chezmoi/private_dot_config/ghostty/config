@@ -1,6 +1,10 @@
+auto-update = download
 font-family = GoMono Nerd Font
 font-size = 12
+font-thicken = true
+font-thicken-strength = 100
 cursor-style = block
+cursor-style-blink = true
 shell-integration-features = no-cursor
 mouse-hide-while-typing = true
 window-decoration = none
