@@ -1,0 +1,8 @@
+font-family = GoMono Nerd Font
+font-size = 12
+cursor-style = block
+mouse-hide-while-typing = true
+window-decoration = none
+macos-option-as-alt = true
+
+config-file = ?dracula_morbius
