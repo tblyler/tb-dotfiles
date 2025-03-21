@@ -52,6 +52,7 @@ now(function()
         lazyredraw = true, -- make large file bearable
         regexpengine = 1, -- make searching large files bearable
         foldmethod = 'marker', -- fold by using the parenthesis tags
+        swapfile = false, -- disable swap files
     }
 
     for opt, val in pairs(opts) do
