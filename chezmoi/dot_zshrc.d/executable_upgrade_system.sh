@@ -70,8 +70,8 @@ upgrade_system() {
 			}' "${HOME}/.tool-versions"
 			if grep -q '^nodejs' "${HOME}/.tool-versions"; then
 				asdf list all nodejs |
-					awk -v lts="$(asdf nodejs resolve lts)" \
-						-v current="$(asdf current nodejs | awk '{print $2}')" \
+					awk -v lts="$(asdf cmd nodejs resolve lts)" \
+						-v current="$(asdf current --no-header nodejs | awk '{print $2}')" \
 						'index($0, lts) == 1 {latest=$0} END {
 							printf "nodejs\t"current"\t"latest"\t"
 							if(latest == current) {
