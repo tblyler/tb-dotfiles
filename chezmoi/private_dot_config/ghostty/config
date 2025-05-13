@@ -3,6 +3,10 @@ font-family = GoMono Nerd Font
 font-size = 12
 font-thicken = true
 font-thicken-strength = 100
+# the following font-feaure settings are to disable ligatures
+font-feature = -calt
+font-feature = -liga
+font-feature = -dlig
 cursor-style = block
 cursor-style-blink = true
 shell-integration-features = no-cursor
