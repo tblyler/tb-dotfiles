@@ -315,25 +315,34 @@ later(function()
     })
 
     -- only perform these mappings if an LSP is attached
-    local on_attach = function(client, buffnr)
-        local lsp_key = function(lhs, rhs, desc)
-            vim.keymap.set('n', lhs, rhs, { silent = true, buffer = buffnr, desc = desc })
-        end
+    vim.api.nvim_create_autocmd("LspAttach", {
+        callback = function(args)
+            local client = vim.lsp.get_client_by_id(args.data.client_id)
+            if not client then
+                return
+            end
 
-        lsp_key('<leader>lr', vim.lsp.buf.rename, 'Rename symbol')
-        lsp_key('<leader>la', vim.lsp.buf.code_action, 'Code action')
-        lsp_key('<leader>ld', vim.lsp.buf.type_definition, 'Type definition')
+            local buffnr = args.buf
 
-        lsp_key('gd', vim.lsp.buf.definition, 'Goto Definition')
-        lsp_key('gr', vim.lsp.buf.references, 'Goto References')
-        lsp_key('gI', vim.lsp.buf.implementation, 'Goto Implementation')
-        lsp_key('gD', vim.lsp.buf.declaration, 'Goto Declaration')
+            local lsp_key = function(lhs, rhs, desc)
+                vim.keymap.set('n', lhs, rhs, { silent = true, buffer = buffnr, desc = desc })
+            end
 
-        -- setup :Lsp* commands
-        local basics = require('lsp_basics')
-        basics.make_lsp_commands(client, buffnr)
-        basics.make_lsp_mappings(client, buffnr)
-    end
+            lsp_key('<leader>lr', vim.lsp.buf.rename, 'Rename symbol')
+            lsp_key('<leader>la', vim.lsp.buf.code_action, 'Code action')
+            lsp_key('<leader>ld', vim.lsp.buf.type_definition, 'Type definition')
+
+            lsp_key('gd', vim.lsp.buf.definition, 'Goto Definition')
+            lsp_key('gr', vim.lsp.buf.references, 'Goto References')
+            lsp_key('gI', vim.lsp.buf.implementation, 'Goto Implementation')
+            lsp_key('gD', vim.lsp.buf.declaration, 'Goto Declaration')
+
+            -- setup :Lsp* commands
+            local basics = require('lsp_basics')
+            basics.make_lsp_commands(client, buffnr)
+            basics.make_lsp_mappings(client, buffnr)
+        end,
+    })
 
     require('mason').setup()
     require('mason-lspconfig').setup({
@@ -341,18 +350,14 @@ later(function()
         -- read documentation for one-off configurations if an LSP needs/wants non-default configuration
         handlers = {
             function (server_name)
-                require('lspconfig')[server_name].setup({
-                    on_attach = on_attach
-                })
+                require('lspconfig')[server_name].setup({})
             end
         }
     })
 
     -- make sure LSPs are autostarted if already installed at neovim start
     for _, server_name in pairs(require('mason-lspconfig').get_installed_servers()) do
-        require('lspconfig')[server_name].setup({
-            on_attach = on_attach
-        })
+        require('lspconfig')[server_name].setup({})
     end
 
     -- TODO see if there is a way to automatically do this rather than having to manually specify them
