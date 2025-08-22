@@ -355,10 +355,11 @@ later(function()
         }
     })
 
+    -- DISABLED due to causing LSPs to double-spawn
     -- make sure LSPs are autostarted if already installed at neovim start
-    for _, server_name in pairs(require('mason-lspconfig').get_installed_servers()) do
-        require('lspconfig')[server_name].setup({})
-    end
+    --for _, server_name in pairs(require('mason-lspconfig').get_installed_servers()) do
+    --    require('lspconfig')[server_name].setup({})
+    --end
 
     -- TODO see if there is a way to automatically do this rather than having to manually specify them
     local null_ls = require('null-ls')
