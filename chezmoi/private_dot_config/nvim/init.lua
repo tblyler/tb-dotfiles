@@ -108,7 +108,7 @@ now(function()
         'DraculaDark',
         function(opts)
             vim.o.background = 'dark'
-            vim.cmd.colorscheme('dracula_pro_morbius')
+            vim.cmd.colorscheme('dracula_pro_van_helsing')
         end,
         {}
     )
@@ -127,7 +127,7 @@ now(function()
     vim.o.termguicolors = true -- enable 24 bit colors
 
     local color_priorities = {
-        'dracula_pro_morbius',
+        'dracula_pro_van_helsing',
         'gruvbox',
         'default',
     }
