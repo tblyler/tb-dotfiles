@@ -58,6 +58,7 @@ now(function()
 		lazyredraw = true, -- make large file bearable
 		regexpengine = 1, -- make searching large files bearable
 		foldmethod = "marker", -- fold by using the parenthesis tags
+		foldlevelstart = 99, -- all folds open by default
 		swapfile = false, -- disable swap files
 	}
 
@@ -283,7 +284,7 @@ later(function()
 			"gopls",
 			"rust_analyzer",
 			"ts_ls",
-			"ty",
+			"pyright",
 		},
 	})
 
@@ -365,7 +366,7 @@ later(function()
 			javascriptreact = { "eslint_d" },
 			typescriptreact = { "eslint_d" },
 			python = { "ruff" },
-			go = { "golangci_lint" },
+			go = { "golangcilint" },
 		}
 
 		local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
