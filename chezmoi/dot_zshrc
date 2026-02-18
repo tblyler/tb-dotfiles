@@ -15,15 +15,12 @@ autoload -Uz \
 # make control w remove by word better
 select-word-style bash
 
-compinit
 colors
 
 autoload -Uz bashcompinit
-bashcompinit
 
 setopt \
 	ALWAYS_TO_END \
-	INC_APPEND_HISTORY \
 	AUTO_CD \
 	AUTO_PUSHD \
 	BEEP \
@@ -48,7 +45,6 @@ PS_SEPARATOR=" > "
 
 function precmd() {
 	vcs_info
-	vcs_info_hookadd set-message vcs_test_hook
 }
 
 VCS_ROOT_DIR=''
@@ -110,6 +106,9 @@ export TERM='xterm-256color'
 ZSH_COMPLETIONS_DIR="${HOME}/.zcompletions"
 mkdir -p "$ZSH_COMPLETIONS_DIR"
 fpath=("$ZSH_COMPLETIONS_DIR" $fpath)
+
+compinit
+bashcompinit
 
 # load any file that ends with .zsh or .sh and is executable
 for SCRIPT in "${HOME}/.zshrc.d"/**/(.|?)*(.zsh|.sh); do

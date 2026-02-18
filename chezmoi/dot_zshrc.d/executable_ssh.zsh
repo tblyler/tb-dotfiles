@@ -39,7 +39,11 @@ function add_ssh_keys() {
 	done
 
 	if [[ ${#NEW_IDENTITIES} -gt 0 ]]; then
-		ssh-add ${^NEW_IDENTITIES}
+		if [[ "$OSTYPE" =~ ^darwin ]]; then
+			ssh-add --apple-use-keychain ${^NEW_IDENTITIES}
+		else
+			ssh-add ${^NEW_IDENTITIES}
+		fi
 	fi
 }
 
