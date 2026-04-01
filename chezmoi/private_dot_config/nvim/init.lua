@@ -6,7 +6,7 @@ vim.loader.enable()
 -- Clone 'mini.nvim' manually in a way that it gets managed by 'mini.deps'
 local path_package = vim.fn.stdpath("data") .. "/site/"
 local mini_path = path_package .. "pack/deps/start/mini.nvim"
-if not vim.loop.fs_stat(mini_path) then
+if not vim.uv.fs_stat(mini_path) then
 	vim.cmd('echo "Installing `mini.nvim`" | redraw')
 	local clone_cmd = {
 		"git",
@@ -48,13 +48,13 @@ now(function()
 		shiftwidth = 4,
 		softtabstop = 4,
 		-- }
-		number = true, -- show line numbers
-		mouse = "", -- disable mouse
-		laststatus = 2, -- always show the status line
+		number = true,   -- show line numbers
+		mouse = "",      -- disable mouse
+		laststatus = 2,  -- always show the status line
 		autoindent = true, -- turn on autoindent
 		smarttab = true, -- turn on smart tabs
 		incsearch = true, -- turn on incremental search
-		ruler = true, -- show ruler on page
+		ruler = true,    -- show ruler on page
 		lazyredraw = true, -- make large file bearable
 		regexpengine = 1, -- make searching large files bearable
 		foldmethod = "marker", -- fold by using the parenthesis tags
@@ -405,10 +405,7 @@ end)
 later(function()
 	add({
 		source = "nvim-treesitter/nvim-treesitter",
-		-- Use 'master' while monitoring updates in 'main'
-		checkout = "master",
-		monitor = "main",
-		-- Perform action after every checkout
+		checkout = "main",
 		hooks = {
 			post_checkout = function()
 				vim.cmd("TSUpdate")
@@ -416,74 +413,108 @@ later(function()
 		},
 	})
 
-	-- Possible to immediately execute code which depends on the added plugin
-	local ts_ok, ts_configs = pcall(require, "nvim-treesitter.configs")
+	-- On the 'main' branch, nvim-treesitter is a parser manager only.
+	-- Highlighting, indentation, and incremental selection are built into Neovim 0.12+.
+	local ts_ok, ts = pcall(require, "nvim-treesitter")
 	if not ts_ok then
-		vim.notify("Failed to load nvim-treesitter.configs", vim.log.levels.WARN)
+		vim.notify("Failed to load nvim-treesitter", vim.log.levels.WARN)
 		return
 	end
 
-	ts_configs.setup({
-		ensure_installed = {
-			"bash",
-			"c",
-			"c_sharp",
-			"comment",
-			"cpp",
-			"css",
-			"diff",
-			"dockerfile",
-			"earthfile",
-			"fish",
-			"git_config",
-			"git_rebase",
-			"gitattributes",
-			"gitcommit",
-			"gitignore",
-			"go",
-			"gomod",
-			"gosum",
-			"gpg",
-			"html",
-			"http",
-			"ini",
-			"java",
-			"javascript",
-			"jq",
-			"jsdoc",
-			"json",
-			"kotlin",
-			"lua",
-			"luadoc",
-			"make",
-			"markdown",
-			"markdown_inline",
-			"nginx",
-			"php",
-			"proto",
-			"python",
-			"regex",
-			"robots",
-			"rust",
-			"scss",
-			"sql",
-			"ssh_config",
-			"terraform",
-			"tmux",
-			"toml",
-			"tsv",
-			"tsx",
-			"typescript",
-			"vimdoc",
-			"xml",
-			"yaml",
-		},
-		sync_install = false,
-		auto_install = true,
-		highlight = { enable = true },
-		indent = { enable = true },
-		incremental_selection = { enable = true },
+	ts.setup()
+
+	-- Install missing parsers automatically
+	local ensure_installed = {
+		"bash",
+		"c",
+		"c_sharp",
+		"comment",
+		"cpp",
+		"css",
+		"diff",
+		"dockerfile",
+		"earthfile",
+		"fish",
+		"git_config",
+		"git_rebase",
+		"gitattributes",
+		"gitcommit",
+		"gitignore",
+		"go",
+		"gomod",
+		"gosum",
+		"gpg",
+		"html",
+		"http",
+		"ini",
+		"java",
+		"javascript",
+		"jq",
+		"jsdoc",
+		"json",
+		"kotlin",
+		"lua",
+		"luadoc",
+		"make",
+		"markdown",
+		"markdown_inline",
+		"nginx",
+		"php",
+		"proto",
+		"python",
+		"regex",
+		"rust",
+		"scss",
+		"sql",
+		"ssh_config",
+		"terraform",
+		"tmux",
+		"toml",
+		"tsv",
+		"tsx",
+		"typescript",
+		"vimdoc",
+		"xml",
+		"yaml",
+	}
+
+	local installed = ts.get_installed()
+	local installed_set = {}
+	for _, lang in ipairs(installed) do
+		installed_set[lang] = true
+	end
+
+	local missing = {}
+	for _, lang in ipairs(ensure_installed) do
+		if not installed_set[lang] then
+			table.insert(missing, lang)
+		end
+	end
+
+	if #missing > 0 then
+		ts.install(missing)
+	end
+
+	-- Enable treesitter highlighting and indentation for all buffers with a parser
+	local function enable_treesitter(buf)
+		pcall(vim.treesitter.start, buf)
+		if vim.treesitter.query.get(vim.bo[buf].filetype, "indents") then
+			vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+		end
+	end
+
+	vim.api.nvim_create_autocmd("FileType", {
+		callback = function(args)
+			enable_treesitter(args.buf)
+		end,
 	})
+
+	-- Activate for buffers already open (since this runs in later())
+	for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+		if vim.api.nvim_buf_is_loaded(buf) and vim.bo[buf].filetype ~= "" then
+			enable_treesitter(buf)
+		end
+	end
 
 	-- show indentations how I like them, each layer of indentation etc
 	add({
