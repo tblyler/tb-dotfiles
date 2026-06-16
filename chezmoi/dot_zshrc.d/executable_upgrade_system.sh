@@ -37,50 +37,9 @@ upgrade_system() {
 				;;
 		esac
 
-		if command -v asdf &> /dev/null; then
-			asdf update || true
-			asdf plugin update --all
-			asdf plugin list | awk -v TOOL_VERSIONS_FILE="${HOME}/.tool-versions" '{
-				plugins[$0] = 1
-			} END {
-				while ((getline < TOOL_VERSIONS_FILE) > 0) {
-					if (!plugins[$1]) {
-						print $1
-					}
-				}
-			}' | xargs -r -n 1 asdf plugin add
-			asdf install
-
-			echo -e 'package\tversion\tlatest\tstatus'
-			awk '{
-				package = $1
-				if(package == "nodejs") {
-					next
-				}
-
-				installed_version = $2
-				("asdf latest " package) | getline
-				latest_version = $0
-				printf package"\t"installed_version"\t"latest_version"\t"
-				if(installed_version == latest_version) {
-					print "up-to-date"
-				} else {
-					print "out-of-date"
-				}
-			}' "${HOME}/.tool-versions"
-			if grep -q '^nodejs' "${HOME}/.tool-versions"; then
-				asdf list all nodejs |
-					awk -v lts="$(asdf cmd nodejs resolve lts)" \
-						-v current="$(asdf current --no-header nodejs | awk '{print $2}')" \
-						'index($0, lts) == 1 {latest=$0} END {
-							printf "nodejs\t"current"\t"latest"\t"
-							if(latest == current) {
-								print "up-to-date"
-							} else {
-								print "out-of-date"
-							}
-						}'
-			fi
+		if command -v mise &> /dev/null; then
+			mise install
+			mise outdated
 		fi
 
 		if command -v fwupdmgr &> /dev/null; then

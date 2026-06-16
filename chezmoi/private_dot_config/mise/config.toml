@@ -1,0 +1,14 @@
+[settings]
+lockfile = true
+
+[tools]
+chezmoi = "latest"
+go = "latest"
+golangci-lint = "latest"
+jq = "latest"
+node = "lts"
+opentofu = "latest"
+pnpm = "latest"
+python = "latest"
+uv = "latest"
+yq = "latest"
