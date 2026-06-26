@@ -1,0 +1,10 @@
+sync_address = "https://ducky.space/atuin"
+sync_frequency = "1m"
+enter_accept = true
+filter_mode = "global"
+
+[sync]
+records = true
+
+[ui]
+columns = ["duration", "time", "host", "command"]

@@ -2,6 +2,7 @@
 lockfile = true
 
 [tools]
+atuin = "latest"
 chezmoi = "latest"
 go = "latest"
 golangci-lint = "latest"
