@@ -1,6 +1,6 @@
 sync_address = "https://ducky.space/atuin"
 sync_frequency = "1m"
-enter_accept = true
+enter_accept = false
 filter_mode = "global"
 
 [sync]
