@@ -34,10 +34,6 @@ dotfiles.root = "~/.dotfiles"
 [bootstrap.packages]
 "brew-cask:ghostty" = "latest"
 
-[bootstrap.mise_shell_activate]
-zprofile = "shims"
-zshrc = "activate"
-
 [bootstrap.user]
 login_shell = "/bin/zsh"
 

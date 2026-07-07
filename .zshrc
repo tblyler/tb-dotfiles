@@ -1,5 +1,7 @@
 #!/usr/bin/zsh
 
+eval "$(mise activate zsh)"
+
 zmodload zsh/datetime
 # load the stat module but only with the `zstat` command
 # leave `stat` to the system's stat command

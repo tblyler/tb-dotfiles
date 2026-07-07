@@ -1,5 +1,8 @@
 #!/usr/bin/zsh
-# shell activation itself is handled by [bootstrap.mise_shell_activate] in mise.toml
+# shell activation itself happens in .zprofile/.zshrc directly — [dotfiles]
+# owns both whole-file, and [bootstrap.mise_shell_activate] silently refuses
+# to inject into files it doesn't fully control, so this only handles
+# completion caching
 if command -v mise &> /dev/null; then
 	(
 		set -euo pipefail

@@ -1,3 +1,5 @@
+eval "$(mise activate zsh --shims)"
+
 if [ -e "${HOME}/.zshrc.d/cbi.sh" ]; then
 	source "${HOME}/.zshrc.d/cbi.sh" 2>/dev/null
 fi
