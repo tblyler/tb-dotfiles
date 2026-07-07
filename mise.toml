@@ -1,0 +1,67 @@
+[settings]
+experimental = true
+lockfile = true
+dotfiles.root = "~/.dotfiles"
+
+[dotfiles]
+"~/.tmux.conf" = {}
+"~/.xinitrc" = {}
+"~/.zprofile" = {}
+"~/.zshenv" = {}
+"~/.zshrc" = {}
+"~/.zshrc.d" = { mode = "symlink-each" }
+"~/.config/atuin" = {}
+"~/.config/nvim" = {}
+"~/.config/ripgrep" = {}
+
+# mixes the public repo's own ghostty config with the private dracula-pro
+# repo's theme file, so this can't be a single whole-directory symlink
+"~/.config/ghostty" = { mode = "symlink-each" }
+"~/.config/ghostty/dracula_van-helsing" = { source = "~/repos/dracula-pro/themes/ghostty/van-helsing" }
+
+# self-referential: this file manages its own symlink into mise's global
+# config lookup path, so `mise`/tool resolution works from any directory,
+# not just from inside ~/.dotfiles. absolute source, not relative — mise's
+# global_config_root defaults to $HOME, not to this repo, so a relative
+# source would resolve wrong when discovered via the global path.
+"~/.config/mise/config.toml" = { source = "~/.dotfiles/mise.toml" }
+
+[bootstrap.repos]
+"~/repos/dracula-pro" = { url = "git@git.0xdad.com:tblyler/dracula-pro.git", ref = "main" }
+
+# ghostty has no official/reliable Linux package (Debian's only option is a
+# community repo gating apt access behind a paid subscription) — macOS only
+[bootstrap.packages]
+"brew-cask:ghostty" = "latest"
+
+[bootstrap.mise_shell_activate]
+zprofile = "shims"
+zshrc = "activate"
+
+[bootstrap.user]
+login_shell = "/bin/zsh"
+
+# reminds you to install ghostty manually on Linux, since it's deliberately
+# not automated (see the [bootstrap.packages] comment above)
+[bootstrap.hooks.final]
+run = '''
+if [ "$(uname)" = "Linux" ]; then
+	echo "NOTE: ghostty isn't auto-installed on Linux (no reliable official apt package) - install manually, see https://ghostty.org/docs/install/binary"
+fi
+'''
+
+[tools]
+atuin = "latest"
+git-lfs = "latest"
+go = "latest"
+golangci-lint = "latest"
+jq = "latest"
+node = "lts"
+opentofu = "latest"
+pnpm = "latest"
+python = "latest"
+ripgrep = "latest"
+tmux = "latest"
+usage = "latest"
+uv = "latest"
+yq = "latest"

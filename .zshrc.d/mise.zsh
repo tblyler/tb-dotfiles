@@ -1,7 +1,6 @@
 #!/usr/bin/zsh
+# shell activation itself is handled by [bootstrap.mise_shell_activate] in mise.toml
 if command -v mise &> /dev/null; then
-	eval "$(mise activate zsh)"
-
 	(
 		set -euo pipefail
 		readonly MISE_COMPLETION_FILE="${ZSH_COMPLETIONS_DIR}/_mise"
