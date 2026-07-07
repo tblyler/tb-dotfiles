@@ -215,6 +215,31 @@ checksum = "sha256:a6fc67fedaf9128a3309a1e2ebb8b986aeccf70122ee46d2cb4849e423f0c
 url = "https://github.com/jqlang/jq/releases/download/jq-1.8.2/jq-windows-amd64.exe"
 provenance = "github-attestations"
 
+[[tools.neovim]]
+version = "0.12.4"
+backend = "vfox:mise-plugins/vfox-neovim"
+
+[tools.neovim."platforms.linux-arm64"]
+url = "https://github.com/neovim/neovim/releases/download/v0.12.4/nvim-linux-arm64.tar.gz"
+
+[tools.neovim."platforms.linux-arm64-musl"]
+url = "https://github.com/neovim/neovim/releases/download/v0.12.4/nvim-linux-arm64.tar.gz"
+
+[tools.neovim."platforms.linux-x64"]
+url = "https://github.com/neovim/neovim/releases/download/v0.12.4/nvim-linux-x86_64.tar.gz"
+
+[tools.neovim."platforms.linux-x64-musl"]
+url = "https://github.com/neovim/neovim/releases/download/v0.12.4/nvim-linux-x86_64.tar.gz"
+
+[tools.neovim."platforms.macos-arm64"]
+url = "https://github.com/neovim/neovim/releases/download/v0.12.4/nvim-macos-arm64.tar.gz"
+
+[tools.neovim."platforms.macos-x64"]
+url = "https://github.com/neovim/neovim/releases/download/v0.12.4/nvim-macos-x86_64.tar.gz"
+
+[tools.neovim."platforms.windows-x64"]
+url = "https://github.com/neovim/neovim/releases/download/v0.12.4/nvim-win64.zip"
+
 [[tools.node]]
 version = "24.18.0"
 backend = "core:node"
@@ -392,6 +417,52 @@ checksum = "sha256:124510b94b6baa3380d051fdf4650eaa80a302c876d611e9dba0b2e18d874
 url = "https://github.com/BurntSushi/ripgrep/releases/download/15.1.0/ripgrep-15.1.0-x86_64-pc-windows-msvc.zip"
 url_api = "https://api.github.com/repos/BurntSushi/ripgrep/releases/assets/307305871"
 
+[[tools.ruff]]
+version = "0.15.20"
+backend = "aqua:astral-sh/ruff"
+
+[tools.ruff."platforms.linux-arm64"]
+checksum = "sha256:2e06ebae862dce74eb7b084081621f2d4183e18e60cb074e7906f862869fa1b6"
+url = "https://github.com/astral-sh/ruff/releases/download/0.15.20/ruff-aarch64-unknown-linux-musl.tar.gz"
+url_api = "https://api.github.com/repos/astral-sh/ruff/releases/assets/457843062"
+provenance = "github-attestations"
+
+[tools.ruff."platforms.linux-arm64-musl"]
+checksum = "sha256:2e06ebae862dce74eb7b084081621f2d4183e18e60cb074e7906f862869fa1b6"
+url = "https://github.com/astral-sh/ruff/releases/download/0.15.20/ruff-aarch64-unknown-linux-musl.tar.gz"
+url_api = "https://api.github.com/repos/astral-sh/ruff/releases/assets/457843062"
+provenance = "github-attestations"
+
+[tools.ruff."platforms.linux-x64"]
+checksum = "sha256:0715560b2402024b529a4ffd6ea7d3814a090eb255a6216259fb192823be3ad8"
+url = "https://github.com/astral-sh/ruff/releases/download/0.15.20/ruff-x86_64-unknown-linux-musl.tar.gz"
+url_api = "https://api.github.com/repos/astral-sh/ruff/releases/assets/457843135"
+provenance = "github-attestations"
+
+[tools.ruff."platforms.linux-x64-musl"]
+checksum = "sha256:0715560b2402024b529a4ffd6ea7d3814a090eb255a6216259fb192823be3ad8"
+url = "https://github.com/astral-sh/ruff/releases/download/0.15.20/ruff-x86_64-unknown-linux-musl.tar.gz"
+url_api = "https://api.github.com/repos/astral-sh/ruff/releases/assets/457843135"
+provenance = "github-attestations"
+
+[tools.ruff."platforms.macos-arm64"]
+checksum = "sha256:cb41c48690c113dc08470e64103ce65ca15249c6ce3495d3ac792b329a83e8c1"
+url = "https://github.com/astral-sh/ruff/releases/download/0.15.20/ruff-aarch64-apple-darwin.tar.gz"
+url_api = "https://api.github.com/repos/astral-sh/ruff/releases/assets/457843056"
+provenance = "github-attestations"
+
+[tools.ruff."platforms.macos-x64"]
+checksum = "sha256:36b91219b3aae00464e2a4fa361766abd47d0402ac88fbe6da5de44285738386"
+url = "https://github.com/astral-sh/ruff/releases/download/0.15.20/ruff-x86_64-apple-darwin.tar.gz"
+url_api = "https://api.github.com/repos/astral-sh/ruff/releases/assets/457843105"
+provenance = "github-attestations"
+
+[tools.ruff."platforms.windows-x64"]
+checksum = "sha256:835fdea5b8d4e13d2cc49439006aa1fbe9b67a89371f03871fc7f70a0cf10516"
+url = "https://github.com/astral-sh/ruff/releases/download/0.15.20/ruff-x86_64-pc-windows-msvc.zip"
+url_api = "https://api.github.com/repos/astral-sh/ruff/releases/assets/457843113"
+provenance = "github-attestations"
+
 [[tools.tmux]]
 version = "3.7b"
 backend = "aqua:tmux/tmux-builds"
@@ -425,6 +496,98 @@ url_api = "https://api.github.com/repos/tmux/tmux-builds/releases/assets/4650728
 checksum = "sha256:ea90f0d8e8998cf5a3a5921e985685844a13a7c3b5779f36870bd98b7f147fe6"
 url = "https://github.com/tmux/tmux-builds/releases/download/v3.7b/tmux-3.7b-macos-x86_64.tar.gz"
 url_api = "https://api.github.com/repos/tmux/tmux-builds/releases/assets/465072865"
+
+[[tools.tree-sitter]]
+version = "0.26.10"
+backend = "aqua:tree-sitter/tree-sitter"
+
+[tools.tree-sitter."platforms.linux-arm64"]
+checksum = "sha256:abc3c3fc18c8f9ffeee385f5c34a91443774a371e2bfe5b53344d9d5606705ed"
+url = "https://github.com/tree-sitter/tree-sitter/releases/download/v0.26.10/tree-sitter-linux-arm64.gz"
+url_api = "https://api.github.com/repos/tree-sitter/tree-sitter/releases/assets/460338870"
+provenance = "github-attestations"
+
+[tools.tree-sitter."platforms.linux-arm64-musl"]
+checksum = "sha256:abc3c3fc18c8f9ffeee385f5c34a91443774a371e2bfe5b53344d9d5606705ed"
+url = "https://github.com/tree-sitter/tree-sitter/releases/download/v0.26.10/tree-sitter-linux-arm64.gz"
+url_api = "https://api.github.com/repos/tree-sitter/tree-sitter/releases/assets/460338870"
+provenance = "github-attestations"
+
+[tools.tree-sitter."platforms.linux-x64"]
+checksum = "sha256:477ef03e7422f3579187859db7d5407ac345c854f9e2e6c4534d2305dac39a35"
+url = "https://github.com/tree-sitter/tree-sitter/releases/download/v0.26.10/tree-sitter-linux-x64.gz"
+url_api = "https://api.github.com/repos/tree-sitter/tree-sitter/releases/assets/460338869"
+provenance = "github-attestations"
+
+[tools.tree-sitter."platforms.linux-x64-musl"]
+checksum = "sha256:477ef03e7422f3579187859db7d5407ac345c854f9e2e6c4534d2305dac39a35"
+url = "https://github.com/tree-sitter/tree-sitter/releases/download/v0.26.10/tree-sitter-linux-x64.gz"
+url_api = "https://api.github.com/repos/tree-sitter/tree-sitter/releases/assets/460338869"
+provenance = "github-attestations"
+
+[tools.tree-sitter."platforms.macos-arm64"]
+checksum = "sha256:821a387182db59a1942a90a1fbd8f9756d9926e2c265f5c7b9a23c523114134a"
+url = "https://github.com/tree-sitter/tree-sitter/releases/download/v0.26.10/tree-sitter-macos-arm64.gz"
+url_api = "https://api.github.com/repos/tree-sitter/tree-sitter/releases/assets/460338877"
+provenance = "github-attestations"
+
+[tools.tree-sitter."platforms.macos-x64"]
+checksum = "sha256:e58c90dc9c14a64b5d824b2bd9df99748fa149705361f51a8e37220be20e9210"
+url = "https://github.com/tree-sitter/tree-sitter/releases/download/v0.26.10/tree-sitter-macos-x64.gz"
+url_api = "https://api.github.com/repos/tree-sitter/tree-sitter/releases/assets/460338879"
+provenance = "github-attestations"
+
+[tools.tree-sitter."platforms.windows-x64"]
+checksum = "sha256:6f59606dafabd8ac49c84c36ae4f0178e6aadd9232e5602c6fb0406d1b79129a"
+url = "https://github.com/tree-sitter/tree-sitter/releases/download/v0.26.10/tree-sitter-windows-x64.gz"
+url_api = "https://api.github.com/repos/tree-sitter/tree-sitter/releases/assets/460338881"
+provenance = "github-attestations"
+
+[[tools.ty]]
+version = "0.0.56"
+backend = "aqua:astral-sh/ty"
+
+[tools.ty."platforms.linux-arm64"]
+checksum = "sha256:ca3c82363a3bd8d8b8ccba6ad20b6563e1c799a30dea6d19eda7bf2f670ccb66"
+url = "https://github.com/astral-sh/ty/releases/download/0.0.56/ty-aarch64-unknown-linux-musl.tar.gz"
+url_api = "https://api.github.com/repos/astral-sh/ty/releases/assets/463626290"
+provenance = "github-attestations"
+
+[tools.ty."platforms.linux-arm64-musl"]
+checksum = "sha256:ca3c82363a3bd8d8b8ccba6ad20b6563e1c799a30dea6d19eda7bf2f670ccb66"
+url = "https://github.com/astral-sh/ty/releases/download/0.0.56/ty-aarch64-unknown-linux-musl.tar.gz"
+url_api = "https://api.github.com/repos/astral-sh/ty/releases/assets/463626290"
+provenance = "github-attestations"
+
+[tools.ty."platforms.linux-x64"]
+checksum = "sha256:770eeaeb5cda957a8a16299f1ac0e1f8c4f8d8d8443d52077c5fb38372fa9866"
+url = "https://github.com/astral-sh/ty/releases/download/0.0.56/ty-x86_64-unknown-linux-musl.tar.gz"
+url_api = "https://api.github.com/repos/astral-sh/ty/releases/assets/463626335"
+provenance = "github-attestations"
+
+[tools.ty."platforms.linux-x64-musl"]
+checksum = "sha256:770eeaeb5cda957a8a16299f1ac0e1f8c4f8d8d8443d52077c5fb38372fa9866"
+url = "https://github.com/astral-sh/ty/releases/download/0.0.56/ty-x86_64-unknown-linux-musl.tar.gz"
+url_api = "https://api.github.com/repos/astral-sh/ty/releases/assets/463626335"
+provenance = "github-attestations"
+
+[tools.ty."platforms.macos-arm64"]
+checksum = "sha256:32abb5e070bbe01107813efcde5540d103331adf68c50871d0665c3e2d2fa1c8"
+url = "https://github.com/astral-sh/ty/releases/download/0.0.56/ty-aarch64-apple-darwin.tar.gz"
+url_api = "https://api.github.com/repos/astral-sh/ty/releases/assets/463626273"
+provenance = "github-attestations"
+
+[tools.ty."platforms.macos-x64"]
+checksum = "sha256:850a27d5e4332749449708854d3ac4c574ba71ae3d0274288df873966dfa8638"
+url = "https://github.com/astral-sh/ty/releases/download/0.0.56/ty-x86_64-apple-darwin.tar.gz"
+url_api = "https://api.github.com/repos/astral-sh/ty/releases/assets/463626325"
+provenance = "github-attestations"
+
+[tools.ty."platforms.windows-x64"]
+checksum = "sha256:1c4814fa50a9db07aac5c8014c8cc9751804d5d08c6f3864833c4ca6aeb1760d"
+url = "https://github.com/astral-sh/ty/releases/download/0.0.56/ty-x86_64-pc-windows-msvc.zip"
+url_api = "https://api.github.com/repos/astral-sh/ty/releases/assets/463626330"
+provenance = "github-attestations"
 
 [[tools.usage]]
 version = "3.5.3"

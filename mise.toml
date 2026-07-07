@@ -34,6 +34,18 @@ dotfiles.root = "~/.dotfiles"
 [bootstrap.packages]
 "brew-cask:ghostty" = "latest"
 
+# nvim-treesitter compiles parsers from source at install time and needs a
+# C compiler + linker on PATH — macOS ships one via Xcode CLT already
+"apt:build-essential" = "latest"
+
+"apt:curl" = "latest"
+
+# fallback system nvim for contexts where mise isn't activated (root, a
+# recovery shell, GUI launchers with a stripped PATH) — the mise-managed
+# `neovim` in [tools] below takes precedence whenever mise is activated
+"brew:neovim" = "latest"
+"apt:neovim" = "latest"
+
 [bootstrap.user]
 login_shell = "/bin/zsh"
 
@@ -52,12 +64,16 @@ git-lfs = "latest"
 go = "latest"
 golangci-lint = "latest"
 jq = "latest"
+neovim = "latest"
 node = "lts"
 opentofu = "latest"
 pnpm = "latest"
 python = "latest"
 ripgrep = "latest"
+ruff = "latest"
 tmux = "latest"
+tree-sitter = "latest"
+ty = "latest"
 usage = "latest"
 uv = "latest"
 yq = "latest"
