@@ -1,0 +1,10 @@
+# loaded automatically on macOS only (see the auto_env comment in mise.toml)
+[bootstrap.packages]
+# ghostty has no official/reliable Linux package (Debian's only option is a
+# community repo gating apt access behind a paid subscription) — macOS only
+"brew-cask:ghostty" = "latest"
+
+# fallback system nvim for contexts where mise isn't activated (root, a
+# recovery shell, GUI launchers with a stripped PATH) — the mise-managed
+# `neovim` in [tools] (mise.toml) takes precedence whenever mise is activated
+"brew:neovim" = "latest"

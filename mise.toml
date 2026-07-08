@@ -3,6 +3,14 @@ experimental = true
 lockfile = true
 dotfiles.root = "~/.dotfiles"
 
+# lets mise.linux.toml / mise.macos.toml (and their `config.<os>.toml`
+# symlink targets below) load automatically based on the host OS. this
+# setting alone does nothing here — it's an early-init setting read before
+# mise.toml itself is parsed, so the actual activation comes from
+# MISE_AUTO_ENV=1 exported in .zshenv. it's declared here anyway since it
+# becomes the mise default in 2027.6.0.
+auto_env = true
+
 [dotfiles]
 "~/.tmux.conf" = {}
 "~/.xinitrc" = {}
@@ -26,31 +34,21 @@ dotfiles.root = "~/.dotfiles"
 # source would resolve wrong when discovered via the global path.
 "~/.config/mise/config.toml" = { source = "~/.dotfiles/mise.toml" }
 
+# same self-referential deal as config.toml above, but for the OS-specific
+# [bootstrap.packages] overlays (see mise.linux.toml / mise.macos.toml).
+# auto_env only activates whichever one matches the host OS, so having a
+# linuxbrew install doesn't cause the macOS-only brew packages to install.
+"~/.config/mise/config.linux.toml" = { source = "~/.dotfiles/mise.linux.toml" }
+"~/.config/mise/config.macos.toml" = { source = "~/.dotfiles/mise.macos.toml" }
+
 [bootstrap.repos]
 "~/repos/dracula-pro" = { url = "git@git.0xdad.com:tblyler/dracula-pro.git", ref = "main" }
-
-# ghostty has no official/reliable Linux package (Debian's only option is a
-# community repo gating apt access behind a paid subscription) — macOS only
-[bootstrap.packages]
-"brew-cask:ghostty" = "latest"
-
-# nvim-treesitter compiles parsers from source at install time and needs a
-# C compiler + linker on PATH — macOS ships one via Xcode CLT already
-"apt:build-essential" = "latest"
-
-"apt:curl" = "latest"
-
-# fallback system nvim for contexts where mise isn't activated (root, a
-# recovery shell, GUI launchers with a stripped PATH) — the mise-managed
-# `neovim` in [tools] below takes precedence whenever mise is activated
-"brew:neovim" = "latest"
-"apt:neovim" = "latest"
 
 [bootstrap.user]
 login_shell = "/bin/zsh"
 
 # reminds you to install ghostty manually on Linux, since it's deliberately
-# not automated (see the [bootstrap.packages] comment above)
+# not automated (see mise.macos.toml)
 [bootstrap.hooks.final]
 run = '''
 if [ "$(uname)" = "Linux" ]; then

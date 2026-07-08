@@ -2,6 +2,12 @@ export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:${PATH
 export LANG='en_US.UTF-8'
 export PAGER='less -RF'
 
+# mise's auto_env platform config (mise.linux.toml/mise.macos.toml) is an
+# early-init setting — it must come from the environment, not from
+# mise.toml's [settings], since config discovery happens before that table
+# is parsed. must be set before any `mise` invocation below.
+export MISE_AUTO_ENV=1
+
 if [[ "$OSTYPE" =~ ^darwin ]]; then
 	if [ -x /opt/homebrew/bin/brew ]; then
 		eval "$(/opt/homebrew/bin/brew shellenv)"
