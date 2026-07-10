@@ -532,3 +532,18 @@ later(function()
 	})
 end)
 -- }}}
+
+-- {{{ markdown rendering
+later(function()
+	add({
+		source = "MeanderingProgrammer/render-markdown.nvim",
+	})
+
+	local ok, render_markdown = pcall(require, "render-markdown")
+	if ok then
+		render_markdown.setup({})
+	else
+		vim.notify("Failed to load render-markdown.nvim", vim.log.levels.WARN)
+	end
+end)
+-- }}}

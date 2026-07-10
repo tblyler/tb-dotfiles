@@ -9,8 +9,9 @@ return {
   ["mason.nvim"] = "44d1e90e1f66e077268191e3ee9d2ac97cc18e65",
   ["mini.nvim"] = "3923662bf3d6ca49a9503f8d7196ea0450983e6a",
   ["nvim-lint"] = "4b03656c09c1561f89b6aa0665c15d292ba9499d",
-  ["nvim-lspconfig"] = "8e2084bf5e40c79c1f42210a6ef96a0a4793a763",
+  ["nvim-lspconfig"] = "0480b120318ec8bab27b530ffab6ee76a8c4d806",
   ["nvim-treesitter"] = "c82bf96f0a773d85304feeb695e1e23b2207ac35",
+  ["render-markdown.nvim"] = "f422cb5c6855f150e2ddcfaf44e7157b98b34f6a",
   ["trouble.nvim"] = "bd67efe408d4816e25e8491cc5ad4088e708a69a",
   ["vim-fugitive"] = "3b753cf8c6a4dcde6edee8827d464ba9b8c4a6f0",
   ["which-key.nvim"] = "3aab2147e74890957785941f0c1ad87d0a44c15a"
