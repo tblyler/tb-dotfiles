@@ -1,5 +1,4 @@
 [settings]
-experimental = true
 lockfile = true
 dotfiles.root = "~/.dotfiles"
 
@@ -58,8 +57,11 @@ fi
 
 [tools]
 atuin = "latest"
+gh = "latest"
 git-lfs = "latest"
+glab = "latest"
 go = "latest"
+"go:github.com/jeffreyc/tag" = "latest"
 golangci-lint = "latest"
 jq = "latest"
 neovim = "latest"

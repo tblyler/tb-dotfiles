@@ -3,7 +3,7 @@
 Useful configuration files ranging from shell scripts to configurations.
 
 Managed with [mise](https://mise.jdx.dev)'s `[dotfiles]`/`bootstrap` support
-(currently `[experimental]`) — not [chezmoi](https://github.com/twpayne/chezmoi)
+(stable as of mise v2026.7.4) — not [chezmoi](https://github.com/twpayne/chezmoi)
 anymore.
 
 ## Fresh machine
