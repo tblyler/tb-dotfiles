@@ -361,6 +361,10 @@ url = "https://nodejs.org/dist/v24.18.0/node-v24.18.0-darwin-x64.tar.gz"
 checksum = "sha256:0ae68406b42d7725661da979b1403ec9926da205c6770827f33aac9d8f26e821"
 url = "https://nodejs.org/dist/v24.18.0/node-v24.18.0-win-x64.zip"
 
+[[tools."npm:ccusage"]]
+version = "20.0.17"
+backend = "npm:ccusage"
+
 [[tools.opentofu]]
 version = "1.12.3"
 backend = "aqua:opentofu/opentofu"
