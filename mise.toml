@@ -65,6 +65,7 @@ fi
 [tools]
 atuin = "latest"
 bat = "latest"
+fd = "latest"
 gh = "latest"
 git-lfs = "latest"
 glab = "latest"
