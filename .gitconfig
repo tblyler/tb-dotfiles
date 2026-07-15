@@ -9,6 +9,9 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+[lfs]
+	concurrenttransfers = 10
+	activitytimeout = 120
 [core]
     pager = delta
 
