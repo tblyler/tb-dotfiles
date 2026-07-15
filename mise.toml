@@ -33,6 +33,13 @@ auto_env = true
 # source would resolve wrong when discovered via the global path.
 "~/.config/mise/config.toml" = { source = "~/.dotfiles/mise.toml" }
 
+# mise pairs a generated mise.lock with wherever the config file lives on
+# disk, and doesn't follow config.toml's symlink back to this repo — so
+# without this, mise forks a second, independently-drifting lockfile at
+# ~/.config/mise/mise.lock any time it resolves tools via the global path
+# instead of from inside this repo.
+"~/.config/mise/mise.lock" = { source = "~/.dotfiles/mise.lock" }
+
 # same self-referential deal as config.toml above, but for the OS-specific
 # [bootstrap.packages] overlays (see mise.linux.toml / mise.macos.toml).
 # auto_env only activates whichever one matches the host OS, so having a
