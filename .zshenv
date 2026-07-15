@@ -85,6 +85,10 @@ fi
 
 if command -v lazygit &> /dev/null; then
 	alias lg=lazygit
+	export LG_CONFIG_FILE="${HOME}/.config/lazygit/config.yml"
+	if [ -r "${HOME}/repos/dracula-pro/themes/lazygit/van-helsing.yml" ]; then
+		export LG_CONFIG_FILE="${LG_CONFIG_FILE},${HOME}/repos/dracula-pro/themes/lazygit/van-helsing.yml"
+	fi
 fi
 
 . /etc/profile.d/flatpak.sh 2>/dev/null

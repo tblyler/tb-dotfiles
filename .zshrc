@@ -42,8 +42,21 @@ setopt \
 	PUSHD_MINUS \
 	SHARE_HISTORY
 
+# fallback prompt colors, overridden below if the private dracula-pro repo
+# is available (see ~/repos/dracula-pro/themes/zsh)
+PROMPT_COLOR_RED='red'
+PROMPT_COLOR_WHITE='white'
+PROMPT_COLOR_GREY='white'
+PROMPT_COLOR_YELLOW='yellow'
+PROMPT_COLOR_GREEN='green'
+PROMPT_COLOR_BLUE='blue'
+PROMPT_COLOR_ORANGE='yellow'
+PROMPT_COLOR_CYAN='cyan'
+PROMPT_COLOR_PINK='magenta'
+[ -r "${HOME}/repos/dracula-pro/themes/zsh/van-helsing.zsh" ] && source "${HOME}/repos/dracula-pro/themes/zsh/van-helsing.zsh"
+
 NEWLINE=$'\n'
-PS_SEPARATOR=" > "
+PS_SEPARATOR="%F{$PROMPT_COLOR_GREY} > %f"
 
 function precmd() {
 	vcs_info
@@ -61,17 +74,39 @@ function +vi-git-vcs-set-message-hook() {
 		VCS_ROOT_DIR="~${VCS_ROOT_DIR:${#HOME}}"
 	fi
 
-	hook_com[misc]="$(2> /dev/null git status --short | awk '{counts[$1]++} END {
-		printed = "";
-		for (count_type in counts) {
-			printf "%s%%B%s%%b%d", printed, substr(count_type, 1, 1), counts[count_type];
-			printed = " ";
+	hook_com[misc]="$(2> /dev/null git status --short | awk \
+		-v cAdd="$PROMPT_COLOR_GREEN" \
+		-v cChange="$PROMPT_COLOR_ORANGE" \
+		-v cDel="$PROMPT_COLOR_RED" \
+		-v cStruct="$PROMPT_COLOR_CYAN" \
+		-v cConflict="$PROMPT_COLOR_RED" \
+		-v cUntracked="$PROMPT_COLOR_PINK" \
+		-v cDefault="$PROMPT_COLOR_WHITE" \
+		'
+		function color_for(code) {
+			if (code == "DD" || code == "AU" || code == "UD" || code == "UA" || code == "DU" || code == "AA" || code == "UU") return cConflict;
+			c = substr(code, 1, 1);
+			if (c == "A") return cAdd;
+			if (c == "M" || c == "T") return cChange;
+			if (c == "D") return cDel;
+			if (c == "R" || c == "C") return cStruct;
+			if (c == "U") return cConflict;
+			if (c == "?") return cUntracked;
+			return cDefault;
 		}
-	}')"
+		{counts[$1]++}
+		END {
+			printed = "";
+			for (count_type in counts) {
+				letter = substr(count_type, 1, 1);
+				printf "%s%%F{%s}%%B%s%%b%d%%f", printed, color_for(count_type), letter, counts[count_type];
+				printed = " ";
+			}
+		}')"
 }
 
-zstyle ':vcs_info:git*' formats "%F{green}%b%f %m${PS_SEPARATOR}"
-zstyle ':vcs_info:git*' actionformats "%F{green}%b%f %K{red}%F{white}(%a)%f%k %B%m%%b${PS_SEPARATOR}"
+zstyle ':vcs_info:git*' formats "%F{$PROMPT_COLOR_GREEN}%b%f %m${PS_SEPARATOR}"
+zstyle ':vcs_info:git*' actionformats "%F{$PROMPT_COLOR_GREEN}%b%f %K{$PROMPT_COLOR_RED}%F{$PROMPT_COLOR_WHITE}(%a)%f%k %B%m%%b${PS_SEPARATOR}"
 zstyle ':vcs_info:git*+set-message:*' hooks git-vcs-set-message-hook
 
 function pretty_pwd() {
@@ -87,10 +122,10 @@ function pretty_pwd() {
 		CURRENT_DIRECTORY="${COLORIZED_VCS_ROOT_DIR}${CURRENT_DIRECTORY:${#VCS_ROOT_DIR}}"
 	fi
 
-	print -P "%F{blue}${CURRENT_DIRECTORY}%f"
+	print -P "%F{$PROMPT_COLOR_BLUE}${CURRENT_DIRECTORY}%f"
 }
 
-export PS1="%(?..%K{red}%F{white}%?%f%k${PS_SEPARATOR})\$(pretty_pwd)${PS_SEPARATOR}\${vcs_info_msg_0_}%F{${color[grey]:-white}}%*%f${NEWLINE}%(!.%F{red}#.%F{yellow}\$)%f "
+export PS1="%(?..%K{\$PROMPT_COLOR_RED}%F{\$PROMPT_COLOR_WHITE}%?%f%k${PS_SEPARATOR})\$(pretty_pwd)${PS_SEPARATOR}\${vcs_info_msg_0_}%F{\$PROMPT_COLOR_GREY}%*%f${NEWLINE}%(!.%F{\$PROMPT_COLOR_RED}#.%F{\$PROMPT_COLOR_YELLOW}\$)%f "
 
 HISTFILE="${HOME}/.histfile"
 HISTSIZE=10485760
@@ -120,6 +155,12 @@ for SCRIPT in "${HOME}/.zshrc.d"/**/(.|?)*(.zsh|.sh); do
 
 	source "${SCRIPT}"
 done
+
+# colorize completion listings to match LS_COLORS (set by .zshrc.d/colors.zsh
+# above) — must come after that loop since this captures LS_COLORS's value
+# immediately rather than referencing it live; no-ops harmlessly if LS_COLORS
+# is unset
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 
 compinit
 bashcompinit

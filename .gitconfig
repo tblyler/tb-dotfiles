@@ -1,0 +1,35 @@
+[pull]
+        rebase = false
+[init]
+        defaultBranch = main
+[gpg]
+	format = ssh
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[core]
+    pager = delta
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    navigate = true  # use n and N to move between diff sections
+    dark = true      # or light = true, or omit for auto-detection
+    features = van-helsing
+
+[merge]
+    conflictStyle = zdiff3
+
+[include]
+    path = ~/repos/dracula-pro/themes/delta/van-helsing.gitconfig
+
+# per-machine identity (user.email/name/signingkey) lives outside this
+# tracked file since it differs across machines — see .gitconfig.local.
+# commit.gpgsign also lives there, not here, so commits are simply unsigned
+# until that file (and its signingkey) exists, instead of every commit on a
+# fresh machine hard-failing before it's been created
+[include]
+    path = ~/.gitconfig.local

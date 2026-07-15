@@ -8,3 +8,6 @@ records = true
 
 [ui]
 columns = ["duration", "time", "host", "command"]
+
+[theme]
+name = "van-helsing"

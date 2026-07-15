@@ -17,9 +17,29 @@ auto_env = true
 "~/.zshenv" = {}
 "~/.zshrc" = {}
 "~/.zshrc.d" = { mode = "symlink-each" }
-"~/.config/atuin" = {}
+"~/.config/atuin" = { mode = "symlink-each" }
 "~/.config/nvim" = {}
 "~/.config/ripgrep" = {}
+
+# unlike bat/atuin/ghostty, gitconfig and lazygit pull in their private
+# dracula-pro theme file via their own native include/merge mechanism
+# ([include] path=, LG_CONFIG_FILE) rather than filesystem symlink-each,
+# so these stay plain whole-file symlinks
+"~/.gitconfig" = {}
+"~/.config/lazygit" = {}
+
+# bat has no local dotfiles content of its own (just `config`) plus a
+# private dracula-pro theme file mixed in below, same split as ghostty
+"~/.config/bat" = { mode = "symlink-each" }
+"~/.config/bat/themes/Dracula Pro (Van Helsing).tmTheme" = { source = "~/repos/dracula-pro/themes/bat/Dracula Pro (Van Helsing).tmTheme" }
+
+# atuin's theme file lives in the private dracula-pro repo, mixed in
+# alongside the public config.toml above (symlink-each)
+"~/.config/atuin/themes/van-helsing.toml" = { source = "~/repos/dracula-pro/themes/atuin/van-helsing.toml" }
+
+# dircolors sets LS_COLORS for ls/fd/grep aliases (see .zshrc.d/colors.zsh);
+# entirely sourced from the private dracula-pro repo, no public half to mix in
+"~/.dircolors" = { source = "~/repos/dracula-pro/themes/dircolors/van-helsing" }
 
 # mixes the public repo's own ghostty config with the private dracula-pro
 # repo's theme file, so this can't be a single whole-directory symlink
@@ -47,6 +67,12 @@ auto_env = true
 "~/.config/mise/config.linux.toml" = { source = "~/.dotfiles/mise.linux.toml" }
 "~/.config/mise/config.macos.toml" = { source = "~/.dotfiles/mise.macos.toml" }
 
+# the [dotfiles] `source = "~/repos/dracula-pro/..."` entries above (atuin,
+# bat, dircolors) are a hard dependency on this repo being cloned, not an
+# optional overlay: if this clone/pull fails, `mise bootstrap` halts here and
+# never reaches the [dotfiles] step, so those entries' "sources do not exist"
+# case is never actually hit through normal bootstrap — only if someone runs
+# `mise dotfiles apply` standalone without ever running `mise bootstrap` first
 [bootstrap.repos]
 "~/repos/dracula-pro" = { url = "git@git.0xdad.com:tblyler/dracula-pro.git", ref = "main" }
 
@@ -54,18 +80,32 @@ auto_env = true
 login_shell = "/bin/zsh"
 
 # reminds you to install ghostty manually on Linux, since it's deliberately
-# not automated (see mise.macos.toml)
+# not automated (see mise.macos.toml); to create the per-machine gitconfig
+# identity file that ~/.gitconfig (tracked, shared) intentionally excludes
+# and [include]s instead (see .gitconfig's trailing [include]); and rebuilds
+# bat's theme cache so the Van Helsing .tmTheme symlinked in above actually
+# gets picked up (bat otherwise silently falls back to its default theme)
 [bootstrap.hooks.final]
 run = '''
 if [ "$(uname)" = "Linux" ]; then
 	echo "NOTE: ghostty isn't auto-installed on Linux (no reliable official apt package) - install manually, see https://ghostty.org/docs/install/binary"
+fi
+
+if [ ! -f "$HOME/.gitconfig.local" ]; then
+	echo "NOTE: ~/.gitconfig.local doesn't exist yet - create it with your [user] block (email/name/signingkey) for this machine, plus a [commit] gpgsign = true once that key is set up; ~/.gitconfig no longer carries either so it can be shared across machines with different emails and before a key exists"
+fi
+
+if command -v bat > /dev/null 2>&1; then
+	bat cache --build
 fi
 '''
 
 [tools]
 atuin = "latest"
 bat = "latest"
+delta = "latest"
 fd = "latest"
+fzf = "latest"
 gh = "latest"
 git-lfs = "latest"
 glab = "latest"
@@ -73,6 +113,7 @@ go = "latest"
 "go:github.com/jeffreyc/tag" = "latest"
 golangci-lint = "latest"
 jq = "latest"
+lazygit = "latest"
 neovim = "latest"
 node = "lts"
 "npm:ccusage" = "latest"
