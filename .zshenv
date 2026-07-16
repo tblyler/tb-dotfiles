@@ -8,6 +8,12 @@ export PAGER='less -RF'
 # is parsed. must be set before any `mise` invocation below.
 export MISE_AUTO_ENV=1
 
+# same early-init requirement as MISE_AUTO_ENV above: this drives mise's
+# auto-load of mise.<hostname>.toml (e.g. mise.aptitude.toml) for
+# per-machine [bootstrap.packages] overlays that shouldn't apply to every
+# host this repo bootstraps. -s works identically on Linux and macOS.
+export MISE_ENV="$(hostname -s)"
+
 if [[ "$OSTYPE" =~ ^darwin ]]; then
 	if [ -x /opt/homebrew/bin/brew ]; then
 		eval "$(/opt/homebrew/bin/brew shellenv)"

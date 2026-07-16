@@ -67,6 +67,12 @@ auto_env = true
 "~/.config/mise/config.linux.toml" = { source = "~/.dotfiles/mise.linux.toml" }
 "~/.config/mise/config.macos.toml" = { source = "~/.dotfiles/mise.macos.toml" }
 
+# per-host overlays, same self-referential pattern as the OS-specific ones
+# above but keyed by MISE_ENV="$(hostname -s)" (see .zshenv) instead of
+# auto_env, since mise has no built-in hostname detection. harmless on
+# other machines — inert unless MISE_ENV matches the hostname.
+"~/.config/mise/config.aptitude.toml" = { source = "~/.dotfiles/mise.aptitude.toml" }
+
 # the [dotfiles] `source = "~/repos/dracula-pro/..."` entries above (atuin,
 # bat, dircolors) are a hard dependency on this repo being cloned, not an
 # optional overlay: if this clone/pull fails, `mise bootstrap` halts here and

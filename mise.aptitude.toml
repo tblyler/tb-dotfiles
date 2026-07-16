@@ -1,0 +1,34 @@
+# loaded only on this host, via MISE_ENV="$(hostname -s)" in .zshenv (see
+# the comment there) — mise merges this on top of mise.toml and
+# mise.linux.toml, not in place of them. other machines this repo
+# bootstraps never set MISE_ENV=aptitude, so this file is inert for them.
+#
+# prerequisite: mise doesn't install flatpak or configure remotes itself.
+# before `mise bootstrap` on a fresh instance of this host:
+#   flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+#
+# fr.handbrake.ghb.Plugin.IntelMediaSDK is deliberately left out — it comes
+# from a separate `intelmediasdk-origin` remote, not flathub, so it isn't
+# reproducible through this mechanism alone; add that remote and install it
+# manually if needed. runtime/platform deps (org.freedesktop.Platform*,
+# GL/VAAPI, GNOME/KDE platform, Breeze theme, codecs) are left out too —
+# those are pulled in automatically as dependencies of the apps below, not
+# top-level installs.
+[bootstrap.packages]
+"flatpak:com.bitwarden.desktop" = "latest"
+"flatpak:com.discordapp.Discord" = "latest"
+"flatpak:com.github.tchx84.Flatseal" = "latest"
+"flatpak:com.google.Chrome" = "latest"
+"flatpak:com.makemkv.MakeMKV" = "latest"
+"flatpak:com.moonlight_stream.Moonlight" = "latest"
+"flatpak:com.prusa3d.PrusaSlicer" = "latest"
+"flatpak:com.valvesoftware.Steam" = "latest"
+"flatpak:fr.handbrake.ghb" = "latest"
+"flatpak:io.github.input_leap.input-leap" = "latest"
+"flatpak:org.chromium.Chromium" = "latest"
+"flatpak:org.mozilla.firefox" = "latest"
+"flatpak:org.mozilla.thunderbird_esr" = "latest"
+"flatpak:org.onlyoffice.desktopeditors" = "latest"
+"flatpak:org.qbittorrent.qBittorrent" = "latest"
+"flatpak:org.remmina.Remmina" = "latest"
+"flatpak:org.signal.Signal" = "latest"

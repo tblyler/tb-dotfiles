@@ -37,6 +37,13 @@ plain files (e.g. migrating off chezmoi) at the target paths.
   loaded automatically via mise's `auto_env` (see the comment in
   `mise.toml`). Symlinked to `~/.config/mise/config.linux.toml` /
   `config.macos.toml` the same way `mise.toml` is.
+- `mise.<hostname>.toml` (e.g. `mise.aptitude.toml`) — per-machine
+  `[bootstrap.packages]` overlays for things that shouldn't apply to every
+  host this repo bootstraps (e.g. desktop-only Flatpak apps). Loaded via
+  `MISE_ENV="$(hostname -s)"` (set in `.zshenv`) rather than `auto_env`,
+  since mise has no built-in hostname detection. Symlinked to
+  `~/.config/mise/config.<hostname>.toml` the same way the OS-specific
+  files are — inert on any machine whose hostname doesn't match.
 - Everything else mirrors its target path under `$HOME` (e.g. `.zshrc` →
   `~/.zshrc`, `.config/nvim` → `~/.config/nvim`).
 
