@@ -4,6 +4,13 @@
 # community repo gating apt access behind a paid subscription) — macOS only
 "brew-cask:ghostty" = "latest"
 
+# ghostty's font-family (see .config/ghostty/config) is "GoMono Nerd Font" —
+# the Nerd Fonts–patched build of Go's own monospace typeface, not a
+# go-language tool. this cask exists under that exact name; Linux gets the
+# same font via a [bootstrap.hooks.final] tarball download instead (see
+# mise.aptitude.toml) since there's no apt package for it
+"brew-cask:font-go-mono-nerd-font" = "latest"
+
 # fallback system nvim for contexts where mise isn't activated (root, a
 # recovery shell, GUI launchers with a stripped PATH) — the mise-managed
 # `neovim` in [tools] (mise.toml) takes precedence whenever mise is activated

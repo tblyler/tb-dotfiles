@@ -32,3 +32,28 @@
 "flatpak:org.qbittorrent.qBittorrent" = "latest"
 "flatpak:org.remmina.Remmina" = "latest"
 "flatpak:org.signal.Signal" = "latest"
+
+# ghostty's font-family (see .config/ghostty/config) is "GoMono Nerd Font" —
+# the Nerd Fonts–patched build of Go's own monospace typeface, not a
+# go-language tool. macOS gets it declaratively via brew-cask (see
+# mise.macos.toml); no apt package exists for it on Linux (and ghostty
+# itself is deliberately manual-install here too, see mise.toml's
+# [bootstrap.hooks.final] note), so this pulls the tarball straight from the
+# latest nerd-fonts release instead — .tar.xz over the .zip they also
+# publish, so extraction needs only tar (xz-utils ships as part of base
+# Debian/dpkg already) instead of pulling in unzip as a new package solely
+# for this. GitHub's /releases/latest/download/ redirect resolves to the
+# current release without an API call, so there's no version to bump here —
+# accept the drift risk in exchange for one less thing to keep in sync
+[bootstrap.hooks.final]
+run = '''
+font_dir="$HOME/.local/share/fonts/GoMonoNerdFont"
+if [ ! -d "$font_dir" ] || [ -z "$(ls -A "$font_dir" 2>/dev/null)" ]; then
+	mkdir -p "$font_dir"
+	tmp_tar="$(mktemp)"
+	curl -fsSL "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/Go-Mono.tar.xz" -o "$tmp_tar"
+	tar -xJf "$tmp_tar" -C "$font_dir"
+	rm -f "$tmp_tar"
+	command -v fc-cache > /dev/null 2>&1 && fc-cache -f "$font_dir"
+fi
+'''
