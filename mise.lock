@@ -86,6 +86,29 @@ url = "https://github.com/atuinsh/atuin/releases/download/v18.17.1/atuin-x86_64-
 url_api = "https://api.github.com/repos/atuinsh/atuin/releases/assets/477075621"
 provenance = "github-attestations"
 
+[[tools.awscli]]
+version = "2.36.5"
+backend = "aqua:aws/aws-cli"
+
+[tools.awscli."platforms.linux-arm64"]
+url = "https://awscli.amazonaws.com/awscli-exe-linux-aarch64-2.36.5.zip"
+
+[tools.awscli."platforms.linux-arm64-musl"]
+url = "https://awscli.amazonaws.com/awscli-exe-linux-aarch64-2.36.5.zip"
+
+[tools.awscli."platforms.linux-x64"]
+url = "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-2.36.5.zip"
+
+[tools.awscli."platforms.linux-x64-musl"]
+url = "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-2.36.5.zip"
+
+[tools.awscli."platforms.macos-arm64"]
+checksum = "blake3:7f1478b197d19d49e1e858f48e86b0ff0d0e48bf8a0ce877c95380c1852eae0a"
+url = "https://awscli.amazonaws.com/AWSCLIV2-2.36.5.pkg"
+
+[tools.awscli."platforms.macos-x64"]
+url = "https://awscli.amazonaws.com/AWSCLIV2-2.36.5.pkg"
+
 [[tools.bat]]
 version = "0.26.1"
 backend = "aqua:sharkdp/bat"
@@ -125,6 +148,45 @@ checksum = "sha256:0f729b4b6f5f28d395c641eacc2e9ff68d0096b85aa0eec344aa62425144b
 url = "https://github.com/sharkdp/bat/releases/download/v0.26.1/bat-v0.26.1-x86_64-pc-windows-msvc.zip"
 url_api = "https://api.github.com/repos/sharkdp/bat/releases/assets/323549116"
 
+[[tools.black]]
+version = "26.5.1"
+backend = "aqua:psf/black"
+
+[tools.black."platforms.linux-arm64"]
+checksum = "sha256:f86f36b37a00aff3d547eb61d017880aab413990bca5fb0632ed83e3497684f9"
+url = "https://github.com/psf/black/releases/download/26.5.1/black_linux-arm"
+url_api = "https://api.github.com/repos/psf/black/releases/assets/423459394"
+
+[tools.black."platforms.linux-arm64-musl"]
+checksum = "sha256:f86f36b37a00aff3d547eb61d017880aab413990bca5fb0632ed83e3497684f9"
+url = "https://github.com/psf/black/releases/download/26.5.1/black_linux-arm"
+url_api = "https://api.github.com/repos/psf/black/releases/assets/423459394"
+
+[tools.black."platforms.linux-x64"]
+checksum = "sha256:384e4b901a9824369c6d94d8f5f52ed0dea347334d4fa2e01fc0177e19126483"
+url = "https://github.com/psf/black/releases/download/26.5.1/black_linux"
+url_api = "https://api.github.com/repos/psf/black/releases/assets/423459408"
+
+[tools.black."platforms.linux-x64-musl"]
+checksum = "sha256:384e4b901a9824369c6d94d8f5f52ed0dea347334d4fa2e01fc0177e19126483"
+url = "https://github.com/psf/black/releases/download/26.5.1/black_linux"
+url_api = "https://api.github.com/repos/psf/black/releases/assets/423459408"
+
+[tools.black."platforms.macos-arm64"]
+checksum = "sha256:43e7b13344bd04db205d3c2655fbf47fbca552188bbecae0175a7611f83d1e08"
+url = "https://github.com/psf/black/releases/download/26.5.1/black_macos"
+url_api = "https://api.github.com/repos/psf/black/releases/assets/423459307"
+
+[tools.black."platforms.macos-x64"]
+checksum = "sha256:43e7b13344bd04db205d3c2655fbf47fbca552188bbecae0175a7611f83d1e08"
+url = "https://github.com/psf/black/releases/download/26.5.1/black_macos"
+url_api = "https://api.github.com/repos/psf/black/releases/assets/423459307"
+
+[tools.black."platforms.windows-x64"]
+checksum = "sha256:d3d971d1e86ddde7f9c114e4b8170cf1d5df841c021014c288a08caf699e1dd8"
+url = "https://github.com/psf/black/releases/download/26.5.1/black_windows.exe"
+url_api = "https://api.github.com/repos/psf/black/releases/assets/423459759"
+
 [[tools.chezmoi]]
 version = "2.70.5"
 backend = "aqua:twpayne/chezmoi"
@@ -156,6 +218,45 @@ url = "https://github.com/twpayne/chezmoi/releases/download/v2.70.5/chezmoi_2.70
 [tools.chezmoi."platforms.windows-x64"]
 checksum = "sha256:ebc29455dc9106e8d2d980708b45bd3120e44c7d5e6a06787ff307faaa0681a8"
 url = "https://github.com/twpayne/chezmoi/releases/download/v2.70.5/chezmoi_2.70.5_windows_amd64.zip"
+
+[[tools.ctop]]
+version = "0.7.7"
+backend = "aqua:bcicen/ctop"
+
+[tools.ctop."platforms.linux-arm64"]
+checksum = "sha256:d8d91e0fea53a8c78fa81192f078272e5a92f0ea6c4f0e38ec7c944d76e6f02f"
+url = "https://github.com/bcicen/ctop/releases/download/v0.7.7/ctop-0.7.7-linux-arm64"
+url_api = "https://api.github.com/repos/bcicen/ctop/releases/assets/60241475"
+
+[tools.ctop."platforms.linux-arm64-musl"]
+checksum = "sha256:d8d91e0fea53a8c78fa81192f078272e5a92f0ea6c4f0e38ec7c944d76e6f02f"
+url = "https://github.com/bcicen/ctop/releases/download/v0.7.7/ctop-0.7.7-linux-arm64"
+url_api = "https://api.github.com/repos/bcicen/ctop/releases/assets/60241475"
+
+[tools.ctop."platforms.linux-x64"]
+checksum = "sha256:b78374734ebe3d14b6edee3d5512c911c250d7fa7f3f964cb00acd3bc5a02a09"
+url = "https://github.com/bcicen/ctop/releases/download/v0.7.7/ctop-0.7.7-linux-amd64"
+url_api = "https://api.github.com/repos/bcicen/ctop/releases/assets/60241476"
+
+[tools.ctop."platforms.linux-x64-musl"]
+checksum = "sha256:b78374734ebe3d14b6edee3d5512c911c250d7fa7f3f964cb00acd3bc5a02a09"
+url = "https://github.com/bcicen/ctop/releases/download/v0.7.7/ctop-0.7.7-linux-amd64"
+url_api = "https://api.github.com/repos/bcicen/ctop/releases/assets/60241476"
+
+[tools.ctop."platforms.macos-arm64"]
+checksum = "sha256:1f83852ec37fbe3ba12364c64fd070ac3b7ea233c61e81cd076d54f0a2c932bf"
+url = "https://github.com/bcicen/ctop/releases/download/v0.7.7/ctop-0.7.7-darwin-amd64"
+url_api = "https://api.github.com/repos/bcicen/ctop/releases/assets/60241474"
+
+[tools.ctop."platforms.macos-x64"]
+checksum = "sha256:1f83852ec37fbe3ba12364c64fd070ac3b7ea233c61e81cd076d54f0a2c932bf"
+url = "https://github.com/bcicen/ctop/releases/download/v0.7.7/ctop-0.7.7-darwin-amd64"
+url_api = "https://api.github.com/repos/bcicen/ctop/releases/assets/60241474"
+
+[tools.ctop."platforms.windows-x64"]
+checksum = "sha256:77a980cbd716e63fc6b3ca9ec8c78d5e602c3d02e88d4a7613033dd4caeda5a7"
+url = "https://github.com/bcicen/ctop/releases/download/v0.7.7/ctop-0.7.7-windows-amd64"
+url_api = "https://api.github.com/repos/bcicen/ctop/releases/assets/60241491"
 
 [[tools.delta]]
 version = "0.19.2"
@@ -536,6 +637,39 @@ checksum = "sha256:bd42e3ebc8cb4ececb86941983baaf1dc221bbb04d838e94ce63b49cc91e0
 url = "https://github.com/golangci/golangci-lint/releases/download/v2.12.2/golangci-lint-2.12.2-windows-amd64.zip"
 provenance = "github-attestations"
 
+[[tools.gron]]
+version = "0.7.1"
+backend = "aqua:tomnomnom/gron"
+
+[tools.gron."platforms.linux-arm64"]
+url = "https://github.com/tomnomnom/gron/releases/download/v0.7.1/gron-linux-arm64-0.7.1.tgz"
+url_api = "https://api.github.com/repos/tomnomnom/gron/releases/assets/62461400"
+
+[tools.gron."platforms.linux-arm64-musl"]
+url = "https://github.com/tomnomnom/gron/releases/download/v0.7.1/gron-linux-arm64-0.7.1.tgz"
+url_api = "https://api.github.com/repos/tomnomnom/gron/releases/assets/62461400"
+
+[tools.gron."platforms.linux-x64"]
+url = "https://github.com/tomnomnom/gron/releases/download/v0.7.1/gron-linux-amd64-0.7.1.tgz"
+url_api = "https://api.github.com/repos/tomnomnom/gron/releases/assets/62461393"
+
+[tools.gron."platforms.linux-x64-musl"]
+url = "https://github.com/tomnomnom/gron/releases/download/v0.7.1/gron-linux-amd64-0.7.1.tgz"
+url_api = "https://api.github.com/repos/tomnomnom/gron/releases/assets/62461393"
+
+[tools.gron."platforms.macos-arm64"]
+checksum = "blake3:d0ec934ac34382118e158afd461835374a298c81217e8c73b11920449e64390b"
+url = "https://github.com/tomnomnom/gron/releases/download/v0.7.1/gron-darwin-arm64-0.7.1.tgz"
+url_api = "https://api.github.com/repos/tomnomnom/gron/releases/assets/62461399"
+
+[tools.gron."platforms.macos-x64"]
+url = "https://github.com/tomnomnom/gron/releases/download/v0.7.1/gron-darwin-amd64-0.7.1.tgz"
+url_api = "https://api.github.com/repos/tomnomnom/gron/releases/assets/62461391"
+
+[tools.gron."platforms.windows-x64"]
+url = "https://github.com/tomnomnom/gron/releases/download/v0.7.1/gron-windows-amd64-0.7.1.zip"
+url_api = "https://api.github.com/repos/tomnomnom/gron/releases/assets/62461392"
+
 [[tools.jq]]
 version = "1.8.2"
 backend = "aqua:jqlang/jq"
@@ -878,6 +1012,45 @@ url = "https://github.com/astral-sh/ruff/releases/download/0.15.22/ruff-x86_64-p
 url_api = "https://api.github.com/repos/astral-sh/ruff/releases/assets/479314019"
 provenance = "github-attestations"
 
+[[tools.shellcheck]]
+version = "0.11.0"
+backend = "aqua:koalaman/shellcheck"
+
+[tools.shellcheck."platforms.linux-arm64"]
+checksum = "sha256:12b331c1d2db6b9eb13cfca64306b1b157a86eb69db83023e261eaa7e7c14588"
+url = "https://github.com/koalaman/shellcheck/releases/download/v0.11.0/shellcheck-v0.11.0.linux.aarch64.tar.xz"
+url_api = "https://api.github.com/repos/koalaman/shellcheck/releases/assets/279056934"
+
+[tools.shellcheck."platforms.linux-arm64-musl"]
+checksum = "sha256:12b331c1d2db6b9eb13cfca64306b1b157a86eb69db83023e261eaa7e7c14588"
+url = "https://github.com/koalaman/shellcheck/releases/download/v0.11.0/shellcheck-v0.11.0.linux.aarch64.tar.xz"
+url_api = "https://api.github.com/repos/koalaman/shellcheck/releases/assets/279056934"
+
+[tools.shellcheck."platforms.linux-x64"]
+checksum = "sha256:8c3be12b05d5c177a04c29e3c78ce89ac86f1595681cab149b65b97c4e227198"
+url = "https://github.com/koalaman/shellcheck/releases/download/v0.11.0/shellcheck-v0.11.0.linux.x86_64.tar.xz"
+url_api = "https://api.github.com/repos/koalaman/shellcheck/releases/assets/279056942"
+
+[tools.shellcheck."platforms.linux-x64-musl"]
+checksum = "sha256:8c3be12b05d5c177a04c29e3c78ce89ac86f1595681cab149b65b97c4e227198"
+url = "https://github.com/koalaman/shellcheck/releases/download/v0.11.0/shellcheck-v0.11.0.linux.x86_64.tar.xz"
+url_api = "https://api.github.com/repos/koalaman/shellcheck/releases/assets/279056942"
+
+[tools.shellcheck."platforms.macos-arm64"]
+checksum = "sha256:56affdd8de5527894dca6dc3d7e0a99a873b0f004d7aabc30ae407d3f48b0a79"
+url = "https://github.com/koalaman/shellcheck/releases/download/v0.11.0/shellcheck-v0.11.0.darwin.aarch64.tar.xz"
+url_api = "https://api.github.com/repos/koalaman/shellcheck/releases/assets/279056932"
+
+[tools.shellcheck."platforms.macos-x64"]
+checksum = "sha256:3c89db4edcab7cf1c27bff178882e0f6f27f7afdf54e859fa041fca10febe4c6"
+url = "https://github.com/koalaman/shellcheck/releases/download/v0.11.0/shellcheck-v0.11.0.darwin.x86_64.tar.xz"
+url_api = "https://api.github.com/repos/koalaman/shellcheck/releases/assets/279056930"
+
+[tools.shellcheck."platforms.windows-x64"]
+checksum = "sha256:8a4e35ab0b331c85d73567b12f2a444df187f483e5079ceffa6bda1faa2e740e"
+url = "https://github.com/koalaman/shellcheck/releases/download/v0.11.0/shellcheck-v0.11.0.zip"
+url_api = "https://api.github.com/repos/koalaman/shellcheck/releases/assets/279056944"
+
 [[tools.sops]]
 version = "3.13.2"
 backend = "aqua:getsops/sops"
@@ -937,6 +1110,45 @@ url_api = "https://api.github.com/repos/getsops/sops/releases/assets/461838690"
 
 [tools.sops."platforms.windows-x64".provenance.slsa]
 url = "https://github.com/getsops/sops/releases/download/v3.13.2/sops-v3.13.2.intoto.jsonl"
+
+[[tools.terragrunt]]
+version = "1.1.1"
+backend = "aqua:gruntwork-io/terragrunt"
+
+[tools.terragrunt."platforms.linux-arm64"]
+checksum = "sha256:a374a7993ff3d99665a7e014007d3647ec7f0465c9d55c85e9f94c932e73cea2"
+url = "https://github.com/gruntwork-io/terragrunt/releases/download/v1.1.1/terragrunt_linux_arm64.tar.gz"
+url_api = "https://api.github.com/repos/gruntwork-io/terragrunt/releases/assets/476786148"
+
+[tools.terragrunt."platforms.linux-arm64-musl"]
+checksum = "sha256:a374a7993ff3d99665a7e014007d3647ec7f0465c9d55c85e9f94c932e73cea2"
+url = "https://github.com/gruntwork-io/terragrunt/releases/download/v1.1.1/terragrunt_linux_arm64.tar.gz"
+url_api = "https://api.github.com/repos/gruntwork-io/terragrunt/releases/assets/476786148"
+
+[tools.terragrunt."platforms.linux-x64"]
+checksum = "sha256:ce90077ac31ef17a2ba10d11d45f36c6501997a8f4f79d703bb7daba37032f53"
+url = "https://github.com/gruntwork-io/terragrunt/releases/download/v1.1.1/terragrunt_linux_amd64.tar.gz"
+url_api = "https://api.github.com/repos/gruntwork-io/terragrunt/releases/assets/476785968"
+
+[tools.terragrunt."platforms.linux-x64-musl"]
+checksum = "sha256:ce90077ac31ef17a2ba10d11d45f36c6501997a8f4f79d703bb7daba37032f53"
+url = "https://github.com/gruntwork-io/terragrunt/releases/download/v1.1.1/terragrunt_linux_amd64.tar.gz"
+url_api = "https://api.github.com/repos/gruntwork-io/terragrunt/releases/assets/476785968"
+
+[tools.terragrunt."platforms.macos-arm64"]
+checksum = "sha256:9ec8f678b9ae6c81d5d9d77b94cbf6349ce639d5938694b4adc9dea73e416794"
+url = "https://github.com/gruntwork-io/terragrunt/releases/download/v1.1.1/terragrunt_darwin_arm64.tar.gz"
+url_api = "https://api.github.com/repos/gruntwork-io/terragrunt/releases/assets/476785628"
+
+[tools.terragrunt."platforms.macos-x64"]
+checksum = "sha256:73e768a69fa44a60f9d9174f54aaf179327e08706f633c9c79d5f5c9622c91c2"
+url = "https://github.com/gruntwork-io/terragrunt/releases/download/v1.1.1/terragrunt_darwin_amd64.tar.gz"
+url_api = "https://api.github.com/repos/gruntwork-io/terragrunt/releases/assets/476785520"
+
+[tools.terragrunt."platforms.windows-x64"]
+checksum = "sha256:dd50a324691e072a3ac879e9ec43d6310e2936c929fda658eb2811fefcc75115"
+url = "https://github.com/gruntwork-io/terragrunt/releases/download/v1.1.1/terragrunt_windows_amd64.exe.tar.gz"
+url_api = "https://api.github.com/repos/gruntwork-io/terragrunt/releases/assets/476786421"
 
 [[tools.tmux]]
 version = "3.7b"
