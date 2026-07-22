@@ -848,6 +848,13 @@ checksum = "sha256:a4d86a07755c8d151f20f945e6cfb5b40deeed942af36a9bd385c5c2e965d
 url = "https://github.com/opentofu/opentofu/releases/download/v1.12.4/tofu_1.12.4_windows_amd64.tar.gz"
 url_api = "https://api.github.com/repos/opentofu/opentofu/releases/assets/475646543"
 
+[[tools."pipx:litellm"]]
+version = "1.93.0"
+backend = "pipx:litellm"
+
+[tools."pipx:litellm".options]
+extras = "cli"
+
 [[tools.pnpm]]
 version = "11.15.1"
 backend = "aqua:pnpm/pnpm"

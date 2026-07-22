@@ -122,15 +122,16 @@ gh = "latest"
 git-lfs = "latest"
 glab = "latest"
 go = "latest"
-"go:github.com/jeffreyc/tag" = "latest"
+"go:github.com/jeffreyc/tag" = { version = "latest", depends = ["go"] }
 golangci-lint = "latest"
 gron = "latest"
 jq = "latest"
 lazygit = "latest"
 neovim = "latest"
 node = "lts"
-"npm:ccusage" = "latest"
+"npm:ccusage" = { version = "latest", depends = ["node"] }
 opentofu = "latest"
+"pipx:litellm" = { version = "latest", extras = "cli", depends = ["uv"] }
 pnpm = "latest"
 python = "latest"
 ripgrep = "latest"
