@@ -97,6 +97,7 @@ url = "https://awscli.amazonaws.com/awscli-exe-linux-aarch64-2.36.5.zip"
 url = "https://awscli.amazonaws.com/awscli-exe-linux-aarch64-2.36.5.zip"
 
 [tools.awscli."platforms.linux-x64"]
+checksum = "blake3:9b3faaf7ef81da9567ab3ee0fd8c55aadd06d5b1105ff5873ad7c5c2eb8ae4b5"
 url = "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-2.36.5.zip"
 
 [tools.awscli."platforms.linux-x64-musl"]
@@ -650,6 +651,7 @@ url = "https://github.com/tomnomnom/gron/releases/download/v0.7.1/gron-linux-arm
 url_api = "https://api.github.com/repos/tomnomnom/gron/releases/assets/62461400"
 
 [tools.gron."platforms.linux-x64"]
+checksum = "blake3:8457973ab5fbc49c7aaed4f6fc5c228193547cc3c376a0c8b1166b71abc4f473"
 url = "https://github.com/tomnomnom/gron/releases/download/v0.7.1/gron-linux-amd64-0.7.1.tgz"
 url_api = "https://api.github.com/repos/tomnomnom/gron/releases/assets/62461393"
 
