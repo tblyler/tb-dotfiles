@@ -27,6 +27,18 @@ mise bootstrap -C ~/.dotfiles --force-dotfiles --yes
 `--force-dotfiles` is only needed the first time on a machine with pre-existing
 plain files (e.g. migrating off chezmoi) at the target paths.
 
+## Updating
+
+Nothing updates on shell startup. Run `upgrade_dotfiles` to pull this repo and
+(after a `--dry-run` review + confirmation) apply anything missing on this
+machine. `upgrade_system` does that first, then updates the system package
+manager, mise tools, and firmware.
+
+New shells do print a one-line nudge once it's been >5 days since the last
+pull. It's only a `zstat` of `.git/FETCH_HEAD` — no network, no prompt — so
+it's a reminder, not a check. Threshold is `STALE_AFTER_DAYS` in
+`.zshrc.d/dotfiles.zsh`.
+
 ## Layout
 
 - `mise.toml` — dotfiles map, bootstrap config (repos, shell activation,

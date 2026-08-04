@@ -4,6 +4,9 @@ upgrade_system() {
 	(
 		set -euo pipefail
 
+		# dotfiles first — they own the mise config everything below relies on
+		upgrade_dotfiles
+
 		case "$(uname | tr '[:upper:]' '[:lower:]')" in
 			'darwin')
 				if command -v brew &> /dev/null; then

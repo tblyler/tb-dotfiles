@@ -97,6 +97,7 @@ url = "https://awscli.amazonaws.com/awscli-exe-linux-aarch64-2.36.14.zip"
 url = "https://awscli.amazonaws.com/awscli-exe-linux-aarch64-2.36.14.zip"
 
 [tools.awscli."platforms.linux-x64"]
+checksum = "blake3:2b4ee19cf4726328468a253f1ec5c6993705d49a25d0b32d6b905c03ed233f6e"
 url = "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-2.36.14.zip"
 
 [tools.awscli."platforms.linux-x64-musl"]
