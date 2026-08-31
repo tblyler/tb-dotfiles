@@ -125,6 +125,7 @@ go = "latest"
 "go:github.com/jeffreyc/tag" = { version = "latest", depends = ["go"] }
 golangci-lint = "latest"
 gron = "latest"
+herdr = "latest"
 jq = "latest"
 lazygit = "latest"
 neovim = "latest"

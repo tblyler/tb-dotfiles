@@ -104,6 +104,7 @@ url = "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-2.36.34.zip"
 url = "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-2.36.34.zip"
 
 [tools.awscli."platforms.macos-arm64"]
+checksum = "blake3:86b61fc885c8462b50a8d6651d37482dde70a197c2bdfd68ab2ec6e4a65dea78"
 url = "https://awscli.amazonaws.com/AWSCLIV2-2.36.34.pkg"
 
 [tools.awscli."platforms.macos-x64"]
@@ -677,6 +678,45 @@ url_api = "https://api.github.com/repos/tomnomnom/gron/releases/assets/62461391"
 [tools.gron."platforms.windows-x64"]
 url = "https://github.com/tomnomnom/gron/releases/download/v0.7.1/gron-windows-amd64-0.7.1.zip"
 url_api = "https://api.github.com/repos/tomnomnom/gron/releases/assets/62461392"
+
+[[tools.herdr]]
+version = "0.8.2"
+backend = "aqua:herdrdev/herdr"
+
+[tools.herdr."platforms.linux-arm64"]
+checksum = "sha256:f55610658e1c2e0d2aaef730b4b2ab885f7f8ba00285ab372bfb14f2e3d5b40d"
+url = "https://github.com/herdrdev/herdr/releases/download/v0.8.2/herdr-linux-aarch64"
+url_api = "https://api.github.com/repos/herdrdev/herdr/releases/assets/521169113"
+
+[tools.herdr."platforms.linux-arm64-musl"]
+checksum = "sha256:f55610658e1c2e0d2aaef730b4b2ab885f7f8ba00285ab372bfb14f2e3d5b40d"
+url = "https://github.com/herdrdev/herdr/releases/download/v0.8.2/herdr-linux-aarch64"
+url_api = "https://api.github.com/repos/herdrdev/herdr/releases/assets/521169113"
+
+[tools.herdr."platforms.linux-x64"]
+checksum = "sha256:976150a14d490c94b243ea2e1a7eb2dfb67f12e36b182db90936f6728e6aecf4"
+url = "https://github.com/herdrdev/herdr/releases/download/v0.8.2/herdr-linux-x86_64"
+url_api = "https://api.github.com/repos/herdrdev/herdr/releases/assets/521169107"
+
+[tools.herdr."platforms.linux-x64-musl"]
+checksum = "sha256:976150a14d490c94b243ea2e1a7eb2dfb67f12e36b182db90936f6728e6aecf4"
+url = "https://github.com/herdrdev/herdr/releases/download/v0.8.2/herdr-linux-x86_64"
+url_api = "https://api.github.com/repos/herdrdev/herdr/releases/assets/521169107"
+
+[tools.herdr."platforms.macos-arm64"]
+checksum = "sha256:a5d4f4d504d8b309c91f811050559300faba31258425f53c50852fc96f6ae574"
+url = "https://github.com/herdrdev/herdr/releases/download/v0.8.2/herdr-macos-aarch64"
+url_api = "https://api.github.com/repos/herdrdev/herdr/releases/assets/521169108"
+
+[tools.herdr."platforms.macos-x64"]
+checksum = "sha256:ab50262c8190cd7aa9056d249d255c08c328c3e8716de9cfa29db4f131b8e2c1"
+url = "https://github.com/herdrdev/herdr/releases/download/v0.8.2/herdr-macos-x86_64"
+url_api = "https://api.github.com/repos/herdrdev/herdr/releases/assets/521169110"
+
+[tools.herdr."platforms.windows-x64"]
+checksum = "sha256:0ab3d0fe1434d55757997542b978c771d642987bb15a7130f4160f0db38821d5"
+url = "https://github.com/herdrdev/herdr/releases/download/v0.8.2/herdr-windows-x86_64.zip"
+url_api = "https://api.github.com/repos/herdrdev/herdr/releases/assets/521169109"
 
 [[tools.jq]]
 version = "1.8.2"
