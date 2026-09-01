@@ -1,0 +1,23 @@
+[ui]
+status_indicators = "symbols"
+
+show_agent_labels_on_pane_borders = true
+agent_panel_sort = "spaces"
+[theme]
+name = "dracula"
+auto_switch = false
+
+[ui.sound]
+enabled = true
+
+[ui.toast]
+delivery = "system"
+
+# tmux muscle-memory tweaks (prefix is already "ctrl+b", matching tmux's default).
+[keys]
+detach = "prefix+d"          # tmux default; herdr's own default is prefix+q
+rename_tab = "prefix+comma"  # matches tmux's rename-window binding
+
+# The [theme.custom] Dracula Pro Van Helsing palette is composed in separately
+# by mise as its own managed edit-block, sourced from the private dracula-pro
+# repo — see mise.toml [dotfiles]. Never add [theme.custom] values here.

@@ -46,6 +46,17 @@ auto_env = true
 "~/.config/ghostty" = { mode = "symlink-each" }
 "~/.config/ghostty/dracula_van-helsing" = { source = "~/repos/dracula-pro/themes/ghostty/van-helsing" }
 
+# herdr has no native include/merge mechanism (unlike gitconfig/lazygit above)
+# and its config.toml is a single file rather than a themes-per-file directory
+# (unlike atuin/bat/ghostty above). mise's edit-block entries only apply to a
+# path with no whole-file entry of its own, so config.toml gets none at all -
+# it's composed entirely from two managed edit-blocks below: the public
+# structural settings, and the private [theme.custom] Van Helsing colors
+# sourced from the private dracula-pro repo. Neither block ever lands whole
+# in this repo's git history; only config.base.toml (no colors) does.
+"~/.config/herdr/config.toml/base" = { source = ".config/herdr/config.base.toml", template = "tera" }
+"~/.config/herdr/config.toml/van-helsing-theme" = { source = "~/repos/dracula-pro/themes/herdr/van-helsing.toml", template = "tera" }
+
 # self-referential: this file manages its own symlink into mise's global
 # config lookup path, so `mise`/tool resolution works from any directory,
 # not just from inside ~/.dotfiles. absolute source, not relative — mise's
