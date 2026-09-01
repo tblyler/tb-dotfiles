@@ -14,9 +14,32 @@ enabled = true
 delivery = "system"
 
 # tmux muscle-memory tweaks (prefix is already "ctrl+b", matching tmux's default).
+#
+# Not listed here because herdr's own defaults already match .tmux.conf:
+# focus_pane_{left,down,up,right} = prefix+h/j/k/l, new_tab = prefix+c,
+# next_tab/previous_tab = prefix+n/p.
 [keys]
 detach = "prefix+d"          # tmux default; herdr's own default is prefix+q
 rename_tab = "prefix+comma"  # matches tmux's rename-window binding
+
+# tmux's closest concept to a herdr workspace is a session; keep herdr's own
+# default binding too since prefix+shift+n has no tmux equivalent to clash with.
+new_workspace = ["prefix+shift+n", "prefix+ctrl+c"] # matches tmux's bind C-c new-session
+
+# matches tmux's bind -r H/J/K/L resize-pane -L/-D/-U/-R
+resize_pane_left = "prefix+shift+h"
+resize_pane_down = "prefix+shift+j"
+resize_pane_up = "prefix+shift+k"
+resize_pane_right = "prefix+shift+l"
+
+# tmux's bind '"' splits top/bottom (herdr's split_horizontal); '%' splits
+# left/right (herdr's split_vertical). "quote"/"percent" aren't in herdr's
+# documented punctuation-key list but are accepted (verified via reload-config
+# diagnostics). "quote" is the bare apostrophe key -- getting the shifted '"'
+# character needs "shift+quote" explicitly; "percent" is already the shifted
+# character on its own. Kept alongside herdr's own defaults.
+split_horizontal = ["prefix+minus", "prefix+shift+quote"]
+split_vertical = ["prefix+v", "prefix+percent"]
 
 # The [theme.custom] Dracula Pro Van Helsing palette is composed in separately
 # by mise as its own managed edit-block, sourced from the private dracula-pro
