@@ -896,7 +896,7 @@ url = "https://nodejs.org/dist/v24.21.0/node-v24.21.0-win-x64.zip"
 
 [[tools."npm:ccusage"]]
 version = "20.0.24"
-aube = { path = "locks/npm-ccusage/20.0.24", digest = "sha256:64818813523b1aef4a4c85a23b772e054a0f8adda7a341a0a005975226ac8cfe" }
+aube = { path = ".mise/locks/npm-ccusage/20.0.24", digest = "sha256:64818813523b1aef4a4c85a23b772e054a0f8adda7a341a0a005975226ac8cfe" }
 backend = "npm:ccusage"
 specifiers = ["latest"]
 
@@ -944,7 +944,7 @@ url_api = "https://api.github.com/repos/opentofu/opentofu/releases/assets/520762
 version = "1.102.1"
 backend = "pipx:litellm"
 specifiers = ["latest"]
-uv = { path = "locks/pipx-litellm/1.102.1~2a8a3437", digest = "sha256:7c0304ea77c9df1a3762fac33d79e6fd0c37fd1bfcec719ca904b830de1c1c4e" }
+uv = { path = ".mise/locks/pipx-litellm/1.102.1~2a8a3437", digest = "sha256:f0ea85d68527337762e35481edfd622474ad2511859ffa58f3aa7b4ae52f8824" }
 
 [tools."pipx:litellm".options]
 extras = "cli"
