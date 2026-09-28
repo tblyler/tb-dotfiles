@@ -69,7 +69,18 @@ auto_env = true
 # without this, mise forks a second, independently-drifting lockfile at
 # ~/.config/mise/mise.lock any time it resolves tools via the global path
 # instead of from inside this repo.
+# caveat: mise writes lockfiles atomically (temp file + rename), which
+# replaces this symlink with a plain file whenever it writes the global
+# lockfile. `relink_mise_lockfile` (.zshrc.d/dotfiles.zsh) folds it back.
 "~/.config/mise/mise.lock" = { source = "~/.dotfiles/mise.lock" }
+
+# per-tool package-manager lockfiles (uv.lock for pipx:, aube-lock.yaml for
+# npm:, ...). same global-vs-project split as mise.lock: mise writes
+# ~/.config/mise/locks via the global path and ~/.dotfiles/.mise/locks from
+# inside this repo. a whole-directory symlink (unlike the mise.lock file
+# symlink above) survives the atomic writes, since the rename happens inside
+# the target directory, so both scopes share one tree.
+"~/.config/mise/locks" = { source = "~/.dotfiles/.mise/locks" }
 
 # same self-referential deal as config.toml above, but for the OS-specific
 # [bootstrap.packages] overlays (see mise.linux.toml / mise.macos.toml).

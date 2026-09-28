@@ -1,3 +1,25 @@
+# mise's atomic lockfile writes replace the ~/.config/mise/mise.lock symlink
+# with a plain file (see the comment in mise.toml). move that newer file back
+# into the repo and restore the symlink
+relink_mise_lockfile() {
+	(
+		set -euo pipefail
+
+		readonly DOTFILES_DIR="$HOME/.dotfiles"
+		readonly GLOBAL_LOCKFILE="$HOME/.config/mise/mise.lock"
+
+		if [ -L "$GLOBAL_LOCKFILE" ] || [ ! -f "$GLOBAL_LOCKFILE" ]; then
+			exit 0
+		fi
+
+		echo "folding ${GLOBAL_LOCKFILE} back into ${DOTFILES_DIR}/mise.lock"
+		# the temp file mise renames into place is 0600
+		chmod 644 "$GLOBAL_LOCKFILE"
+		mv "$GLOBAL_LOCKFILE" "$DOTFILES_DIR/mise.lock"
+		ln -s "$DOTFILES_DIR/mise.lock" "$GLOBAL_LOCKFILE"
+	)
+}
+
 # pull the dotfiles repo and apply anything that's out of date on this machine
 # explicitly invoked (also called by `upgrade_system`) — nothing happens at
 # shell startup

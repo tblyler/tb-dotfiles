@@ -42,6 +42,7 @@ upgrade_system() {
 
 		if command -v mise &> /dev/null; then
 			mise install
+			relink_mise_lockfile
 			mise outdated
 		fi
 
