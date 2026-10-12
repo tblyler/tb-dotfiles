@@ -1,11 +1,4 @@
 if command -v go &> /dev/null; then
-	go_coverage() {
-		(
-			set -eo pipefail
-			local -r COVERAGE_OUT="$(mktemp)"
-			go test -cover -coverprofile="${COVERAGE_OUT}" ./...
-			go tool cover -func="${COVERAGE_OUT}"
-			rm -f "${COVERAGE_OUT}"
-		)
-	}
+	# a global mise task now (see mise.toml); the alias keeps the old name
+	alias go_coverage='mise run go:coverage'
 fi

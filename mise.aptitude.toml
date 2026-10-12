@@ -57,3 +57,14 @@ if [ ! -d "$font_dir" ] || [ -z "$(ls -A "$font_dir" 2>/dev/null)" ]; then
 	command -v fc-cache > /dev/null 2>&1 && fc-cache -f "$font_dir"
 fi
 '''
+
+# same as mise.toml's [doctor.checks], for this host's own manual steps
+[doctor.checks.flathub-remote]
+description = "flathub flatpak remote is configured"
+run = "flatpak remotes --columns=name | grep -qx flathub"
+hint = "flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo (see the prerequisite note at the top of mise.aptitude.toml)"
+
+[doctor.checks.go-mono-nerd-font]
+description = "GoMono Nerd Font is installed for ghostty"
+run = "fc-list | grep -q 'GoMono Nerd Font'"
+hint = "re-run `mise bootstrap` - its [bootstrap.hooks.final] in mise.aptitude.toml downloads it"
