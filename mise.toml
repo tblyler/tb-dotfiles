@@ -279,7 +279,9 @@ set -euo pipefail
 echo 'Checking if dotfiles have updates...'
 git pull --rebase --quiet
 
-if [ -z "$(mise bootstrap status --missing)" ]; then
+# --missing reports via exit status (1 if anything differs), not output —
+# it lists every entry either way
+if mise bootstrap status --missing > /dev/null; then
 	# nothing differs between the dotfiles repo and what's applied here
 	echo 'nope! Good bye!'
 	exit 0
@@ -288,7 +290,8 @@ fi
 mise bootstrap --dry-run
 
 while true; do
-	read -r -p 'apply? [y/N] ' apply
+	# no stdin (EOF) counts as "no" rather than tripping set -e
+	read -r -p 'apply? [y/N] ' apply || apply=''
 	case "$apply" in
 		y|Y|yes|YES|Yes)
 			echo 'applying changes'
