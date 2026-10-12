@@ -180,7 +180,6 @@ node = "lts"
 "npm:ccusage" = { version = "latest", depends = ["node"] }
 opentofu = "latest"
 pi = "latest"
-"pipx:litellm" = { version = "latest", extras = "cli", depends = ["uv"] }
 pnpm = "latest"
 python = "latest"
 ripgrep = "latest"
