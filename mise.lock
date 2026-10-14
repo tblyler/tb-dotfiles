@@ -49,20 +49,19 @@ url_api = "https://api.github.com/repos/atuinsh/atuin/releases/assets/580134148"
 provenance = "github-attestations"
 
 [[tools.awscli]]
-version = "2.37.12"
+version = "2.38.0"
 backend = "aqua:aws/aws-cli"
 specifiers = ["latest"]
 
 [tools.awscli."platforms.linux-arm64"]
-url = "https://awscli.amazonaws.com/awscli-exe-linux-aarch64-2.37.12.zip"
+url = "https://awscli.amazonaws.com/awscli-exe-linux-aarch64-2.38.0.zip"
 
 [tools.awscli."platforms.linux-x64"]
-checksum = "blake3:b2a0e40afb31608f2c9219ecb4b113c0340ac6cd2c789744b9c2c273a46bfcbf"
-url = "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-2.37.12.zip"
+url = "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-2.38.0.zip"
 
 [tools.awscli."platforms.macos-arm64"]
-checksum = "blake3:2bb2d828c9e31a2d79f4db60fde7232af0b252b9e7d3a3b3c4c1e29998e14bf7"
-url = "https://awscli.amazonaws.com/AWSCLIV2-2.37.12.pkg"
+checksum = "blake3:081b636494ebca31e75a6a55592b23565e75789b00ea49627b3505d18188f8c4"
+url = "https://awscli.amazonaws.com/AWSCLIV2-2.38.0.pkg"
 
 [[tools.bat]]
 version = "0.26.1"
@@ -105,24 +104,24 @@ url = "https://github.com/psf/black/releases/download/26.10.1/black_macos"
 url_api = "https://api.github.com/repos/psf/black/releases/assets/626959768"
 
 [[tools.claude]]
-version = "2.1.296"
+version = "2.1.299"
 backend = "aqua:anthropics/claude-code"
 specifiers = ["latest"]
 
 [tools.claude."platforms.linux-arm64"]
-checksum = "sha256:c644ad3e5ca3367e75d198194189d13180f33c491304c2d19557f7c1e8d5e0a6"
-url = "https://github.com/anthropics/claude-code/releases/download/v2.1.296/claude-linux-arm64.tar.gz"
-url_api = "https://api.github.com/repos/anthropics/claude-code/releases/assets/625598711"
+checksum = "sha256:d77bc1bc624c429f3e7d28d4ca93c4c9ce9e079264f1ab313daa6b59d1cdb18f"
+url = "https://github.com/anthropics/claude-code/releases/download/v2.1.299/claude-linux-arm64.tar.gz"
+url_api = "https://api.github.com/repos/anthropics/claude-code/releases/assets/638660935"
 
 [tools.claude."platforms.linux-x64"]
-checksum = "sha256:45fe2b33f5cbdd114309618970bcd90b8b163e34252d66cf100d7e068d9b831d"
-url = "https://github.com/anthropics/claude-code/releases/download/v2.1.296/claude-linux-x64.tar.gz"
-url_api = "https://api.github.com/repos/anthropics/claude-code/releases/assets/625598991"
+checksum = "sha256:053ff263ea005565625d8e94e15a1beb3b0dc46f7578ba15984c9ab9e17137be"
+url = "https://github.com/anthropics/claude-code/releases/download/v2.1.299/claude-linux-x64.tar.gz"
+url_api = "https://api.github.com/repos/anthropics/claude-code/releases/assets/638661030"
 
 [tools.claude."platforms.macos-arm64"]
-checksum = "sha256:60f97cde7f7e078b424138e34ecf1ad620bd81ac3866984fb8996623a36a052e"
-url = "https://github.com/anthropics/claude-code/releases/download/v2.1.296/claude-darwin-arm64.tar.gz"
-url_api = "https://api.github.com/repos/anthropics/claude-code/releases/assets/625598716"
+checksum = "sha256:dd2579ba8cf89b58bb57228ba26546ac070fec981d0ceed33754f1a3911787aa"
+url = "https://github.com/anthropics/claude-code/releases/download/v2.1.299/claude-darwin-arm64.tar.gz"
+url_api = "https://api.github.com/repos/anthropics/claude-code/releases/assets/638660937"
 
 [[tools.ctop]]
 version = "0.7.7"
@@ -288,24 +287,24 @@ url = "https://github.com/git-lfs/git-lfs/releases/download/v3.8.0/git-lfs-darwi
 url_api = "https://api.github.com/repos/git-lfs/git-lfs/releases/assets/532993595"
 
 [[tools.glab]]
-version = "1.122.0"
+version = "1.123.0"
 backend = "gitlab:gitlab-org/cli"
 specifiers = ["latest"]
 
 [tools.glab."platforms.linux-arm64"]
-checksum = "sha256:78910c21b6b517c0936e413df96e59f942558a3a4e4109370a452761f7d0f253"
-url = "https://gitlab.com/gitlab-org/cli/-/releases/v1.122.0/downloads/glab_1.122.0_linux_arm64.tar.gz"
-url_api = "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/packages/generic/glab/1%2E122%2E0/glab_1%2E122%2E0_linux_arm64%2Etar%2Egz"
+checksum = "sha256:1f2d0a885b28d08de341a597b2eb7204ce03d4e67b008efecab9951e4b014f0c"
+url = "https://gitlab.com/gitlab-org/cli/-/releases/v1.123.0/downloads/glab_1.123.0_linux_arm64.tar.gz"
+url_api = "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/packages/generic/glab/1%2E123%2E0/glab_1%2E123%2E0_linux_arm64%2Etar%2Egz"
 
 [tools.glab."platforms.linux-x64"]
-checksum = "sha256:242326668011a110ea6dcbe865cfbf3ab763f9909851c90ef0da23ab1f2f3808"
-url = "https://gitlab.com/gitlab-org/cli/-/releases/v1.122.0/downloads/glab_1.122.0_linux_amd64.tar.gz"
-url_api = "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/packages/generic/glab/1%2E122%2E0/glab_1%2E122%2E0_linux_amd64%2Etar%2Egz"
+checksum = "sha256:9c9ac4c2b74ec8709dec4819a4041050f3680c6aaa18f0ed30434081f4fe9bef"
+url = "https://gitlab.com/gitlab-org/cli/-/releases/v1.123.0/downloads/glab_1.123.0_linux_amd64.tar.gz"
+url_api = "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/packages/generic/glab/1%2E123%2E0/glab_1%2E123%2E0_linux_amd64%2Etar%2Egz"
 
 [tools.glab."platforms.macos-arm64"]
-checksum = "sha256:cbdd6e28d35f9eb09aef79ad23d2712d67c9254677a60ed6d701b5362f659fef"
-url = "https://gitlab.com/gitlab-org/cli/-/releases/v1.122.0/downloads/glab_1.122.0_darwin_arm64.tar.gz"
-url_api = "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/packages/generic/glab/1%2E122%2E0/glab_1%2E122%2E0_darwin_arm64%2Etar%2Egz"
+checksum = "sha256:bf776ea47d3b30410267adab9c870990be274e85f6dccccee4289f5ecf1386df"
+url = "https://gitlab.com/gitlab-org/cli/-/releases/v1.123.0/downloads/glab_1.123.0_darwin_arm64.tar.gz"
+url_api = "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/packages/generic/glab/1%2E123%2E0/glab_1%2E123%2E0_darwin_arm64%2Etar%2Egz"
 
 [[tools.go]]
 version = "1.27.2"
@@ -370,24 +369,24 @@ url = "https://github.com/tomnomnom/gron/releases/download/v0.7.1/gron-darwin-ar
 url_api = "https://api.github.com/repos/tomnomnom/gron/releases/assets/62461399"
 
 [[tools.herdr]]
-version = "0.9.3"
+version = "0.9.4"
 backend = "aqua:herdrdev/herdr"
 specifiers = ["latest"]
 
 [tools.herdr."platforms.linux-arm64"]
-checksum = "sha256:4de7aa3e25678812e92960de64f7c2aaa1bca1f0f80a3c5e559837e231e1f5c0"
-url = "https://github.com/herdrdev/herdr/releases/download/v0.9.3/herdr-linux-aarch64"
-url_api = "https://api.github.com/repos/herdrdev/herdr/releases/assets/599036386"
+checksum = "sha256:9511cb70982c1ef115f232058e7ed7cf9640aa5a2c0ca78934cefda3aeb093fd"
+url = "https://github.com/herdrdev/herdr/releases/download/v0.9.4/herdr-linux-aarch64"
+url_api = "https://api.github.com/repos/herdrdev/herdr/releases/assets/637474390"
 
 [tools.herdr."platforms.linux-x64"]
-checksum = "sha256:18a8dc65f1c2fa485884344356dea1cfd911c6f06cf46fa78e193f4087f4dba7"
-url = "https://github.com/herdrdev/herdr/releases/download/v0.9.3/herdr-linux-x86_64"
-url_api = "https://api.github.com/repos/herdrdev/herdr/releases/assets/599036383"
+checksum = "sha256:493304fbefb0ed0ea0455f373b47f48d24e8774bc7974f4c916ad2e937675b23"
+url = "https://github.com/herdrdev/herdr/releases/download/v0.9.4/herdr-linux-x86_64"
+url_api = "https://api.github.com/repos/herdrdev/herdr/releases/assets/637474400"
 
 [tools.herdr."platforms.macos-arm64"]
-checksum = "sha256:5173a3e0ae42d5d1ab7ebfa5d5e6329f7c3d23f8e1a3677c7ce3231da2884157"
-url = "https://github.com/herdrdev/herdr/releases/download/v0.9.3/herdr-macos-aarch64"
-url_api = "https://api.github.com/repos/herdrdev/herdr/releases/assets/599036381"
+checksum = "sha256:ea20bfff9cb8c83a996081c926e6ff9370de8e543baa859bca48d19175d895ff"
+url = "https://github.com/herdrdev/herdr/releases/download/v0.9.4/herdr-macos-aarch64"
+url_api = "https://api.github.com/repos/herdrdev/herdr/releases/assets/637474389"
 
 [[tools.jq]]
 version = "1.8.2"
@@ -464,8 +463,7 @@ checksum = "sha256:bed7eea5325e1108f32ce5228ddd6a5f0f08a499ee42aa7442aea583702f6
 url = "https://nodejs.org/dist/v24.21.0/node-v24.21.0-darwin-arm64.tar.gz"
 
 [[tools."npm:ccusage"]]
-version = "20.0.29"
-aube = { path = ".mise/locks/npm-ccusage/20.0.29", digest = "sha256:325d704f7561801d1ea61363ef9182da91ac064e7f1cd35051601ef7e19ecc39" }
+version = "20.0.30"
 backend = "npm:ccusage"
 specifiers = ["latest"]
 
@@ -490,24 +488,24 @@ url = "https://github.com/opentofu/opentofu/releases/download/v1.13.1/tofu_1.13.
 url_api = "https://api.github.com/repos/opentofu/opentofu/releases/assets/603708059"
 
 [[tools.pi]]
-version = "1.1.0"
+version = "1.2.0"
 backend = "aqua:earendil-works/pi"
 specifiers = ["latest"]
 
 [tools.pi."platforms.linux-arm64"]
-checksum = "sha256:f3b0cac459f9df5420e4e48b48e95d81bfab57b701dd3fe4b08fda7d11d27dab"
-url = "https://github.com/earendil-works/pi/releases/download/v1.1.0/pi-linux-arm64.tar.gz"
-url_api = "https://api.github.com/repos/earendil-works/pi/releases/assets/619962815"
+checksum = "sha256:d8597ee3a2050592d38e67f6b609ab55139deed7e820020d910d84f17bb7abd6"
+url = "https://github.com/earendil-works/pi/releases/download/v1.2.0/pi-linux-arm64.tar.gz"
+url_api = "https://api.github.com/repos/earendil-works/pi/releases/assets/635209983"
 
 [tools.pi."platforms.linux-x64"]
-checksum = "sha256:3faa94666cd3849d37af320ff749407d0271b07a9b94f420c87e30866e10e289"
-url = "https://github.com/earendil-works/pi/releases/download/v1.1.0/pi-linux-x64.tar.gz"
-url_api = "https://api.github.com/repos/earendil-works/pi/releases/assets/619962805"
+checksum = "sha256:00fc36cffdebceea5a48230da62cf3fb463178f8fe185766652f96002a246847"
+url = "https://github.com/earendil-works/pi/releases/download/v1.2.0/pi-linux-x64.tar.gz"
+url_api = "https://api.github.com/repos/earendil-works/pi/releases/assets/635209977"
 
 [tools.pi."platforms.macos-arm64"]
-checksum = "sha256:3455b13de35c15a5893cdebc922678199e90a7ce99b06cbc23f37860e90d63c7"
-url = "https://github.com/earendil-works/pi/releases/download/v1.1.0/pi-darwin-arm64.tar.gz"
-url_api = "https://api.github.com/repos/earendil-works/pi/releases/assets/619962801"
+checksum = "sha256:abddf7688b4b6781d9113f63cd578e3c01dcdb87e71f66e7ec1c9ec6c76178d1"
+url = "https://github.com/earendil-works/pi/releases/download/v1.2.0/pi-darwin-arm64.tar.gz"
+url_api = "https://api.github.com/repos/earendil-works/pi/releases/assets/635209981"
 
 [[tools.pnpm]]
 version = "12.11.2"
@@ -573,24 +571,24 @@ url = "https://github.com/BurntSushi/ripgrep/releases/download/15.2.0/ripgrep-15
 url_api = "https://api.github.com/repos/BurntSushi/ripgrep/releases/assets/478118851"
 
 [[tools.rtk]]
-version = "0.51.0"
+version = "0.52.0"
 backend = "aqua:rtk-ai/rtk"
 specifiers = ["latest"]
 
 [tools.rtk."platforms.linux-arm64"]
-checksum = "sha256:8d6d1aad9e69b42481eda7039507d1f7ee93698f87713cecd873d287c1931632"
-url = "https://github.com/rtk-ai/rtk/releases/download/v0.51.0/rtk-aarch64-unknown-linux-gnu.tar.gz"
-url_api = "https://api.github.com/repos/rtk-ai/rtk/releases/assets/605695144"
+checksum = "sha256:b1de881a0381f1f059ce9dbb0cfb97e0f94f22460965f39aaff77b2956024fa9"
+url = "https://github.com/rtk-ai/rtk/releases/download/v0.52.0/rtk-aarch64-unknown-linux-gnu.tar.gz"
+url_api = "https://api.github.com/repos/rtk-ai/rtk/releases/assets/636755126"
 
 [tools.rtk."platforms.linux-x64"]
-checksum = "sha256:5028d3b19a8f0990d30fec9fbb07e32782bc5698e618fb1861aad8a9ccba4eb5"
-url = "https://github.com/rtk-ai/rtk/releases/download/v0.51.0/rtk-x86_64-unknown-linux-musl.tar.gz"
-url_api = "https://api.github.com/repos/rtk-ai/rtk/releases/assets/605695141"
+checksum = "sha256:46765d4e570ccb3d759e95bcec11feb42fceed5ab2453eac8d787f81d4a0cdab"
+url = "https://github.com/rtk-ai/rtk/releases/download/v0.52.0/rtk-x86_64-unknown-linux-musl.tar.gz"
+url_api = "https://api.github.com/repos/rtk-ai/rtk/releases/assets/636755124"
 
 [tools.rtk."platforms.macos-arm64"]
-checksum = "sha256:8817d8b71afc02ac8bf06eb24bcc41c306592ab735b68e8fee9db1ba0de7cb59"
-url = "https://github.com/rtk-ai/rtk/releases/download/v0.51.0/rtk-aarch64-apple-darwin.tar.gz"
-url_api = "https://api.github.com/repos/rtk-ai/rtk/releases/assets/605695140"
+checksum = "sha256:49ac56bc5edd58ce0c03bf7cc137f8cf2a6253e7707b8236e07321ad66cdc043"
+url = "https://github.com/rtk-ai/rtk/releases/download/v0.52.0/rtk-aarch64-apple-darwin.tar.gz"
+url_api = "https://api.github.com/repos/rtk-ai/rtk/releases/assets/636755114"
 
 [[tools.ruff]]
 version = "0.17.0"
