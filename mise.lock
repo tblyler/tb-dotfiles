@@ -57,6 +57,7 @@ specifiers = ["latest"]
 url = "https://awscli.amazonaws.com/awscli-exe-linux-aarch64-2.38.0.zip"
 
 [tools.awscli."platforms.linux-x64"]
+checksum = "blake3:3ab50528162124ef2639d5193046fa33762e3ff0fb937e8d1e2cf1dd5c48382f"
 url = "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-2.38.0.zip"
 
 [tools.awscli."platforms.macos-arm64"]
@@ -464,6 +465,7 @@ url = "https://nodejs.org/dist/v24.21.0/node-v24.21.0-darwin-arm64.tar.gz"
 
 [[tools."npm:ccusage"]]
 version = "20.0.30"
+aube = { path = ".mise/locks/npm-ccusage/20.0.30", digest = "sha256:502c593e790939da9009877141c04b9aaca71c93bca6c01ab8afdcb431349902" }
 backend = "npm:ccusage"
 specifiers = ["latest"]
 
