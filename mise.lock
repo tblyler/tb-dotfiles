@@ -464,6 +464,7 @@ url = "https://nodejs.org/dist/v24.22.0/node-v24.22.0-darwin-arm64.tar.gz"
 
 [[tools."npm:ccusage"]]
 version = "20.0.37"
+aube = { path = ".mise/locks/npm-ccusage/20.0.37", digest = "sha256:6706f69209733bd463441e47b848608c187fc9e720d578775e67ba7e7945852b" }
 backend = "npm:ccusage"
 specifiers = ["latest"]
 
