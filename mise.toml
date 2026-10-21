@@ -243,6 +243,10 @@ case "$(uname)" in
 		;;
 esac
 
+# mise lives in ~/.local/bin outside its own tool management, so nothing
+# else updates it; bootstrap:regen below breaks when it falls behind
+# upstream's install.sh
+mise self-update --yes
 mise install
 mise run lock:relink
 mise run lock:prune
