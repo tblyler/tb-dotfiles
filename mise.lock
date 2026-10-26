@@ -54,15 +54,12 @@ backend = "aqua:aws/aws-cli"
 specifiers = ["latest"]
 
 [tools.awscli."platforms.linux-arm64"]
-checksum = "sha256:07711a936e9d271045ab937d2c2c5390c25f419e4ba9e25adb9e996031e3f6be"
 url = "https://awscli.amazonaws.com/awscli-exe-linux-aarch64-2.38.5.zip"
 
 [tools.awscli."platforms.linux-x64"]
-checksum = "blake3:57ff61a49c4f3ea209a9468a4fffdade33d2051808895597bf30e799bd74cd02"
 url = "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-2.38.5.zip"
 
 [tools.awscli."platforms.macos-arm64"]
-checksum = "sha256:4cb957d1f79c7264ef5a0f3a509ce477bbfd23c91eee888493a9dfff445a8d7c"
 url = "https://awscli.amazonaws.com/AWSCLIV2-2.38.5.pkg"
 
 [[tools.bat]]
@@ -112,7 +109,6 @@ specifiers = ["latest"]
 
 [tools.claude."platforms.linux-arm64"]
 checksum = "sha256:97ab45a42fdb141dc37d3b12973638ebd8fda59163eca51b02aa2eded0630874"
-checksum_source = "mise-versions"
 url = "https://github.com/anthropics/claude-code/releases/download/v2.1.310/claude-linux-arm64.tar.gz"
 url_api = "https://api.github.com/repos/anthropics/claude-code/releases/assets/670426481"
 
@@ -123,7 +119,6 @@ url_api = "https://api.github.com/repos/anthropics/claude-code/releases/assets/6
 
 [tools.claude."platforms.macos-arm64"]
 checksum = "sha256:cf47d30004ff26e5cfed6004a29ca94e05ad53d6f890ee1be8bb582e8ce2a5b5"
-checksum_source = "mise-versions"
 url = "https://github.com/anthropics/claude-code/releases/download/v2.1.310/claude-darwin-arm64.tar.gz"
 url_api = "https://api.github.com/repos/anthropics/claude-code/releases/assets/670426479"
 
@@ -168,26 +163,24 @@ url = "https://github.com/dandavison/delta/releases/download/0.20.1/delta-0.20.1
 url_api = "https://api.github.com/repos/dandavison/delta/releases/assets/610498923"
 
 [[tools.duckdb]]
-version = "2.0.0"
+version = "1.5.6"
 backend = "aqua:duckdb/duckdb"
 specifiers = ["latest"]
 
 [tools.duckdb."platforms.linux-arm64"]
-checksum = "sha256:859e1875d2a9515fbb4bf8871061437a14af82320da68c753f094c4b776348fe"
-checksum_source = "mise-versions"
-url = "https://github.com/duckdb/duckdb/releases/download/v2.0.0/duckdb-cli-linux-arm64.tar.gz"
-url_api = "https://api.github.com/repos/duckdb/duckdb/releases/assets/662550868"
+checksum = "sha256:c544e92c9b7c31fc53c2139802cabd8e2d1b2b3e3f933117f31611239c1402db"
+url = "https://github.com/duckdb/duckdb/releases/download/v1.5.6/duckdb_cli-linux-arm64.zip"
+url_api = "https://api.github.com/repos/duckdb/duckdb/releases/assets/595495292"
 
 [tools.duckdb."platforms.linux-x64"]
-checksum = "sha256:c6507206baf7793c6013dbd82368469a45f20dc0e17a6f92f204602f652ed2bc"
-url = "https://github.com/duckdb/duckdb/releases/download/v2.0.0/duckdb-cli-linux-amd64.tar.gz"
-url_api = "https://api.github.com/repos/duckdb/duckdb/releases/assets/662550663"
+checksum = "sha256:6e89deac1ebbc36eed0291caf8b567b030c7b86ac35998f71854e22b3c5d5e2f"
+url = "https://github.com/duckdb/duckdb/releases/download/v1.5.6/duckdb_cli-linux-amd64.zip"
+url_api = "https://api.github.com/repos/duckdb/duckdb/releases/assets/595495137"
 
 [tools.duckdb."platforms.macos-arm64"]
-checksum = "sha256:188a36fe8883ef52e69165a0cbb6031ef679c8e6c448a1ce22951964149b7f96"
-checksum_source = "mise-versions"
-url = "https://github.com/duckdb/duckdb/releases/download/v2.0.0/duckdb-cli-osx-arm64.tar.gz"
-url_api = "https://api.github.com/repos/duckdb/duckdb/releases/assets/662551052"
+checksum = "sha256:80a80c68736bd7dea53e8b02447e9759db0c8596ea156476ba396c44f54c5810"
+url = "https://github.com/duckdb/duckdb/releases/download/v1.5.6/duckdb_cli-osx-universal.zip"
+url_api = "https://api.github.com/repos/duckdb/duckdb/releases/assets/595495619"
 
 [[tools.fd]]
 version = "10.5.0"
@@ -216,7 +209,6 @@ specifiers = ["latest"]
 
 [tools.fx."platforms.linux-arm64"]
 checksum = "sha256:90377fbdbe3a01f791032a289986867ff1f8fe20ce94b45f20ecb399f7b69411"
-checksum_source = "mise-versions"
 url = "https://github.com/antonmedv/fx/releases/download/40.0.1/fx_linux_arm64"
 url_api = "https://api.github.com/repos/antonmedv/fx/releases/assets/666017521"
 
@@ -227,7 +219,6 @@ url_api = "https://api.github.com/repos/antonmedv/fx/releases/assets/666017503"
 
 [tools.fx."platforms.macos-arm64"]
 checksum = "sha256:c03fead7e2d5ccedbe54e905b0b7ad4b38042d89829a766744bce0c9600f4d80"
-checksum_source = "mise-versions"
 url = "https://github.com/antonmedv/fx/releases/download/40.0.1/fx_darwin_arm64"
 url_api = "https://api.github.com/repos/antonmedv/fx/releases/assets/666017507"
 
@@ -281,7 +272,6 @@ specifiers = ["latest"]
 
 [tools.git-lfs."platforms.linux-arm64"]
 checksum = "sha256:67895dd77b63329796bc5efdd47b57f218e1f7b98717ebaf936a8238dbcaec0f"
-checksum_source = "mise-versions"
 url = "https://github.com/git-lfs/git-lfs/releases/download/v3.8.1/git-lfs-linux-arm64-v3.8.1.tar.gz"
 url_api = "https://api.github.com/repos/git-lfs/git-lfs/releases/assets/666388648"
 
@@ -292,7 +282,6 @@ url_api = "https://api.github.com/repos/git-lfs/git-lfs/releases/assets/66638843
 
 [tools.git-lfs."platforms.macos-arm64"]
 checksum = "sha256:0ba10e897e0496412cd86eacaed4ed554c97ddc29bc5c709d28faa5eaaa2222c"
-checksum_source = "mise-versions"
 url = "https://github.com/git-lfs/git-lfs/releases/download/v3.8.1/git-lfs-darwin-arm64-v3.8.1.zip"
 url_api = "https://api.github.com/repos/git-lfs/git-lfs/releases/assets/666388058"
 
@@ -367,17 +356,14 @@ backend = "aqua:tomnomnom/gron"
 specifiers = ["latest"]
 
 [tools.gron."platforms.linux-arm64"]
-checksum = "sha256:5d1d4764723a0f768d9ddef0685a052f564c8bbf5e475382342faf4224a07d80"
 url = "https://github.com/tomnomnom/gron/releases/download/v0.7.1/gron-linux-arm64-0.7.1.tgz"
 url_api = "https://api.github.com/repos/tomnomnom/gron/releases/assets/62461400"
 
 [tools.gron."platforms.linux-x64"]
-checksum = "sha256:ca0335826b02b044fa05d7e951521e45c6ced1c381a73ed5803450088e18bf22"
 url = "https://github.com/tomnomnom/gron/releases/download/v0.7.1/gron-linux-amd64-0.7.1.tgz"
 url_api = "https://api.github.com/repos/tomnomnom/gron/releases/assets/62461393"
 
 [tools.gron."platforms.macos-arm64"]
-checksum = "sha256:1b9b987c6ead684a992db91b7a32fd15ef946013dfabfe84d00b2fa6f55d7182"
 url = "https://github.com/tomnomnom/gron/releases/download/v0.7.1/gron-darwin-arm64-0.7.1.tgz"
 url_api = "https://api.github.com/repos/tomnomnom/gron/releases/assets/62461399"
 
@@ -450,15 +436,12 @@ backend = "vfox:mise-plugins/vfox-neovim"
 specifiers = ["latest"]
 
 [tools.neovim."platforms.linux-arm64"]
-checksum = "sha256:8f1f64a0bdb97247034038c3823c6cbad5bdf9ecd5751b85494b71c3ee04c815"
 url = "https://github.com/neovim/neovim/releases/download/v0.12.6/nvim-linux-arm64.tar.gz"
 
 [tools.neovim."platforms.linux-x64"]
-checksum = "sha256:474430d53e6264f6d6dd18db42d6dc9df3a1b56ca9e88a325bbf860e1a811d87"
 url = "https://github.com/neovim/neovim/releases/download/v0.12.6/nvim-linux-x86_64.tar.gz"
 
 [tools.neovim."platforms.macos-arm64"]
-checksum = "sha256:1dbd148222b051ba6c307c4d17a318ed083df018a4f6a5a0ce46955ffc9ab87b"
 url = "https://github.com/neovim/neovim/releases/download/v0.12.6/nvim-macos-arm64.tar.gz"
 
 [[tools.node]]
@@ -480,7 +463,7 @@ url = "https://nodejs.org/dist/v24.22.1/node-v24.22.1-darwin-arm64.tar.gz"
 
 [[tools."npm:ccusage"]]
 version = "20.0.44"
-aube = { path = ".mise/locks/npm-ccusage/20.0.44", digest = "sha256:73fd9a6df7b0149986e1fe11229163c7647e5897011135597bc5eea907655e9a" }
+aube = { path = "locks/npm-ccusage/20.0.44", digest = "sha256:73fd9a6df7b0149986e1fe11229163c7647e5897011135597bc5eea907655e9a" }
 backend = "npm:ccusage"
 specifiers = ["latest"]
 
@@ -491,7 +474,6 @@ specifiers = ["latest"]
 
 [tools.opentofu."platforms.linux-arm64"]
 checksum = "sha256:88e2d9e3f94f97b76ab2faf55ade87578f56aed19c5e45fa139d70e994366d1f"
-checksum_source = "mise-versions"
 url = "https://github.com/opentofu/opentofu/releases/download/v1.13.2/tofu_1.13.2_linux_arm64.tar.gz"
 url_api = "https://api.github.com/repos/opentofu/opentofu/releases/assets/662742799"
 
@@ -502,7 +484,6 @@ url_api = "https://api.github.com/repos/opentofu/opentofu/releases/assets/662742
 
 [tools.opentofu."platforms.macos-arm64"]
 checksum = "sha256:0d1cdc85f38992055b48e7fb161304a2ddfe2e5ee0ff68ffec9d0349c8bd1b59"
-checksum_source = "mise-versions"
 url = "https://github.com/opentofu/opentofu/releases/download/v1.13.2/tofu_1.13.2_darwin_arm64.tar.gz"
 url_api = "https://api.github.com/repos/opentofu/opentofu/releases/assets/662742637"
 
@@ -513,7 +494,6 @@ specifiers = ["latest"]
 
 [tools.pi."platforms.linux-arm64"]
 checksum = "sha256:fa5829c7ef83ffeaebba015715c8306220f89b2aa8a00154efbba98dd5440156"
-checksum_source = "mise-versions"
 url = "https://github.com/earendil-works/pi/releases/download/v1.4.0/pi-linux-arm64.tar.gz"
 url_api = "https://api.github.com/repos/earendil-works/pi/releases/assets/663978804"
 
@@ -524,7 +504,6 @@ url_api = "https://api.github.com/repos/earendil-works/pi/releases/assets/663978
 
 [tools.pi."platforms.macos-arm64"]
 checksum = "sha256:79d9979d76a2a5adb7c28e27e9b44629928ccd0dc9fbb6ae7217860bd5e8be5d"
-checksum_source = "mise-versions"
 url = "https://github.com/earendil-works/pi/releases/download/v1.4.0/pi-darwin-arm64.tar.gz"
 url_api = "https://api.github.com/repos/earendil-works/pi/releases/assets/663978807"
 
@@ -562,7 +541,7 @@ url = "https://github.com/astral-sh/python-build-standalone/releases/download/20
 provenance = "github-attestations"
 
 [tools.python."platforms.linux-x64"]
-checksum = "blake3:8f6db28a812d56713532738104bb4f8bb4057c574b7952a9f05557092864dae7"
+checksum = "sha256:01d901e09ca673c99a6c9bd9ec2cfbd58dbe8813d07514c36cb73cfd20b18bd8"
 url = "https://github.com/astral-sh/python-build-standalone/releases/download/20261021/cpython-3.15.1+20261021-x86_64-unknown-linux-gnu-install_only_stripped.tar.gz"
 provenance = "github-attestations"
 
@@ -684,7 +663,6 @@ specifiers = ["latest"]
 
 [tools.terragrunt."platforms.linux-arm64"]
 checksum = "sha256:8b92d56a20b2848365e22ef94f963fbfe25fedeebcacffacbc286cfcf9966066"
-checksum_source = "mise-versions"
 url = "https://github.com/gruntwork-io/terragrunt/releases/download/v1.2.1/terragrunt_linux_arm64.tar.gz"
 url_api = "https://api.github.com/repos/gruntwork-io/terragrunt/releases/assets/670002309"
 
@@ -695,7 +673,6 @@ url_api = "https://api.github.com/repos/gruntwork-io/terragrunt/releases/assets/
 
 [tools.terragrunt."platforms.macos-arm64"]
 checksum = "sha256:0aded323f844ce6567a15feb26393b67eff1400dc1722203fa4dd4e23b3bb182"
-checksum_source = "mise-versions"
 url = "https://github.com/gruntwork-io/terragrunt/releases/download/v1.2.1/terragrunt_darwin_arm64.tar.gz"
 url_api = "https://api.github.com/repos/gruntwork-io/terragrunt/releases/assets/670001110"
 
