@@ -54,12 +54,15 @@ backend = "aqua:aws/aws-cli"
 specifiers = ["latest"]
 
 [tools.awscli."platforms.linux-arm64"]
+checksum = "sha256:07711a936e9d271045ab937d2c2c5390c25f419e4ba9e25adb9e996031e3f6be"
 url = "https://awscli.amazonaws.com/awscli-exe-linux-aarch64-2.38.5.zip"
 
 [tools.awscli."platforms.linux-x64"]
+checksum = "sha256:5def7d1b7e55d892f9a381bb2cb2081a685712464be0d36d5d706af0ac48d0d3"
 url = "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-2.38.5.zip"
 
 [tools.awscli."platforms.macos-arm64"]
+checksum = "sha256:4cb957d1f79c7264ef5a0f3a509ce477bbfd23c91eee888493a9dfff445a8d7c"
 url = "https://awscli.amazonaws.com/AWSCLIV2-2.38.5.pkg"
 
 [[tools.bat]]
@@ -356,14 +359,17 @@ backend = "aqua:tomnomnom/gron"
 specifiers = ["latest"]
 
 [tools.gron."platforms.linux-arm64"]
+checksum = "sha256:5d1d4764723a0f768d9ddef0685a052f564c8bbf5e475382342faf4224a07d80"
 url = "https://github.com/tomnomnom/gron/releases/download/v0.7.1/gron-linux-arm64-0.7.1.tgz"
 url_api = "https://api.github.com/repos/tomnomnom/gron/releases/assets/62461400"
 
 [tools.gron."platforms.linux-x64"]
+checksum = "sha256:ca0335826b02b044fa05d7e951521e45c6ced1c381a73ed5803450088e18bf22"
 url = "https://github.com/tomnomnom/gron/releases/download/v0.7.1/gron-linux-amd64-0.7.1.tgz"
 url_api = "https://api.github.com/repos/tomnomnom/gron/releases/assets/62461393"
 
 [tools.gron."platforms.macos-arm64"]
+checksum = "sha256:1b9b987c6ead684a992db91b7a32fd15ef946013dfabfe84d00b2fa6f55d7182"
 url = "https://github.com/tomnomnom/gron/releases/download/v0.7.1/gron-darwin-arm64-0.7.1.tgz"
 url_api = "https://api.github.com/repos/tomnomnom/gron/releases/assets/62461399"
 
@@ -436,12 +442,15 @@ backend = "vfox:mise-plugins/vfox-neovim"
 specifiers = ["latest"]
 
 [tools.neovim."platforms.linux-arm64"]
+checksum = "sha256:8f1f64a0bdb97247034038c3823c6cbad5bdf9ecd5751b85494b71c3ee04c815"
 url = "https://github.com/neovim/neovim/releases/download/v0.12.6/nvim-linux-arm64.tar.gz"
 
 [tools.neovim."platforms.linux-x64"]
+checksum = "sha256:474430d53e6264f6d6dd18db42d6dc9df3a1b56ca9e88a325bbf860e1a811d87"
 url = "https://github.com/neovim/neovim/releases/download/v0.12.6/nvim-linux-x86_64.tar.gz"
 
 [tools.neovim."platforms.macos-arm64"]
+checksum = "sha256:1dbd148222b051ba6c307c4d17a318ed083df018a4f6a5a0ce46955ffc9ab87b"
 url = "https://github.com/neovim/neovim/releases/download/v0.12.6/nvim-macos-arm64.tar.gz"
 
 [[tools.node]]
@@ -463,7 +472,7 @@ url = "https://nodejs.org/dist/v24.22.1/node-v24.22.1-darwin-arm64.tar.gz"
 
 [[tools."npm:ccusage"]]
 version = "20.0.44"
-aube = { path = "locks/npm-ccusage/20.0.44", digest = "sha256:73fd9a6df7b0149986e1fe11229163c7647e5897011135597bc5eea907655e9a" }
+aube = { path = ".mise/locks/npm-ccusage/20.0.44", digest = "sha256:73fd9a6df7b0149986e1fe11229163c7647e5897011135597bc5eea907655e9a" }
 backend = "npm:ccusage"
 specifiers = ["latest"]
 
