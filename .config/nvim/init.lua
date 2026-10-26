@@ -1,41 +1,76 @@
 -- Enable faster Lua module loading (Neovim 0.9+)
 vim.loader.enable()
 
--- {{{ Setup mini.nvim's dep manager
+-- {{{ vim.pack (builtin package manager, Neovim 0.12+)
 
--- Clone 'mini.nvim' manually in a way that it gets managed by 'mini.deps'
-local path_package = vim.fn.stdpath("data") .. "/site/"
-local mini_path = path_package .. "pack/deps/start/mini.nvim"
-if not vim.uv.fs_stat(mini_path) then
-	vim.cmd('echo "Installing `mini.nvim`" | redraw')
-	local clone_cmd = {
-		"git",
-		"clone",
-		"--filter=blob:none",
-		"https://github.com/echasnovski/mini.nvim",
-		mini_path,
-	}
-	vim.fn.system(clone_cmd)
-	vim.cmd("packadd mini.nvim | helptags ALL")
-	vim.cmd('echo "Installed `mini.nvim`" | redraw')
+-- build hooks must exist before the first vim.pack.add() so they also fire
+-- for plugins installed during startup
+vim.api.nvim_create_autocmd("PackChanged", {
+	callback = function(ev)
+		local name, kind = ev.data.spec.name, ev.data.kind
+		if name == "nvim-treesitter" and (kind == "install" or kind == "update") then
+			if not ev.data.active then
+				vim.cmd.packadd("nvim-treesitter")
+			end
+			vim.cmd("TSUpdate")
+		end
+	end,
+})
+
+local function pack_names()
+	return vim.iter(vim.pack.get(nil, { info = false }))
+		:map(function(p)
+			return p.spec.name
+		end)
+		:totable()
 end
 
--- Set up 'mini.deps' (customize to your liking)
-require("mini.deps").setup({
-	path = {
-		package = path_package,
-	},
-})
+-- review and apply updates (all plugins, or only the named ones)
+vim.api.nvim_create_user_command("PackUpdate", function(opts)
+	vim.pack.update(#opts.fargs > 0 and opts.fargs or nil)
+end, { nargs = "*", complete = pack_names })
+
+-- move every plugin to the revision recorded in nvim-pack-lock.json
+vim.api.nvim_create_user_command("PackSync", function()
+	vim.pack.update(nil, { target = "lockfile" })
+end, {})
+
+-- delete installed plugins that this config no longer adds
+vim.api.nvim_create_user_command("PackClean", function()
+	local stale = vim.iter(vim.pack.get(nil, { info = false }))
+		:filter(function(p)
+			return not p.active
+		end)
+		:map(function(p)
+			return p.spec.name
+		end)
+		:totable()
+
+	if #stale == 0 then
+		vim.notify("vim.pack: nothing to clean")
+		return
+	end
+
+	if vim.fn.confirm("Delete " .. table.concat(stale, ", ") .. "?", "&Yes\n&No", 2) == 1 then
+		vim.pack.del(stale)
+	end
+end, {})
 -- }}}
 
 -- {{{ helper functions
--- Use 'mini.deps'. `now()` and `later()` are helpers for a safe two-stage
--- startup and are optional.
-local add, now, later = MiniDeps.add, MiniDeps.now, MiniDeps.later
+-- `now()` runs immediately and `later()` defers until after startup; both
+-- report errors instead of aborting the rest of init.lua
+local function now(f)
+	local ok, err = pcall(f)
+	if not ok then
+		vim.notify(tostring(err), vim.log.levels.ERROR)
+	end
+end
 
-local function colorscheme_exists(colorscheme)
-	local success, _ = pcall(vim.cmd, "colorscheme " .. colorscheme)
-	return success
+local function later(f)
+	vim.schedule(function()
+		now(f)
+	end)
 end
 -- }}}
 
@@ -48,15 +83,9 @@ now(function()
 		shiftwidth = 4,
 		softtabstop = 4,
 		-- }
-		number = true,   -- show line numbers
-		mouse = "",      -- disable mouse
-		laststatus = 2,  -- always show the status line
-		autoindent = true, -- turn on autoindent
-		smarttab = true, -- turn on smart tabs
-		incsearch = true, -- turn on incremental search
-		ruler = true,    -- show ruler on page
-		lazyredraw = true, -- make large file bearable
-		regexpengine = 1, -- make searching large files bearable
+		number = true, -- show line numbers
+		mouse = "", -- disable mouse
+		winborder = "rounded", -- border on floating windows (hover, signature help, etc.)
 		foldmethod = "marker", -- fold by using the parenthesis tags
 		foldlevelstart = 99, -- all folds open by default
 		swapfile = false, -- disable swap files
@@ -70,9 +99,7 @@ end)
 
 -- {{{ automatically determine indentation via statistics
 now(function()
-	add({
-		source = "nmac427/guess-indent.nvim",
-	})
+	vim.pack.add({ "https://github.com/nmac427/guess-indent.nvim" })
 
 	require("guess-indent").setup()
 end)
@@ -81,9 +108,7 @@ end)
 -- {{{ color themes
 now(function()
 	-- {{{ gruvbox
-	add({
-		source = "ellisonleao/gruvbox.nvim",
-	})
+	vim.pack.add({ "https://github.com/ellisonleao/gruvbox.nvim" })
 
 	require("gruvbox").setup({
 		contrast = "hard",
@@ -100,9 +125,7 @@ now(function()
 	-- }}}
 
 	-- {{{ dracula
-	add({
-		source = "ssh://git@git.0xdad.com/tblyler/dracula-pro.vim.git",
-	})
+	vim.pack.add({ "ssh://git@git.0xdad.com/tblyler/dracula-pro.vim.git" })
 	vim.api.nvim_create_user_command("DraculaDark", function(opts)
 		vim.o.background = "dark"
 		vim.cmd.colorscheme("dracula_pro_van_helsing")
@@ -123,8 +146,7 @@ now(function()
 		"default",
 	}
 	for _, colorscheme in pairs(color_priorities) do
-		if colorscheme_exists(colorscheme) then
-			vim.cmd.colorscheme(colorscheme)
+		if pcall(vim.cmd.colorscheme, colorscheme) then
 			break
 		end
 	end
@@ -132,6 +154,10 @@ end)
 -- }}}
 
 -- {{{ mini.nvim plugins
+now(function()
+	vim.pack.add({ "https://github.com/nvim-mini/mini.nvim" })
+end)
+
 -- {{{ mini.nvim notify
 now(function()
 	local ok, mini_notify = pcall(require, "mini.notify")
@@ -212,6 +238,14 @@ later(function()
 	vim.keymap.set("n", "<leader><leader>j", jumpafter, { noremap = true, silent = true })
 	-- }}}
 
+	-- {{{ tpope/vim-surround style aliases on top of mini.surround's sa/sd/sr
+	vim.keymap.set("n", "ys", "sa", { remap = true, desc = "Add surrounding" })
+	vim.keymap.set("n", "yss", "sa_", { remap = true, desc = "Add surrounding to line" })
+	vim.keymap.set("n", "ds", "sd", { remap = true, desc = "Delete surrounding" })
+	vim.keymap.set("n", "cs", "sr", { remap = true, desc = "Replace surrounding" })
+	vim.keymap.set("x", "S", "sa", { remap = true, desc = "Add surrounding to selection" })
+	-- }}}
+
 	-- {{{ buffer delete command
 	vim.api.nvim_create_user_command("Bd", function(opts)
 		MiniBufremove.delete()
@@ -227,6 +261,9 @@ later(function()
 	-- {{{ fzf-like control-P binding
 	vim.keymap.set("n", "<c-P>", MiniPick.builtin.files, {})
 	vim.keymap.set("n", "<C-S-p>", MiniPick.builtin.grep_live, {})
+
+	-- use the picker for vim.ui.select() menus (code actions, etc.)
+	vim.ui.select = MiniPick.ui_select
 	-- }}}
 end)
 -- }}}
@@ -235,9 +272,7 @@ end)
 
 -- {{{ Git
 later(function()
-	add({
-		source = "lewis6991/gitsigns.nvim",
-	})
+	vim.pack.add({ "https://github.com/lewis6991/gitsigns.nvim" })
 
 	local ok, gitsigns = pcall(require, "gitsigns")
 	if ok then
@@ -252,28 +287,26 @@ later(function()
 		vim.notify("Failed to load gitsigns", vim.log.levels.WARN)
 	end
 
-	add({
-		source = "tpope/vim-fugitive",
-	})
+	vim.pack.add({ "https://github.com/tpope/vim-fugitive" })
 end)
 -- }}}
 
 -- {{{ which key
 later(function()
-	add({
-		source = "folke/which-key.nvim",
-	})
+	vim.pack.add({ "https://github.com/folke/which-key.nvim" })
 end)
 -- }}} which key
 
 -- {{{ LSP jazz
 later(function()
-	add({ source = "williamboman/mason.nvim" })
-	add({ source = "williamboman/mason-lspconfig.nvim" })
-	add({ source = "folke/trouble.nvim" })
-	add({ source = "neovim/nvim-lspconfig" })
-	add({ source = "stevearc/conform.nvim" }) -- formatting
-	add({ source = "mfussenegger/nvim-lint" }) -- linting
+	vim.pack.add({
+		"https://github.com/mason-org/mason.nvim",
+		"https://github.com/mason-org/mason-lspconfig.nvim",
+		"https://github.com/folke/trouble.nvim",
+		"https://github.com/neovim/nvim-lspconfig",
+		"https://github.com/stevearc/conform.nvim", -- formatting
+		"https://github.com/mfussenegger/nvim-lint", -- linting
+	})
 
 	-- Mason Setup
 	require("mason").setup()
@@ -291,13 +324,13 @@ later(function()
 	-- Diagnostic Configuration (enable virtual text)
 	vim.diagnostic.config({
 		virtual_text = { spacing = 4, prefix = "●" },
-		signs = true,
-		underline = true,
-		update_in_insert = false,
 		severity_sort = true,
 	})
 
 	-- LspAttach Keybindings
+	-- Neovim also maps these by default: grn (rename), gra (code action),
+	-- grr (references), gri (implementation), grt (type definition),
+	-- gO (document symbols), K (hover), and <C-s> (signature help, insert)
 	vim.api.nvim_create_autocmd("LspAttach", {
 		callback = function(args)
 			local client = vim.lsp.get_client_by_id(args.data.client_id)
@@ -314,7 +347,6 @@ later(function()
 			lsp_key("<leader>la", vim.lsp.buf.code_action, "Code action")
 			lsp_key("<leader>ld", vim.lsp.buf.type_definition, "Type definition")
 			lsp_key("gd", vim.lsp.buf.definition, "Goto Definition")
-			lsp_key("gr", vim.lsp.buf.references, "Goto References")
 			lsp_key("gI", vim.lsp.buf.implementation, "Goto Implementation")
 			lsp_key("gD", vim.lsp.buf.declaration, "Goto Declaration")
 
@@ -345,13 +377,13 @@ later(function()
 				go = { "gofmt" },
 			},
 			format_on_save = {
-				lsp_fallback = true,
+				lsp_format = "fallback",
 				timeout_ms = 1000,
 			},
 		})
 
 		vim.keymap.set({ "n", "v" }, "<leader>f", function()
-			conform.format({ lsp_fallback = true })
+			conform.format({ lsp_format = "fallback" })
 		end, { desc = "Format buffer or selection" })
 	else
 		vim.notify("Failed to load conform.nvim", vim.log.levels.WARN)
@@ -403,14 +435,9 @@ end)
 
 -- {{{ treesitter
 later(function()
-	add({
-		source = "nvim-treesitter/nvim-treesitter",
-		checkout = "main",
-		hooks = {
-			post_checkout = function()
-				vim.cmd("TSUpdate")
-			end,
-		},
+	-- TSUpdate runs from the PackChanged hook at the top of this file
+	vim.pack.add({
+		{ src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" },
 	})
 
 	-- On the 'main' branch, nvim-treesitter is a parser manager only.
@@ -468,7 +495,6 @@ later(function()
 		"sql",
 		"ssh_config",
 		"terraform",
-		"tmux",
 		"toml",
 		"tsv",
 		"tsx",
@@ -478,27 +504,14 @@ later(function()
 		"yaml",
 	}
 
-	local installed = ts.get_installed()
-	local installed_set = {}
-	for _, lang in ipairs(installed) do
-		installed_set[lang] = true
-	end
-
-	local missing = {}
-	for _, lang in ipairs(ensure_installed) do
-		if not installed_set[lang] then
-			table.insert(missing, lang)
-		end
-	end
-
-	if #missing > 0 then
-		ts.install(missing)
-	end
+	-- already-installed parsers are skipped
+	ts.install(ensure_installed)
 
 	-- Enable treesitter highlighting and indentation for all buffers with a parser
 	local function enable_treesitter(buf)
 		pcall(vim.treesitter.start, buf)
-		if vim.treesitter.query.get(vim.bo[buf].filetype, "indents") then
+		local lang = vim.treesitter.language.get_lang(vim.bo[buf].filetype)
+		if lang and vim.treesitter.query.get(lang, "indents") then
 			vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 		end
 	end
@@ -517,9 +530,7 @@ later(function()
 	end
 
 	-- show indentations how I like them, each layer of indentation etc
-	add({
-		source = "lukas-reineke/indent-blankline.nvim",
-	})
+	vim.pack.add({ "https://github.com/lukas-reineke/indent-blankline.nvim" })
 
 	require("ibl").setup({
 		indent = {
@@ -535,9 +546,7 @@ end)
 
 -- {{{ markdown rendering
 later(function()
-	add({
-		source = "MeanderingProgrammer/render-markdown.nvim",
-	})
+	vim.pack.add({ "https://github.com/MeanderingProgrammer/render-markdown.nvim" })
 
 	local ok, render_markdown = pcall(require, "render-markdown")
 	if ok then
