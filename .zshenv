@@ -2,14 +2,14 @@ export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:${PATH
 export LANG='en_US.UTF-8'
 export PAGER='less -RF'
 
-# mise's auto_env platform config (mise.linux.toml/mise.macos.toml) is an
+# mise's auto_env platform config (.config/mise/config.linux.toml/config.macos.toml) is an
 # early-init setting — it must come from the environment, not from
-# mise.toml's [settings], since config discovery happens before that table
+# config.toml's [settings], since config discovery happens before that table
 # is parsed. must be set before any `mise` invocation below.
 export MISE_AUTO_ENV=1
 
 # same early-init requirement as MISE_AUTO_ENV above: this drives mise's
-# auto-load of mise.<hostname>.toml (e.g. mise.aptitude.toml) for
+# auto-load of config.<hostname>.toml (e.g. config.aptitude.toml) for
 # per-machine [bootstrap.packages] overlays that shouldn't apply to every
 # host this repo bootstraps. -s works identically on Linux and macOS.
 export MISE_ENV="$(hostname -s)"

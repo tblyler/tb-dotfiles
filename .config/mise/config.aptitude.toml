@@ -1,6 +1,6 @@
 # loaded only on this host, via MISE_ENV="$(hostname -s)" in .zshenv (see
-# the comment there) — mise merges this on top of mise.toml and
-# mise.linux.toml, not in place of them. other machines this repo
+# the comment there) — mise merges this on top of config.toml and
+# config.linux.toml, not in place of them. other machines this repo
 # bootstraps never set MISE_ENV=aptitude, so this file is inert for them.
 #
 # prerequisite: mise doesn't install flatpak or configure remotes itself.
@@ -36,8 +36,8 @@
 # ghostty's font-family (see .config/ghostty/config) is "GoMono Nerd Font" —
 # the Nerd Fonts–patched build of Go's own monospace typeface, not a
 # go-language tool. macOS gets it declaratively via brew-cask (see
-# mise.macos.toml); no apt package exists for it on Linux (and ghostty
-# itself is deliberately manual-install here too, see mise.toml's
+# config.macos.toml); no apt package exists for it on Linux (and ghostty
+# itself is deliberately manual-install here too, see config.toml's
 # [bootstrap.hooks.final] note), so this pulls the tarball straight from the
 # latest nerd-fonts release instead — .tar.xz over the .zip they also
 # publish, so extraction needs only tar (xz-utils ships as part of base
@@ -58,13 +58,13 @@ if [ ! -d "$font_dir" ] || [ -z "$(ls -A "$font_dir" 2>/dev/null)" ]; then
 fi
 '''
 
-# same as mise.toml's [doctor.checks], for this host's own manual steps
+# same as config.toml's [doctor.checks], for this host's own manual steps
 [doctor.checks.flathub-remote]
 description = "flathub flatpak remote is configured"
 run = "flatpak remotes --columns=name | grep -qx flathub"
-hint = "flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo (see the prerequisite note at the top of mise.aptitude.toml)"
+hint = "flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo (see the prerequisite note at the top of config.aptitude.toml)"
 
 [doctor.checks.go-mono-nerd-font]
 description = "GoMono Nerd Font is installed for ghostty"
 run = "fc-list | grep -q 'GoMono Nerd Font'"
-hint = "re-run `mise bootstrap` - its [bootstrap.hooks.final] in mise.aptitude.toml downloads it"
+hint = "re-run `mise bootstrap` - its [bootstrap.hooks.final] in config.aptitude.toml downloads it"

@@ -10,8 +10,13 @@ anymore.
 
 ```sh
 git clone git@git.0xdad.com:tblyler/tb-dotfiles.git ~/.dotfiles
+mkdir -p ~/.config && ln -s ~/.dotfiles/.config/mise ~/.config/mise
 ~/.dotfiles/bin/mise bootstrap --yes
 ```
+
+The symlink makes the repo's `.config/mise` mise's global config directory
+from the first run (mise ≥ 2026.10.21 can do this step itself with
+`mise bootstrap --from <url> --from-dir ~/.dotfiles --config-dir .config/mise`).
 
 `bin/mise` is a self-installing bootstrap script (via `mise generate bootstrap`)
 for machines that don't have mise yet.
@@ -19,9 +24,10 @@ for machines that don't have mise yet.
 ## Already have mise
 
 ```sh
-mise trust ~/.dotfiles/mise.toml
-mise bootstrap -C ~/.dotfiles --dry-run   # review first
-mise bootstrap -C ~/.dotfiles --force-dotfiles --yes
+# move any existing ~/.config/mise aside first; it must not exist
+ln -s ~/.dotfiles/.config/mise ~/.config/mise
+mise bootstrap --dry-run   # review first
+mise bootstrap --force-dotfiles --yes
 ```
 
 `--force-dotfiles` is only needed the first time on a machine with pre-existing
@@ -41,21 +47,20 @@ it's a reminder, not a check. Threshold is `STALE_AFTER_DAYS` in
 
 ## Layout
 
-- `mise.toml` — dotfiles map, bootstrap config (repos, shell activation,
-  login shell), and tool versions. Also symlinked to
-  `~/.config/mise/config.toml`, so it's the global mise config on any machine
-  this is applied to.
-- `mise.linux.toml` / `mise.macos.toml` — OS-specific `[bootstrap.packages]`,
-  loaded automatically via mise's `auto_env` (see the comment in
-  `mise.toml`). Symlinked to `~/.config/mise/config.linux.toml` /
-  `config.macos.toml` the same way `mise.toml` is.
-- `mise.<hostname>.toml` (e.g. `mise.aptitude.toml`) — per-machine
+- `.config/mise/` — symlinked whole to `~/.config/mise`, so it's the global
+  mise config directory on any machine this is applied to. `mise.lock` and
+  the per-tool `locks/` live here too.
+- `.config/mise/config.toml` — dotfiles map, bootstrap config (repos, shell
+  activation, login shell), tool versions and global tasks.
+- `.config/mise/config.linux.toml` / `config.macos.toml` — OS-specific
+  `[bootstrap.packages]`, loaded automatically via mise's `auto_env` (see the
+  comment in `config.toml`).
+- `.config/mise/config.<hostname>.toml` (e.g. `config.aptitude.toml`) — per-machine
   `[bootstrap.packages]` overlays for things that shouldn't apply to every
   host this repo bootstraps (e.g. desktop-only Flatpak apps). Loaded via
   `MISE_ENV="$(hostname -s)"` (set in `.zshenv`) rather than `auto_env`,
-  since mise has no built-in hostname detection. Symlinked to
-  `~/.config/mise/config.<hostname>.toml` the same way the OS-specific
-  files are — inert on any machine whose hostname doesn't match.
+  since mise has no built-in hostname detection — inert on any machine whose
+  hostname doesn't match.
 - Everything else mirrors its target path under `$HOME` (e.g. `.zshrc` →
   `~/.zshrc`, `.config/nvim` → `~/.config/nvim`).
 

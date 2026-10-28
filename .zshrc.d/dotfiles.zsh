@@ -1,9 +1,8 @@
 # these used to be zsh functions; they're global mise tasks now (see the
-# [tasks] section of mise.toml) so they also work from scripts, ssh and
+# [tasks] section of .config/mise/config.toml) so they also work from scripts, ssh and
 # systemd. the old names stay as aliases for muscle memory
 alias upgrade_system='mise run upgrade'
 alias upgrade_dotfiles='mise run dotfiles:upgrade'
-alias relink_mise_lockfile='mise run lock:relink'
 
 # a nudge, not a check — this only reads the mtime `mise run dotfiles:upgrade`
 # left on FETCH_HEAD the last time it pulled. zsh builtins only: no forks, no network,

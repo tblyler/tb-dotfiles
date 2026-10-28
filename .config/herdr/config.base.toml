@@ -43,4 +43,4 @@ split_vertical = ["prefix+v", "prefix+percent"]
 
 # The [theme.custom] Dracula Pro Van Helsing palette is composed in separately
 # by mise as its own managed edit-block, sourced from the private dracula-pro
-# repo — see mise.toml [dotfiles]. Never add [theme.custom] values here.
+# repo — see .config/mise/config.toml [dotfiles]. Never add [theme.custom] values here.

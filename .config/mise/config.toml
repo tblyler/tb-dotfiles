@@ -2,10 +2,10 @@
 lockfile = true
 dotfiles.root = "~/.dotfiles"
 
-# lets mise.linux.toml / mise.macos.toml (and their `config.<os>.toml`
-# symlink targets below) load automatically based on the host OS. this
+# lets config.linux.toml / config.macos.toml (in this same directory) load
+# automatically based on the host OS. this
 # setting alone does nothing here — it's an early-init setting read before
-# mise.toml itself is parsed, so the actual activation comes from
+# config.toml itself is parsed, so the actual activation comes from
 # MISE_AUTO_ENV=1 exported in .zshenv. it's declared here anyway since it
 # becomes the mise default in 2027.6.0.
 auto_env = true
@@ -63,46 +63,18 @@ minimum_release_age_excludes = ["claude"]
 # structural settings, and the private [theme.custom] Van Helsing colors
 # sourced from the private dracula-pro repo. Neither block ever lands whole
 # in this repo's git history; only config.base.toml (no colors) does.
-"~/.config/herdr/config.toml/base" = { source = ".config/herdr/config.base.toml", template = "tera" }
+"~/.config/herdr/config.toml/base" = { source = "~/.dotfiles/.config/herdr/config.base.toml", template = "tera" }
 "~/.config/herdr/config.toml/van-helsing-theme" = { source = "~/repos/dracula-pro/themes/herdr/van-helsing.toml", template = "tera" }
 
-# self-referential: this file manages its own symlink into mise's global
-# config lookup path, so `mise`/tool resolution works from any directory,
-# not just from inside ~/.dotfiles. absolute source, not relative — mise's
-# global_config_root defaults to $HOME, not to this repo, so a relative
-# source would resolve wrong when discovered via the global path.
-"~/.config/mise/config.toml" = { source = "~/.dotfiles/mise.toml" }
-
-# mise pairs a generated mise.lock with wherever the config file lives on
-# disk, and doesn't follow config.toml's symlink back to this repo — so
-# without this, mise forks a second, independently-drifting lockfile at
-# ~/.config/mise/mise.lock any time it resolves tools via the global path
-# instead of from inside this repo.
-# caveat: mise writes lockfiles atomically (temp file + rename), which
-# replaces this symlink with a plain file whenever it writes the global
-# lockfile. `relink_mise_lockfile` (.zshrc.d/dotfiles.zsh) folds it back.
-"~/.config/mise/mise.lock" = { source = "~/.dotfiles/mise.lock" }
-
-# per-tool package-manager lockfiles (uv.lock for pipx:, aube-lock.yaml for
-# npm:, ...). same global-vs-project split as mise.lock: mise writes
-# ~/.config/mise/locks via the global path and ~/.dotfiles/.mise/locks from
-# inside this repo. a whole-directory symlink (unlike the mise.lock file
-# symlink above) survives the atomic writes, since the rename happens inside
-# the target directory, so both scopes share one tree.
-"~/.config/mise/locks" = { source = "~/.dotfiles/.mise/locks" }
-
-# same self-referential deal as config.toml above, but for the OS-specific
-# [bootstrap.packages] overlays (see mise.linux.toml / mise.macos.toml).
-# auto_env only activates whichever one matches the host OS, so having a
-# linuxbrew install doesn't cause the macOS-only brew packages to install.
-"~/.config/mise/config.linux.toml" = { source = "~/.dotfiles/mise.linux.toml" }
-"~/.config/mise/config.macos.toml" = { source = "~/.dotfiles/mise.macos.toml" }
-
-# per-host overlays, same self-referential pattern as the OS-specific ones
-# above but keyed by MISE_ENV="$(hostname -s)" (see .zshenv) instead of
-# auto_env, since mise has no built-in hostname detection. harmless on
-# other machines — inert unless MISE_ENV matches the hostname.
-"~/.config/mise/config.aptitude.toml" = { source = "~/.dotfiles/mise.aptitude.toml" }
+# self-referential: this file lives in the directory it links, making the
+# whole repo directory mise's global config dir. that covers config.toml,
+# the config.<os>.toml (auto_env) and config.<hostname>.toml (MISE_ENV)
+# overlays, mise.lock and the per-tool locks/ in one whole-directory symlink.
+# mise's atomic lockfile writes (temp file + rename) happen inside the
+# target directory, so they land in this repo instead of replacing a
+# per-file symlink. inside ~/.dotfiles mise still loads this file once, as
+# global config, not a second time as a project .config/mise/config.toml
+"~/.config/mise" = {}
 
 # the [dotfiles] `source = "~/repos/dracula-pro/..."` entries above (atuin,
 # bat, dircolors) are a hard dependency on this repo being cloned, not an
@@ -114,7 +86,8 @@ minimum_release_age_excludes = ["claude"]
 "~/repos/dracula-pro" = { url = "git@git.0xdad.com:tblyler/dracula-pro.git", ref = "main" }
 
 [bootstrap.user]
-login_shell = "/bin/zsh"
+# a name, not a path: mise looks it up per machine (/bin/zsh, /usr/bin/zsh, ...)
+login_shell = "zsh"
 
 # rebuilds bat's theme cache so the Van Helsing .tmTheme symlinked in above
 # actually gets picked up (bat otherwise silently falls back to its default
@@ -133,7 +106,7 @@ mise doctor project || true
 
 # manual setup steps bootstrap deliberately doesn't automate. `mise doctor
 # project` reports them from any directory, any time, not just at the end
-# of a bootstrap run. host-specific checks live in mise.<hostname>.toml
+# of a bootstrap run. host-specific checks live in config.<hostname>.toml
 [doctor.checks.gitconfig-local]
 description = "~/.gitconfig.local has a [user] identity"
 run = "git config --file ~/.gitconfig.local user.email"
@@ -196,9 +169,9 @@ uv = "latest"
 yq = "latest"
 zoxide = "latest"
 
-# global tasks: ~/.config/mise/config.toml symlinks to this file, so these
+# global tasks: ~/.config/mise symlinks to this file's directory, so these
 # `mise run` from any directory. dir is pinned to the repo since these git
-# pull, bootstrap, and touch mise.lock/.mise/locks/bin/mise by relative path.
+# pull, bootstrap, and touch mise.lock/locks/bin/mise by relative path.
 # the old zsh function names remain as aliases in .zshrc.d/dotfiles.zsh
 
 [tasks.upgrade]
@@ -248,7 +221,6 @@ esac
 # upstream's install.sh
 mise self-update --yes
 mise install
-mise run lock:relink
 mise run lock:prune
 # mise only auto-prunes versions that `mise upgrade` replaces, but this
 # installs whatever mise.lock says (often bumped on another machine), so
@@ -290,7 +262,9 @@ if mise bootstrap status --missing > /dev/null; then
 	exit 0
 fi
 
-mise bootstrap --dry-run
+# --prune-dotfiles also removes links for entries deleted from [dotfiles],
+# which a plain bootstrap leaves behind
+mise bootstrap --dry-run --prune-dotfiles
 
 while true; do
 	# no stdin (EOF) counts as "no" rather than tripping set -e
@@ -298,7 +272,7 @@ while true; do
 	case "$apply" in
 		y|Y|yes|YES|Yes)
 			echo 'applying changes'
-			mise bootstrap --yes
+			mise bootstrap --yes --prune-dotfiles
 			exit 0
 			;;
 		n|N|no|NO|No|'')
@@ -309,38 +283,16 @@ while true; do
 done
 '''
 
-# mise's atomic lockfile writes replace the ~/.config/mise/mise.lock symlink
-# with a plain file (see the [dotfiles] comment above). move that newer file
-# back into the repo and restore the symlink
-[tasks."lock:relink"]
-description = "Fold a de-symlinked ~/.config/mise/mise.lock back into the repo"
-dir = "{{ env.HOME }}/.dotfiles"
-shell = "bash -c"
-run = '''
-set -euo pipefail
-
-global_lockfile="$HOME/.config/mise/mise.lock"
-if [ -L "$global_lockfile" ] || [ ! -f "$global_lockfile" ]; then
-	exit 0
-fi
-
-echo "folding ${global_lockfile} back into $PWD/mise.lock"
-# the temp file mise renames into place is 0600
-chmod 644 "$global_lockfile"
-mv "$global_lockfile" mise.lock
-ln -s "$PWD/mise.lock" "$global_lockfile"
-'''
-
 # mise.lock references each per-tool lockfile directory by exact path, but
 # mise never deletes the directories of versions it has upgraded past
 [tasks."lock:prune"]
-description = "Delete .mise/locks directories that mise.lock no longer references"
-dir = "{{ env.HOME }}/.dotfiles"
+description = "Delete locks/ directories that mise.lock no longer references"
+dir = "{{ env.HOME }}/.dotfiles/.config/mise"
 shell = "bash -c"
 run = '''
 set -euo pipefail
 
-for lock_dir in .mise/locks/*/*/; do
+for lock_dir in locks/*/*/; do
 	lock_dir="${lock_dir%/}"
 	if ! grep -qF "path = \"${lock_dir}\"" mise.lock; then
 		echo "pruning ${lock_dir}"
@@ -349,7 +301,7 @@ for lock_dir in .mise/locks/*/*/; do
 done
 
 # drop tool directories left empty by the above
-find .mise/locks -mindepth 1 -maxdepth 1 -type d -empty -delete
+find locks -mindepth 1 -maxdepth 1 -type d -empty -delete
 '''
 
 [tasks."bootstrap:regen"]

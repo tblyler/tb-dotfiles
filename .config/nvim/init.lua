@@ -321,6 +321,16 @@ later(function()
 		},
 	})
 
+	-- mise's own language server (`mise lsp`), installed by mise rather than
+	-- mason. it ignores TOML files mise doesn't load as config (Cargo.toml,
+	-- pyproject.toml, ...), so it's safe to attach to every toml buffer
+	vim.lsp.config("mise", {
+		cmd = { "mise", "lsp" },
+		filetypes = { "toml" },
+		root_markers = { "mise.toml", ".git" },
+	})
+	vim.lsp.enable("mise")
+
 	-- Diagnostic Configuration (enable virtual text)
 	vim.diagnostic.config({
 		virtual_text = { spacing = 4, prefix = "●" },

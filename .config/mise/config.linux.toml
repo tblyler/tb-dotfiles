@@ -1,4 +1,4 @@
-# loaded automatically on Linux only (see the auto_env comment in mise.toml)
+# loaded automatically on Linux only (see the auto_env comment in config.toml)
 [bootstrap.packages]
 # nvim-treesitter compiles parsers from source at install time and needs a
 # C compiler + linker on PATH — macOS ships one via Xcode CLT already
@@ -8,5 +8,5 @@
 
 # fallback system nvim for contexts where mise isn't activated (root, a
 # recovery shell, GUI launchers with a stripped PATH) — the mise-managed
-# `neovim` in [tools] (mise.toml) takes precedence whenever mise is activated
+# `neovim` in [tools] (config.toml) takes precedence whenever mise is activated
 "apt:neovim" = "latest"
