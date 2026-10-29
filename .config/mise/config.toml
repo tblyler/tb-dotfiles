@@ -34,6 +34,11 @@ minimum_release_age_excludes = ["claude"]
 # plugins, the herdr-managed hook) is machine-local state
 "~/.claude/hooks/tmux-agent-state.sh" = {}
 
+# the hook's custom sounds: a GONK droid for both blocked and done. linked
+# file-by-file rather than as a directory so a machine can still swap either
+"~/.local/share/tmux-agent-state/blocked.wav" = { source = "~/.dotfiles/.local/share/tmux-agent-state/gonk.wav" }
+"~/.local/share/tmux-agent-state/done.wav" = { source = "~/.dotfiles/.local/share/tmux-agent-state/gonk.wav" }
+
 # Claude Code rewrites settings.json itself (/model, /config, herdr's installer),
 # so it can't be a symlink. merge owns only the keys in the source: the hook
 # events that call the script above, each event's array replaced whole. other

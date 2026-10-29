@@ -16,8 +16,8 @@
 #
 # to use your own sounds, drop a blocked.<ext> and/or done.<ext> (anything the
 # players below can decode: wav, mp3, ogg, ...) into
-# ${XDG_DATA_HOME:-~/.local/share}/tmux-agent-state/; kept out of this repo so
-# each machine can have its own (and copyrighted clips never get pushed).
+# ${XDG_DATA_HOME:-~/.local/share}/tmux-agent-state/. this repo deploys a GONK
+# droid there as both (see the mise [dotfiles] entries); swap either per machine.
 #
 # usage: tmux-agent-state.sh working|blocked|done|off
 
