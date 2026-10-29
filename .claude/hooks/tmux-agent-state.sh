@@ -14,6 +14,11 @@
 # silent then, and blocked still plays its sound (something is waiting on you)
 # but skips the notification. set TMUX_AGENT_SOUND=0 to mute the sounds.
 #
+# to use your own sounds, drop a blocked.<ext> and/or done.<ext> (anything the
+# players below can decode: wav, mp3, ogg, ...) into
+# ${XDG_DATA_HOME:-~/.local/share}/tmux-agent-state/; kept out of this repo so
+# each machine can have its own (and copyrighted clips never get pushed).
+#
 # usage: tmux-agent-state.sh working|blocked|done|off
 
 cat > /dev/null # drain the hook's JSON input
@@ -79,12 +84,14 @@ if [ "$watched" = false ] && command -v jq > /dev/null 2>&1; then
 fi
 
 if [ -z "${SSH_CONNECTION:-}" ] && [ "${TMUX_AGENT_SOUND:-1}" != 0 ]; then
-	# macOS system sounds, then KDE's ocean theme, then the freedesktop theme
+	# your own sound first (an unmatched glob stays literal and fails the -r
+	# check), then macOS system sounds, KDE's ocean theme, the freedesktop theme
+	custom="${XDG_DATA_HOME:-$HOME/.local/share}/tmux-agent-state/$1"
 	case "$1" in
-		blocked) play_sound /System/Library/Sounds/Ping.aiff \
+		blocked) play_sound "$custom".* /System/Library/Sounds/Ping.aiff \
 			/usr/share/sounds/ocean/stereo/dialog-question.oga \
 			/usr/share/sounds/freedesktop/stereo/dialog-warning.oga ;;
-		done) [ "$watched" = true ] || play_sound /System/Library/Sounds/Glass.aiff \
+		done) [ "$watched" = true ] || play_sound "$custom".* /System/Library/Sounds/Glass.aiff \
 			/usr/share/sounds/ocean/stereo/completion-success.oga \
 			/usr/share/sounds/freedesktop/stereo/complete.oga ;;
 	esac
