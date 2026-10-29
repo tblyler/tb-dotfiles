@@ -30,10 +30,16 @@ minimum_release_age_excludes = ["claude"]
 "~/.config/nvim" = {}
 "~/.config/ripgrep" = {}
 
-# just this one hook script, not all of ~/.claude: the rest of it (settings.json,
-# sessions, plugins, the herdr-managed hook) is machine-local state. the hook
-# entries that call this script live in ~/.claude/settings.json, untracked
+# just this one hook script, not all of ~/.claude: the rest of it (sessions,
+# plugins, the herdr-managed hook) is machine-local state
 "~/.claude/hooks/tmux-agent-state.sh" = {}
+
+# Claude Code rewrites settings.json itself (/model, /config, herdr's installer),
+# so it can't be a symlink. merge owns only the keys in the source: the hook
+# events that call the script above, each event's array replaced whole. other
+# keys, including herdr's SessionStart hook, are left alone. the source can't be
+# .claude/settings.json, which Claude Code would load as this repo's project settings
+"~/.claude/settings.json/tmux-agent-state" = { source = "~/.dotfiles/.claude/settings.shared.json", merge = true }
 
 # unlike bat/atuin/ghostty, gitconfig and lazygit pull in their private
 # dracula-pro theme file via their own native include/merge mechanism
