@@ -30,6 +30,11 @@ minimum_release_age_excludes = ["claude"]
 "~/.config/nvim" = {}
 "~/.config/ripgrep" = {}
 
+# just this one hook script, not all of ~/.claude: the rest of it (settings.json,
+# sessions, plugins, the herdr-managed hook) is machine-local state. the hook
+# entries that call this script live in ~/.claude/settings.json, untracked
+"~/.claude/hooks/tmux-agent-state.sh" = {}
+
 # unlike bat/atuin/ghostty, gitconfig and lazygit pull in their private
 # dracula-pro theme file via their own native include/merge mechanism
 # ([include] path=, LG_CONFIG_FILE) rather than filesystem symlink-each,
