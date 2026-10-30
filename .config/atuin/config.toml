@@ -10,4 +10,4 @@ records = true
 columns = ["duration", "time", "host", "command"]
 
 [theme]
-name = "van-helsing"
+name = "van-helsing-protan"

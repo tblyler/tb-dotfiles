@@ -5,7 +5,7 @@
       "src": "https://github.com/stevearc/conform.nvim"
     },
     "dracula-pro.vim": {
-      "rev": "f4c019956a9fc9054ffc02553920519e3beadc21",
+      "rev": "3bcee0511f86e14bfd09cc1a6db6f6cd1ab7a00d",
       "src": "ssh://git@git.0xdad.com/tblyler/dracula-pro.vim.git"
     },
     "gitsigns.nvim": {

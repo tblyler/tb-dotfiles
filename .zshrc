@@ -53,7 +53,7 @@ PROMPT_COLOR_BLUE='blue'
 PROMPT_COLOR_ORANGE='yellow'
 PROMPT_COLOR_CYAN='cyan'
 PROMPT_COLOR_PINK='magenta'
-[ -r "${HOME}/repos/dracula-pro/themes/zsh/van-helsing.zsh" ] && source "${HOME}/repos/dracula-pro/themes/zsh/van-helsing.zsh"
+[ -r "${HOME}/repos/dracula-pro/themes/zsh/van-helsing-protan.zsh" ] && source "${HOME}/repos/dracula-pro/themes/zsh/van-helsing-protan.zsh"
 
 NEWLINE=$'\n'
 PS_SEPARATOR="%F{$PROMPT_COLOR_GREY} > %f"

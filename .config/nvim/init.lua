@@ -128,7 +128,7 @@ now(function()
 	vim.pack.add({ "ssh://git@git.0xdad.com/tblyler/dracula-pro.vim.git" })
 	vim.api.nvim_create_user_command("DraculaDark", function(opts)
 		vim.o.background = "dark"
-		vim.cmd.colorscheme("dracula_pro_van_helsing")
+		vim.cmd.colorscheme("dracula_pro_van_helsing_protan")
 	end, {})
 
 	vim.api.nvim_create_user_command("DraculaLight", function(opts)
@@ -141,6 +141,7 @@ now(function()
 	vim.o.termguicolors = true -- enable 24 bit colors
 
 	local color_priorities = {
+		"dracula_pro_van_helsing_protan",
 		"dracula_pro_van_helsing",
 		"gruvbox",
 		"default",

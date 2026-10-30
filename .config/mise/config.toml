@@ -56,20 +56,20 @@ minimum_release_age_excludes = ["claude"]
 # bat has no local dotfiles content of its own (just `config`) plus a
 # private dracula-pro theme file mixed in below, same split as ghostty
 "~/.config/bat" = { mode = "symlink-each" }
-"~/.config/bat/themes/Dracula Pro (Van Helsing).tmTheme" = { source = "~/repos/dracula-pro/themes/bat/Dracula Pro (Van Helsing).tmTheme" }
+"~/.config/bat/themes/Dracula Pro (Van Helsing Protan).tmTheme" = { source = "~/repos/dracula-pro/themes/bat/Dracula Pro (Van Helsing Protan).tmTheme" }
 
 # atuin's theme file lives in the private dracula-pro repo, mixed in
 # alongside the public config.toml above (symlink-each)
-"~/.config/atuin/themes/van-helsing.toml" = { source = "~/repos/dracula-pro/themes/atuin/van-helsing.toml" }
+"~/.config/atuin/themes/van-helsing-protan.toml" = { source = "~/repos/dracula-pro/themes/atuin/van-helsing-protan.toml" }
 
 # dircolors sets LS_COLORS for ls/fd/grep aliases (see .zshrc.d/colors.zsh);
 # entirely sourced from the private dracula-pro repo, no public half to mix in
-"~/.dircolors" = { source = "~/repos/dracula-pro/themes/dircolors/van-helsing" }
+"~/.dircolors" = { source = "~/repos/dracula-pro/themes/dircolors/van-helsing-protan" }
 
 # mixes the public repo's own ghostty config with the private dracula-pro
 # repo's theme file, so this can't be a single whole-directory symlink
 "~/.config/ghostty" = { mode = "symlink-each" }
-"~/.config/ghostty/dracula_van-helsing" = { source = "~/repos/dracula-pro/themes/ghostty/van-helsing" }
+"~/.config/ghostty/dracula_van-helsing-protan" = { source = "~/repos/dracula-pro/themes/ghostty/van-helsing-protan" }
 
 # herdr has no native include/merge mechanism (unlike gitconfig/lazygit above)
 # and its config.toml is a single file rather than a themes-per-file directory
@@ -80,7 +80,7 @@ minimum_release_age_excludes = ["claude"]
 # sourced from the private dracula-pro repo. Neither block ever lands whole
 # in this repo's git history; only config.base.toml (no colors) does.
 "~/.config/herdr/config.toml/base" = { source = "~/.dotfiles/.config/herdr/config.base.toml", template = "tera" }
-"~/.config/herdr/config.toml/van-helsing-theme" = { source = "~/repos/dracula-pro/themes/herdr/van-helsing.toml", template = "tera" }
+"~/.config/herdr/config.toml/van-helsing-theme" = { source = "~/repos/dracula-pro/themes/herdr/van-helsing-protan.toml", template = "tera" }
 
 # self-referential: this file lives in the directory it links, making the
 # whole repo directory mise's global config dir. that covers config.toml,
