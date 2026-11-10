@@ -16,10 +16,15 @@ aws_profile_set() {
 
 	local PROFILE=""
 
-	PROFILE="$(awk '/^\[profile /{print substr($2, 1, length($2)-1)}' \
-		"${AWS_CONFIG_PATH}" |
-		fzf --query "${1:-}" -1 -m 1 --height="$((LINES/4))"
-	)"
+	# if there is an exact match for the provided profile, role with it
+	if [ -n "${1}" ] && grep -Fq "[profile ${1}]" "${AWS_CONFIG_PATH}"; then
+		PROFILE="$1"
+	else
+		PROFILE="$(awk '/^\[profile /{print substr($2, 1, length($2)-1)}' \
+			"${AWS_CONFIG_PATH}" |
+			fzf --query "${1:-}" -1 -m 1 --height="$((LINES/4))"
+		)"
+	fi
 
 	if [ -z "${PROFILE}" ]; then
 		>&2 echo "failed to select a profile"
